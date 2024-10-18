@@ -51,7 +51,8 @@ function App() {
         <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
           <div className="offcanvas__logo logo">
             <a href="index.html">
-              <img src="/assets/img/logo/logo.svg" alt="logo" />
+            <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
+
             </a>
           </div>
         </div>
@@ -254,7 +255,8 @@ function App() {
           <div className="col-xl-3 col-lg-3 col-md-3 col-6">
             <div className="logo">
               <a href="index.html">
-                <img src="/assets/img/logo/logo.svg" alt="logo" />
+              <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
+
               </a>
             </div>
           </div>
@@ -517,7 +519,7 @@ function App() {
     <section className="tp-slider-area p-relative z-index-1">
       <div className="tp-slider-active tp-slider-variation swiper-container">
         <div className="swiper-wrapper">
-          <div className="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide green-dark-bg">
+          {/* <div className="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide green-dark-bg">
             <div className="tp-slider-shape">
               <img className="tp-slider-shape-1" src="/assets/img/slider/shape/slider-shape-1.png" alt="slider-shape" />
               <img className="tp-slider-shape-2" src="/assets/img/slider/shape/slider-shape-2.png" alt="slider-shape" />
@@ -554,7 +556,7 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide green-dark-bg">
             <div className="tp-slider-shape">
               <img className="tp-slider-shape-1" src="/assets/img/slider/shape/slider-shape-1.png" alt="slider-shape" />
@@ -567,7 +569,7 @@ function App() {
                 <div className="col-xl-5 col-lg-6 col-md-6">
                   <div className="tp-slider-content p-relative z-index-1">
                     <span>Starting at <b>$999.00</b></span>
-                    <h3 className="tp-slider-title">The best note book collection 2023</h3>
+                    <h3 className="tp-slider-title">NO.1 CUSTOM NUMBER PLATE MAKER</h3>
                     <p>Exclusive offer 
                       <span>-10% 
                         <svg width={94} height={20} viewBox="0 0 94 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -587,25 +589,20 @@ function App() {
                 </div>
                 <div className="col-xl-7 col-lg-6 col-md-6">
                   <div className="tp-slider-thumb text-end">
-                    <img src="/assets/img/slider/slider-img-2.png" alt="slider-img" />
+                    <img style={{height:'40rem'}} src="/assets/img/slider/polo3.png" alt="slider-img" />
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="tp-slider-item is-light tp-slider-height d-flex align-items-center swiper-slide" data-bg-color="#E3EDF6">
-            <div className="tp-slider-shape">
-              <img className="tp-slider-shape-1" src="/assets/img/slider/shape/slider-shape-1.png" alt="slider-shape" />
-              <img className="tp-slider-shape-2" src="/assets/img/slider/shape/slider-shape-2.png" alt="slider-shape" />
-              <img className="tp-slider-shape-3" src="/assets/img/slider/shape/slider-shape-3.png" alt="slider-shape" />
-              <img className="tp-slider-shape-4" src="/assets/img/slider/shape/slider-shape-4.png" alt="slider-shape" />
-            </div>
+           
             <div className="container">
               <div className="row align-items-center">
                 <div className="col-xl-5 col-lg-6 col-md-6">
                   <div className="tp-slider-content p-relative z-index-1">
                     <span>Starting at <b>$999.00</b></span>
-                    <h3 className="tp-slider-title">The best note book collection 2023</h3>
+                    <h3 className="tp-slider-title">NO. 1 CUSTOM NUMBER PLATE MAKER</h3>
                     <p>Exclusive offer 
                       <span>-10% 
                         <svg width={94} height={20} viewBox="0 0 94 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -625,7 +622,7 @@ function App() {
                 </div>
                 <div className="col-xl-7 col-lg-6 col-md-6">
                   <div className="tp-slider-thumb text-end">
-                    <img src="/assets/img/slider/slider-img-3.png" alt="slider-img" />
+                    <img src="/assets/img/slider/polo_09.png  " alt="slider-img" />
                   </div>
                 </div>
               </div>

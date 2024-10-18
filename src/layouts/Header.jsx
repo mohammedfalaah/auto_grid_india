@@ -87,7 +87,7 @@ const Header = () => {
             <div className="col-xl-2 col-lg-2 col-md-4 col-6">
               <div className="logo">
                 <a href="index.html">
-                  <img src="/assets/img/logo/logo.svg" alt="logo" />
+                  <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
                 </a>
               </div>
             </div>
@@ -98,15 +98,7 @@ const Header = () => {
                     <div className="tp-header-search-box">
                       <input type="text" placeholder="Search for Products..." />
                     </div>
-                    <div className="tp-header-search-category">
-                      <select>
-                        <option>Select Category</option>
-                        <option>Mobile</option>
-                        <option>Digital Watch</option>
-                        <option>Computer</option>
-                        <option>Watch</option>
-                      </select>
-                    </div>
+                    
                     <div className="tp-header-search-btn">
                       <button type="submit">
                         <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -387,55 +379,11 @@ const Header = () => {
                         <a href="index.html">Home</a>
                         <div className="home-menu tp-submenu tp-mega-menu">
                           <div className="row row-cols-1 row-cols-lg-4 row-cols-xl-5">
-                            <div className="col">
-                              <div className="home-menu-item ">
-                                <a href="index.html">
-                                  <div className="home-menu-thumb p-relative fix">
-                                    <img src="/assets/img/menu/menu-home-1.jpg" alt />
-                                  </div>
-                                  <div className="home-menu-content">
-                                    <h5 className="home-menu-title">Electronics </h5>
-                                  </div>
-                                </a>
-                              </div>
-                            </div>
-                            <div className="col">
-                              <div className="home-menu-item ">
-                                <a href="index-2.html">
-                                  <div className="home-menu-thumb p-relative fix">
-                                    <img src="/assets/img/menu/menu-home-2.jpg" alt />
-                                  </div>
-                                  <div className="home-menu-content">
-                                    <h5 className="home-menu-title">Fashion</h5>
-                                  </div>
-                                </a>
-                              </div>
-                            </div>
-                            <div className="col">
-                              <div className="home-menu-item ">
-                                <a href="index-3.html">
-                                  <div className="home-menu-thumb p-relative fix">
-                                    <img src="/assets/img/menu/menu-home-3.jpg" alt />
-                                  </div>
-                                  <div className="home-menu-content">
-                                    <h5 className="home-menu-title">Beauty</h5>
-                                  </div>
-                                </a>
-                              </div>
-                            </div>
-                            <div className="col">
-                              <div className="home-menu-item ">
-                                <a href="index-4.html">
-                                  <div className="home-menu-thumb p-relative fix">
-                                    <img src="/assets/img/menu/menu-home-4.jpg" alt />
-                                  </div>
-                                  <div className="home-menu-content">
-                                    <h5 className="home-menu-title">Jewelry </h5>
-                                  </div>
-                                </a>
-                              </div>
-                            </div>
-                            <div className="col">
+                         
+                            
+                       
+                            
+                            {/* <div className="col">
                               <div className="home-menu-item ">
                                 <a href="index-5.html">
                                   <div className="home-menu-thumb p-relative fix">
@@ -446,7 +394,7 @@ const Header = () => {
                                   </div>
                                 </a>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </li>
@@ -455,7 +403,7 @@ const Header = () => {
                         <div className="shop-mega-menu tp-submenu tp-mega-menu">
                           <div className="row">
                             <div className="col-lg-2">
-                              <div className="shop-mega-menu-list">
+                              {/* <div className="shop-mega-menu-list">
                                 <a href="shop.html" className="shop-mega-menu-title">Shop Pages</a>
                                 <ul>
                                   <li><a href="shop-category.html">Grid Category</a></li>
@@ -468,9 +416,9 @@ const Header = () => {
                                   <li><a href="shop-right-sidebar.html">Right Sidebar</a></li>
                                   <li><a href="shop-no-sidebar.html">Hidden Sidebar</a></li>
                                 </ul>
-                              </div>
+                              </div> */}
                             </div>
-                            <div className="col-lg-2">
+                            {/* <div className="col-lg-2">
                               <div className="shop-mega-menu-list">
                                 <a href="shop.html" className="shop-mega-menu-title">Features</a>
                                 <ul>
@@ -484,8 +432,8 @@ const Header = () => {
                                   <li><a href="shop.html">Search Full screen</a></li>
                                 </ul>
                               </div>
-                            </div>
-                            <div className="col-lg-2">
+                            </div> */}
+                            {/* <div className="col-lg-2">
                               <div className="shop-mega-menu-list">
                                 <a href="shop.html" className="shop-mega-menu-title">Hover Style</a>
                                 <ul>
@@ -495,23 +443,23 @@ const Header = () => {
                                   <li><a href="shop.html">Hover Style 4</a></li>
                                 </ul>
                               </div>
-                            </div>
-                            <div className="col-lg-3">
+                            </div> */}
+                            {/* <div className="col-lg-3">
                               <div className="shop-mega-menu-img">
                                 <img src="/assets/img/menu/product/menu-product-img-1.jpg" alt />
                                 <div className="shop-mega-menu-btn">
                                   <a href="shop-category.html" className="tp-menu-showcase-btn tp-menu-showcase-btn-2">Phones</a>
                                 </div>
                               </div>
-                            </div>
-                            <div className="col-lg-3">
+                            </div> */}
+                            {/* <div className="col-lg-3">
                               <div className="shop-mega-menu-img">
                                 <img src="/assets/img/menu/product/menu-product-img-2.jpg" alt />
                                 <div className="shop-mega-menu-btn">
                                   <a href="shop-category.html" className="tp-menu-showcase-btn tp-menu-showcase-btn-2">Cameras</a>
                                 </div>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </li>
