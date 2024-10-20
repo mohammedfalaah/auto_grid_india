@@ -2,9 +2,10 @@ import { Helmet } from "react-helmet"
 import { Route, Routes } from "react-router-dom"
 import Home from "./pages/private/Home"
 import Header from "./layouts/Header"
-import { WishlistPath } from "./utils/Constants"
+import { ProfilePath, WishlistPath } from "./utils/Constants"
 import Wishlist from "./pages/private/Wishlist"
 import Carousel from 'react-bootstrap/Carousel';
+import ProfilePage from "./pages/private/ProfilePage"
 
 
 
@@ -13,6 +14,8 @@ function App() {
     <>
     <Routes>
     <Route path={WishlistPath} element={<Wishlist />} />
+    <Route path={ProfilePath} element={<ProfilePage />} />
+
     </Routes>
 
 
@@ -2604,7 +2607,7 @@ function App() {
             <div className="tp-product-gadget-sidebar mb-40">
               <div className="tp-product-gadget-categories p-relative fix mb-10">
                 <div className="tp-product-gadget-thumb">
-                  <img src="/assets/img/product/gadget/gadget-girl.png" alt />
+                  <img style={{width:'100%'}} src="/public/assets/img/product/frameee-600x600.jpg" alt />
                 </div>
                 <h3 className="tp-product-gadget-categories-title">Electronics <br /> Gadgets</h3>
                 <div className="tp-product-gadget-categories-list">
@@ -2626,29 +2629,7 @@ function App() {
                   </a>
                 </div>
               </div>
-              <div className="tp-product-gadget-banner">
-                <div className="tp-product-gadget-banner-slider-active swiper-container">
-                  <div className="swiper-wrapper">
-                    <div className="tp-product-gadget-banner-item swiper-slide include-bg" data-background="assets/img/product/gadget/gadget-banner-1.jpg">
-                      <div className="tp-product-gadget-banner-content">
-                        <span className="tp-product-gadget-banner-price">Only $99.00</span>
-                        <h3 className="tp-product-gadget-banner-title">
-                          <a href="product-details.html">Selected novelty <br /> Products</a>
-                        </h3>
-                      </div>
-                    </div>
-                    <div className="tp-product-gadget-banner-item swiper-slide include-bg" data-background="assets/img/product/gadget/gadget-banner-2.jpg">
-                      <div className="tp-product-gadget-banner-content">
-                        <span className="tp-product-gadget-banner-price">Only $55.00</span>
-                        <h3 className="tp-product-gadget-banner-title">
-                          <a href="product-details.html">Top Rated <br /> Products</a>
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="tp-product-gadget-banner-slider-dot tp-swiper-dot" />
-                </div>
-              </div>
+            
             </div>
           </div>
           <div className="col-xl-8 col-lg-7">
