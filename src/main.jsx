@@ -4,10 +4,11 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import Footer from './layouts/Footer.jsx'
+import Header from './layouts/Header.jsx'
 
 createRoot(document.getElementById('root')).render(
 <BrowserRouter>
-
+<Header />
 <App />
 <Footer />
 </BrowserRouter>

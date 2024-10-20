@@ -365,68 +365,7 @@
 		   </div>
 
 		   <!-- COLOR SETTINGS -->
-		   <div class="tp-theme-settings">
-			  <div class="tp-theme-settings-wrapper">
-				 <div class="tp-theme-settings-open">
-					<button class="tp-theme-settings-open-btn">
-					   <span class="tp-theme-settings-gear">
-						  <i class="fa-light fa-gear"></i>
-					   </span>
-					   <span class="tp-theme-settings-close">
-						  <i class="fa-regular fa-xmark"></i>
-					   </span>
-					</button>
-				 </div>
-				 <div class="row row-cols-4 gy-2 gx-2">
-					<div class="col">
-					   <div class="tp-theme-color-item tp-color-active">
-						  <button class="tp-theme-color-btn tp-color-settings-btn d-none" data-color-default="#0989FF" type="button" data-color="#0989FF"></button>
-						  <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#0989FF"></button>
-					   </div>
-					</div>
-					<div class="col">
-					   <div class="tp-theme-color-item tp-color-active">
-						  <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#821F40"></button>
-					   </div>
-					</div>
-					<div class="col">
-					   <div class="tp-theme-color-item tp-color-active">
-						  <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#BD844C"></button>
-					   </div>
-					</div>
-					<div class="col">
-					   <div class="tp-theme-color-item tp-color-active">
-						  <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#678E61"></button>
-					   </div>
-					</div>
-					<div class="col">
-					   <div class="tp-theme-color-item tp-color-active">
-						  <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#FD4B6B"></button>
-					   </div>
-					</div>
-					<div class="col">
-					   <div class="tp-theme-color-item tp-color-active">
-						  <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#AB9774"></button>
-					   </div>
-					</div>
-					<div class="col">
-                        <div class="tp-theme-color-item tp-color-active">
-                           <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#FF6736"></button>
-                        </div>
-                     </div>
-					<div class="col">
-					   <div class="tp-theme-color-item tp-color-active">
-						  <button class="tp-theme-color-btn tp-color-settings-btn" type="button" data-color="#FFD43A"></button>
-					   </div>
-					</div>
-				 </div>
-			  </div>
-			  <div class="tp-theme-color-input">
-				 <h6>Choose Custom Color</h6>
-				 <input type="color" id="tp-color-setings-input" value="#F50963">
-				 <label id="tp-theme-color-label" for="tp-color-setings-input"></label>
-			  </div>
-		   </div>
+		  
 		</div>
 	 </div>`;
 	 settings.append(settings_html);

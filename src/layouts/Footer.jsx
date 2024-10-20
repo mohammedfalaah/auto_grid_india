@@ -14,7 +14,8 @@ const Footer = () => {
                 <div className="tp-footer-widget-content">
                   <div className="tp-footer-logo">
                     <a href="index.html">
-                      <img src="/assets/img/logo/logo.svg" alt="logo" />
+                    <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
+
                     </a>
                   </div>
                   <p className="tp-footer-desc">We are a team of designers and developers that create high quality WordPress</p>
@@ -63,7 +64,7 @@ const Footer = () => {
                 <div className="tp-footer-widget-content">
                   <div className="tp-footer-talk mb-20">
                     <span>Got Questions? Call us</span>
-                    <h4><a href="tel:670-413-90-762">+670 413 90 762</a></h4>
+                    <h4><a href="tel:670-413-90-762">+91 99 611 23 654</a></h4>
                   </div>
                   <div className="tp-footer-contact">
                     <div className="tp-footer-contact-item d-flex align-items-start">
