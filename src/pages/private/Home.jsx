@@ -578,7 +578,7 @@ const Home = () => {
           <div className="tp-product-category-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/Car-aluminium-punching-removebg-preview.png" alt="product-category" />
+                <img style={{width:'150px'}} src="/assets/img/product/bike_aluminium_punching.png" alt="product-category" />
               </a>
             </div>
             <div className="tp-product-category-content">
@@ -593,12 +593,12 @@ const Home = () => {
           <div className="tp-product-category-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/7-rally-car-1-removebg-preview.png" alt="product-category" />
+                <img style={{width:'150px'}} src="/assets/img/product/gel_frame.png" alt="product-category" />
               </a>
             </div>
             <div className="tp-product-category-content">
               <h3 className="tp-product-category-title">
-                <a href="shop-category.html">CAR GEL PLATE</a>
+                <a href="shop-category.html">CAR GEL FRAME</a>
               </h3>
       
             </div>
@@ -608,12 +608,12 @@ const Home = () => {
           <div className="tp-product-category-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/7-rally-car-1-removebg-preview.png" alt="product-category" />
+                <img style={{width:'150px'}} src="/assets/img/product/bike_gel_frame.png" alt="product-category" />
               </a>
             </div>
             <div className="tp-product-category-content">
               <h3 className="tp-product-category-title">
-                <a href="shop-category.html">CAR RALLY PLATE</a>
+                <a href="shop-category.html">BIKE GEL FRAME</a>
               </h3>
       
             </div>
@@ -623,12 +623,12 @@ const Home = () => {
           <div className="tp-product-category-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/7-rally-car-1-removebg-preview.png" alt="product-category" />
+                <img style={{width:'150px'}} src="/assets/img/product/bike_gel_plates.jpg" alt="product-category" />
               </a>
             </div>
             <div className="tp-product-category-content">
               <h3 className="tp-product-category-title">
-                <a href="shop-category.html">CAR RALLY PLATE</a>
+                <a href="shop-category.html">BIKE GEL PLATES</a>
               </h3>
       
             </div>
@@ -638,12 +638,12 @@ const Home = () => {
           <div className="tp-product-category-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/7-rally-car-1-removebg-preview.png" alt="product-category" />
+                <img style={{width:'150px'}} src="/assets/img/product/mirror-hanging.png" alt="product-category" />
               </a>
             </div>
             <div className="tp-product-category-content">
               <h3 className="tp-product-category-title">
-                <a href="shop-category.html">CAR RALLY PLATE</a>
+                <a href="shop-category.html">MIRROR HANGING</a>
               </h3>
       
             </div>
@@ -653,63 +653,20 @@ const Home = () => {
           <div className="tp-product-category-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/2-1-removebg-preview.png" alt="product-category" />
+                <img style={{width:'150px'}} src="/assets/img/product/keychain.png" alt="product-category" />
               </a>
             </div>
             <div className="tp-product-category-content">
               <h3 className="tp-product-category-title">
-                <a href="shop-category.html">CAR GEL PLATE</a>
+                <a href="shop-category.html">KEY CHAINS</a>
               </h3>
       
             </div>
           </div>
         </div>
-        <div className="col">
-          <div className="tp-product-category-item text-center mb-40">
-            <div className="tp-product-category-thumb fix">
-              <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/5-laser-1-removebg-preview.png" alt="product-category" />
-              </a>
-            </div>
-            <div className="tp-product-category-content">
-              <h3 className="tp-product-category-title">
-                <a href="shop-category.html">BIKE LASER PLATE</a>
-              </h3>
-           
-            </div>
-          </div>
-        </div>
-        <div className="col">
-          <div className="tp-product-category-item text-center mb-40">
-            <div className="tp-product-category-thumb fix">
-              <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/3-sticker-punch-2-removebg-preview.png" alt="product-category" />
-              </a>
-            </div>
-            <div className="tp-product-category-content">
-              <h3 className="tp-product-category-title">
-                <a href="shop-category.html">STICKER PUNCH</a>
-              </h3>
      
-            </div>
-          </div>
-        </div>
-        <div className="col">
-          <div className="tp-product-category-item text-center mb-40">
-            <div className="tp-product-category-thumb fix">
-              <a href="shop-category.html">
-                <img style={{width:'150px'}} src="/assets/img/product/category/7-aluminum-bike-1-removebg-preview.png" alt="product-category" />
-              </a>
-            </div>
-            <div className="tp-product-category-content">
-              <h3 className="tp-product-category-title">
-                <a href="shop-category.html">
-                ALUMINUM PUNCHING </a>
-              </h3>
-             
-            </div>
-          </div>
-        </div>
+    
+       
       </div>
     </div>
   </section>
