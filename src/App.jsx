@@ -11,25 +11,11 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path={BasePath} element={<Home />} />
+    <Route path={BasePath} element={<Home />} />
     <Route path={WishlistPath} element={<Wishlist />} />
     <Route path={ProfilePath} element={<ProfilePage />} />
 
     </Routes>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </>
   )
