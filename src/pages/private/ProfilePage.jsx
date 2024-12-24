@@ -1,6 +1,16 @@
 import React from 'react'
+import { BasePath } from '../../utils/Constants';
 
 const ProfilePage = () => {
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userEmail');
+    
+    window.location.href = BasePath; 
+  };
   return (
     <div>
 <main>
@@ -17,22 +27,8 @@ const ProfilePage = () => {
           <img className="profile__shape-6" src="assets/img/login/shape-4.png" alt />
         </div>
         <div className="row">
-          <div className="col-xxl-4 col-lg-4">
-            <div className="profile__tab mr-40">
-              <nav>
-                <div className="nav nav-tabs tp-tab-menu flex-column" id="profile-tab" role="tablist">
-                  <button className="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false"><span><i className="fa-regular fa-user-pen" /></span>Profile</button>
-                  <button className="nav-link" id="nav-information-tab" data-bs-toggle="tab" data-bs-target="#nav-information" type="button" role="tab" aria-controls="nav-information" aria-selected="false"><span><i className="fa-regular fa-circle-info" /></span> Information</button>
-                  <button className="nav-link" id="nav-address-tab" data-bs-toggle="tab" data-bs-target="#nav-address" type="button" role="tab" aria-controls="nav-address" aria-selected="false"><span><i className="fa-light fa-location-dot" /></span> Address </button>
-                  <button className="nav-link" id="nav-order-tab" data-bs-toggle="tab" data-bs-target="#nav-order" type="button" role="tab" aria-controls="nav-order" aria-selected="false"><span><i className="fa-light fa-clipboard-list-check" /></span> My Orders </button>
-                  <button className="nav-link" id="nav-notification-tab" data-bs-toggle="tab" data-bs-target="#nav-notification" type="button" role="tab" aria-controls="nav-notification" aria-selected="false"><span><i className="fa-regular fa-bell" /></span> Notification</button>
-                  <button className="nav-link" id="nav-password-tab" data-bs-toggle="tab" data-bs-target="#nav-password" type="button" role="tab" aria-controls="nav-password" aria-selected="false"><span><i className="fa-regular fa-lock" /></span> Change Password</button>
-                  <span id="marker-vertical" className="tp-tab-line d-none d-sm-inline-block" />
-                </div>
-              </nav>
-            </div>
-          </div>
-          <div className="col-xxl-8 col-lg-8">
+         
+          <div className="col-xxl-12 col-lg-12">
             <div className="profile__tab-content">
               <div className="tab-content" id="profile-tabContent">
                 <div className="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -49,14 +45,14 @@ const ProfilePage = () => {
                               </div>
                             </div>
                             <div className="profile__main-content">
-                              <h4 className="profile__main-title">Welcome Mr. Admin!</h4>
-                              <p>You have <span>08</span> notifications</p>
+                              <h4 className="profile__main-title">Welcome  {localStorage.getItem('userName')}</h4>
+                              <p>{localStorage.getItem("userEmail")}</p>
                             </div>
                           </div>
                         </div>
                         <div className="col-md-6">
                           <div className="profile__main-logout text-sm-end">
-                            <a href="login.html" className="tp-logout-btn">Logout</a>
+                            <a onClick={handleLogout} className="tp-logout-btn">Logout</a>
                           </div>
                         </div>
                       </div>

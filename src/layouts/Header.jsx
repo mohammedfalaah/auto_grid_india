@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { WishlistPath } from '../utils/Constants'
+import LoginPage from '../pages/private/LoginPage'
+import ProfilePage from '../pages/private/ProfilePage'
 
 const Header = () => {
   return (
@@ -162,22 +164,61 @@ const Header = () => {
 
             <div className="col-xl-4 col-lg-3 col-md-8 col-6">
               <div className="tp-header-main-right d-flex align-items-center justify-content-end">
-                <div className="tp-header-login d-none d-lg-block">
-                  <a href="profile.html" className="d-flex align-items-center">
-                    <div className="tp-header-login-icon">
-                      <span>
-                        <svg width={17} height={21} viewBox="0 0 17 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="8.57894" cy="5.77803" r="4.77803" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          <path fillRule="evenodd" clipRule="evenodd" d="M1.00002 17.2014C0.998732 16.8655 1.07385 16.5337 1.2197 16.2311C1.67736 15.3158 2.96798 14.8307 4.03892 14.611C4.81128 14.4462 5.59431 14.336 6.38217 14.2815C7.84084 14.1533 9.30793 14.1533 10.7666 14.2815C11.5544 14.3367 12.3374 14.4468 13.1099 14.611C14.1808 14.8307 15.4714 15.27 15.9291 16.2311C16.2224 16.8479 16.2224 17.564 15.9291 18.1808C15.4714 19.1419 14.1808 19.5812 13.1099 19.7918C12.3384 19.9634 11.5551 20.0766 10.7666 20.1304C9.57937 20.2311 8.38659 20.2494 7.19681 20.1854C6.92221 20.1854 6.65677 20.1854 6.38217 20.1304C5.59663 20.0773 4.81632 19.9641 4.04807 19.7918C2.96798 19.5812 1.68652 19.1419 1.2197 18.1808C1.0746 17.8747 0.999552 17.5401 1.00002 17.2014Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>                                       
-                      </span>
-                    </div>
-                    <div className="tp-header-login-content d-none d-xl-block">
-                      <span>Hello, Sign In</span>
-                      <h5 className="tp-header-login-title">Your Account</h5>
-                    </div>
-                  </a>
-                </div>
+              <div className="tp-header-login d-none d-lg-block">
+  <Link
+    to={localStorage.getItem('userName') ? '/profile' : '/login'} // Dynamically set the link
+    className="d-flex align-items-center"
+  >
+    <div className="tp-header-login-icon">
+      <span>
+        <svg
+          width={17}
+          height={21}
+          viewBox="0 0 17 21"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="8.57894"
+            cy="5.77803"
+            r="4.77803"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M1.00002 17.2014C0.998732 16.8655 1.07385 16.5337 1.2197 16.2311C1.67736 15.3158 2.96798 14.8307 4.03892 14.611C4.81128 14.4462 5.59431 14.336 6.38217 14.2815C7.84084 14.1533 9.30793 14.1533 10.7666 14.2815C11.5544 14.3367 12.3374 14.4468 13.1099 14.611C14.1808 14.8307 15.4714 15.27 15.9291 16.2311C16.2224 16.8479 16.2224 17.564 15.9291 18.1808C15.4714 19.1419 14.1808 19.5812 13.1099 19.7918C12.3384 19.9634 11.5551 20.0766 10.7666 20.1304C9.57937 20.2311 8.38659 20.2494 7.19681 20.1854C6.92221 20.1854 6.65677 20.1854 6.38217 20.1304C5.59663 20.0773 4.81632 19.9641 4.04807 19.7918C2.96798 19.5812 1.68652 19.1419 1.2197 18.1808C1.0746 17.8747 0.999552 17.5401 1.00002 17.2014Z"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+    </div>
+    <div className="tp-header-login-content d-none d-xl-block">
+      {localStorage.getItem('userName') ? (
+        <>
+          <span style={{ fontSize: '15px', color: 'black' }}>
+            Hello, {localStorage.getItem('userName')}
+          </span>
+        </>
+      ) : (
+        <>
+          <div>
+            <span>Hello, Sign In</span>
+            <h5 className="tp-header-login-title">Your Account</h5>
+          </div>
+        </>
+      )}
+    </div>
+  </Link>
+</div>
+
+
                 <div className="tp-header-action d-flex align-items-center ml-50">
                   <div className="tp-header-action-item d-none d-lg-block">
                     <a href="compare.html" className="tp-header-action-btn">
@@ -281,123 +322,11 @@ const Header = () => {
                       </li>
                       <li className="has-dropdown has-mega-menu">
                         <a href="shop.html">Shop</a>
-                        <div className="shop-mega-menu tp-submenu tp-mega-menu">
-                          <div className="row">
-                            <div className="col-lg-2">
-                              <div className="shop-mega-menu-list">
-                                <a href="shop.html" className="shop-mega-menu-title">Shop Pages</a>
-                                <ul>
-                                  <li><a href="shop-category.html">Grid Category</a></li>
-                                  <li><a href="shop.html">Grid Layout</a></li>
-                                  <li><a href="shop-list.html">List Layout</a></li>
-                                  <li><a href="shop-masonary.html">Masonary Layout</a></li>
-                                  <li><a href="shop-full-width.html">Full width Layout</a></li>
-                                  <li><a href="shop-1600.html">1600px Layout</a></li>
-                                  <li><a href="shop.html">Left Sidebar</a></li>
-                                  <li><a href="shop-right-sidebar.html">Right Sidebar</a></li>
-                                  <li><a href="shop-no-sidebar.html">Hidden Sidebar</a></li>
-                                </ul>
-                              </div>
-                            </div>
-                            {/* <div className="col-lg-2">
-                              <div className="shop-mega-menu-list">
-                                <a href="shop.html" className="shop-mega-menu-title">Features</a>
-                                <ul>
-                                  <li><a href="shop-filter-dropdown.html">Filter Dropdown</a></li>
-                                  <li><a href="shop-filter-offcanvas.html">Filters Offcanvas</a></li>
-                                  <li><a href="shop.html">Filters Sidebar</a></li>
-                                  <li><a href="shop-load-more.html">Load More button</a></li>
-                                  <li><a href="shop-infinite-scroll.html">Infinit scrolling</a></li>
-                                  <li><a href="shop-list.html">Collections list</a></li>
-                                  <li><a href="shop.html">Hidden search</a></li>
-                                  <li><a href="shop.html">Search Full screen</a></li>
-                                </ul>
-                              </div>
-                            </div> */}
-                            {/* <div className="col-lg-2">
-                              <div className="shop-mega-menu-list">
-                                <a href="shop.html" className="shop-mega-menu-title">Hover Style</a>
-                                <ul>
-                                  <li><a href="shop.html">Hover Style 1</a></li>
-                                  <li><a href="shop.html">Hover Style 2</a></li>
-                                  <li><a href="shop.html">Hover Style 3</a></li>
-                                  <li><a href="shop.html">Hover Style 4</a></li>
-                                </ul>
-                              </div>
-                            </div> */}
-                            {/* <div className="col-lg-3">
-                              <div className="shop-mega-menu-img">
-                                <img src="/assets/img/menu/product/menu-product-img-1.jpg" alt />
-                                <div className="shop-mega-menu-btn">
-                                  <a href="shop-category.html" className="tp-menu-showcase-btn tp-menu-showcase-btn-2">Phones</a>
-                                </div>
-                              </div>
-                            </div> */}
-                            {/* <div className="col-lg-3">
-                              <div className="shop-mega-menu-img">
-                                <img src="/assets/img/menu/product/menu-product-img-2.jpg" alt />
-                                <div className="shop-mega-menu-btn">
-                                  <a href="shop-category.html" className="tp-menu-showcase-btn tp-menu-showcase-btn-2">Cameras</a>
-                                </div>
-                              </div>
-                            </div> */}
-                          </div>
-                        </div>
+                       
                       </li>
-                      <li className="has-dropdown has-mega-menu ">
-                        <a href="shop.html">Products</a>
-                        <ul className="tp-submenu tp-mega-menu mega-menu-style-2">
-                          {/* first col */}
-                          <li className="has-dropdown">
-                            <a href="shop.html" className="mega-menu-title">Shop Page</a>
-                            <ul className="tp-submenu">
-                              <li><a href="shop-category.html">Only Categories</a></li>
-                              <li><a href="shop-filter-offcanvas.html">Shop Grid</a></li>
-                              <li><a href="shop.html">Shop Grid with Sideber</a></li>
-                              <li><a href="shop-list.html">Shop List</a></li>
-                              <li><a href="shop-category.html">Categories</a></li>
-                              <li><a href="product-details.html">Product Details</a></li>
-                              <li><a href="product-details-progress.html">Product Details Progress</a></li>
-                            </ul>
-                          </li>
-                          {/* third col */}
-                          <li className="has-dropdown">
-                            <a href="product-details.html" className="mega-menu-title">Products</a>
-                            <ul className="tp-submenu">
-                              <li><a href="product-details.html">Product Simple</a></li>
-                              <li><a href="product-details-video.html">With Video</a></li>
-                              <li><a href="product-details-countdown.html">With Countdown Timer</a></li>
-                              <li><a href="product-details-presentation.html">Product Presentation</a></li>
-                              <li><a href="product-details-swatches.html">Variations Swatches</a></li>
-                              <li><a href="product-details-list.html">List View</a></li>
-                              <li><a href="product-details-gallery.html">Details Gallery</a></li>
-                              <li><a href="product-details-slider.html">With Slider</a></li>
-                            </ul>
-                          </li>
-                          {/* third col */}
-                          <li className="has-dropdown">
-                            <a href="shop.html" className="mega-menu-title">eCommerce</a>
-                            <ul className="tp-submenu">
-                              <li><a href="cart.html">Shopping Cart</a></li>
-                              <li><a href="order.html">Track Your Order</a></li>
-                              <li><a href="compare.html">Compare</a></li>
-                              <li><a href="wishlist.html">Wishlist</a></li>
-                              <li><a href="checkout.html">Checkout</a></li>
-                              <li><a href="profile.html">My account</a></li>
-                            </ul>
-                          </li>
-                          {/* second col */}
-                          <li className="has-dropdown">
-                            <a href="shop.html" className="mega-menu-title">More Pages</a>
-                            <ul className="tp-submenu">
-                              <li><a href="about.html">About</a></li>
-                              <li><a href="login.html">Login</a></li>
-                              <li><a href="register.html">Register</a></li>
-                              <li><a href="forgot.html">Forgot Password</a></li>
-                              <li><a href="404.html">404 Error</a></li>
-                            </ul>
-                          </li>
-                        </ul>
+                      <li className="has-mega-menu ">
+                        <Link to={'/products'}>Products</Link>
+                       
                       </li>
                      
                  
