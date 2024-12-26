@@ -40,7 +40,7 @@ const handleAddToCart = async (productId, quantity = 1) => {
         show_toast(response.data.message,true); 
         console.log("Cart Details:", response.data.cart);
       } else {
-        show_toast("Failed to add item to cart!",false);
+        show_toast("One more add item to cart!",true);
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -71,7 +71,7 @@ const handleAddToCart = async (productId, quantity = 1) => {
         setWishlist(response.data.wishlistedProducts || []);
       }
     } catch (error) {
-     show_toast("Error fetching wishlist:", error);
+     show_toast("Error fetching wishlist", false);
     }
   };
 
