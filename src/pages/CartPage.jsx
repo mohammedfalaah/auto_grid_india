@@ -1,6 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Axioscall from '../services/Axioscall'
+import { getCartlistApi } from '../services/BaseUrl'
+import { show_toast } from '../utils/Toast'
 
 const CartPage = () => {
+  const [product, setProduct] = useState([])
+
+
+  const getCartlist = async () => {
+    try {
+      const response = await Axioscall("get",getCartlistApi,"","header")
+      console.log(response);
+       setProduct(response.data.products);
+        } catch (err) {
+          show_toast(err.response?.data?.message || err.message);
+        } 
+      };
+
+  useEffect(() => {
+    getCartlist();
+  
+    
+  }, [])
+  
   return (
     <>
     

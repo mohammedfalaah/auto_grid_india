@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { CartPath, WishlistPath } from '../utils/Constants'
+import { BasePath, CartPath, WishlistPath } from '../utils/Constants'
 import LoginPage from '../pages/private/LoginPage'
 import ProfilePage from '../pages/private/ProfilePage'
 
@@ -90,9 +90,9 @@ const Header = () => {
           <div className="row align-items-center">
             <div className="col-xl-2 col-lg-2 col-md-4 col-6">
               <div className="logo">
-                <a href="index.html">
+                <Link to={BasePath} >
                   <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
-                </a>
+                </Link>
               </div>
             </div>
             <div className="col-xl-6 col-lg-7 d-none d-lg-block">
@@ -317,7 +317,7 @@ const Header = () => {
                   <nav className="tp-main-menu-content">
                     <ul>
                       <li className=" has-mega-menu">
-                        <a href="index.html">Home</a>
+                        <Link to={BasePath}>Home</Link>
                        
                       </li>
                       <li className="has-dropdown has-mega-menu">
