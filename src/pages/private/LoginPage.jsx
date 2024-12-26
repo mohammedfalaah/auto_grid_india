@@ -3,25 +3,31 @@ import React, { useEffect, useState } from 'react'
 import { BasePath, RegisterPath } from '../../utils/Constants';
 import { Link } from 'react-router-dom';
 import { show_toast } from '../../utils/Toast';
+import Axioscall from '../../services/Axioscall';
+import { loginApi } from '../../services/BaseUrl';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-          const response = await axios.post('https://aginode.vercel.app/api/signin', { email, password });
+          let body ={
+            email,
+            password,
+          }
+          const response = await Axioscall('post',loginApi,body);
           if (response.data.success) {
             show_toast("Logged in Successfully", true);
 
-            // Extract user data from response
-            const { name, _id, email } = response.data.user;
+            const { name, id, email } = response.data.user;
             const { token } = response.data;
       
             localStorage.setItem('token', token);
             localStorage.setItem('userName', name);
-            localStorage.setItem('userId', _id);
+            localStorage.setItem('userId', id);
             localStorage.setItem('userEmail', email);
       
             // Redirect to BasePath
@@ -77,7 +83,8 @@ const LoginPage = () => {
                   </p>
                 </div>
                 <div className="tp-login-option">
-                  <form onSubmit={handleLogin}>
+                  <form 
+                  onSubmit={handleLogin}>
                     <div className="tp-login-input-wrapper">
                       <div className="tp-login-input-box">
                         <div className="tp-login-input">

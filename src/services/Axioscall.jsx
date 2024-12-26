@@ -10,7 +10,7 @@ import { show_toast } from '../utils/Toast';
 export default async function Axioscall(method,endpoint,datalist,header) {
 
   try {
-    let base_url = Baseurl+'/'+endpoint
+    let base_url = `${ApibaseURL}/${endpoint}`;
     let data;
     let body = {
       method:method,
@@ -45,7 +45,7 @@ export const APIsCall = async (method, endpoint, data, params, is_formdata) => {
     "Content-Type": is_formdata ? "multipart/form-data" : "application/json",
     "Authorization": "Bearer " + localStorage.getItem("token")
   };
-  var url = ApibaseURL+'/'+endpoint;
+  var url = `${ApibaseURL}/${endpoint}`;
 
   try {
     const res = await axios({

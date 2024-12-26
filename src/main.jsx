@@ -6,13 +6,16 @@ import { BrowserRouter } from 'react-router-dom'
 import Footer from './layouts/Footer.jsx'
 import Header from './layouts/Header.jsx'
 import { Toaster } from 'react-hot-toast'
+import Context_Provider from './services/Context.jsx'
 
 createRoot(document.getElementById('root')).render(
 <BrowserRouter>
+<Context_Provider>
 <Header />
 <Toaster />
 <App />
-<Footer />
+<Footer />  
+</Context_Provider>
 </BrowserRouter>
  
   
