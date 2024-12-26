@@ -1,23 +1,18 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BasePath, RegisterPath } from '../../utils/Constants';
 import { Link } from 'react-router-dom';
 import { show_toast } from '../../utils/Toast';
 import Axioscall from '../../services/Axioscall';
 import { loginApi } from '../../services/BaseUrl';
-import { Form } from 'react-bootstrap';
-import { ContextData } from '../../services/Context';
 
 const LoginPage = () => {
-  const { isValid } = useContext(ContextData);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [validated, setvalidated] = useState(false);
-
     
 
     const handleLogin = async (e) => {
+        e.preventDefault();
         try {
           let body ={
             email,
@@ -27,12 +22,12 @@ const LoginPage = () => {
           if (response.data.success) {
             show_toast("Logged in Successfully", true);
 
-            const { name, _id, email } = response.data.user;
+            const { name, id, email } = response.data.user;
             const { token } = response.data;
       
             localStorage.setItem('token', token);
             localStorage.setItem('userName', name);
-            localStorage.setItem('userId', _id);
+            localStorage.setItem('userId', id);
             localStorage.setItem('userEmail', email);
       
             // Redirect to BasePath
@@ -88,10 +83,8 @@ const LoginPage = () => {
                   </p>
                 </div>
                 <div className="tp-login-option">
-                  <Form
-                  validated={validated}
-                  noValidate 
-                  onSubmit={(e) => isValid(e,handleLogin,setvalidated)}>
+                  <form 
+                  onSubmit={handleLogin}>
                     <div className="tp-login-input-wrapper">
                       <div className="tp-login-input-box">
                         <div className="tp-login-input">
@@ -102,9 +95,6 @@ const LoginPage = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                           />
-                          <Form.Control.Feedback type="invalid">
-                          email is a required 
-                        </Form.Control.Feedback>
                         </div>
                         <div className="tp-login-input-title">
                           <label htmlFor="email">Your Email</label>
@@ -119,9 +109,6 @@ const LoginPage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                           />
-                          <Form.Control.Feedback type="invalid">
-                          Password is a required 
-                        </Form.Control.Feedback>
                         </div>
                         <div className="tp-login-input-title">
                           <label htmlFor="tp_password">Password</label>
@@ -134,7 +121,7 @@ const LoginPage = () => {
                         Login
                       </button>
                     </div>
-                  </Form>
+                  </form>
                 </div>
               </div>
             </div>
