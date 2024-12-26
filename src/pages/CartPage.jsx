@@ -5,18 +5,10 @@ const CartPage = () => {
     <>
     
   {/* breadcrumb area start */}
-  <section className="breadcrumb__area include-bg pt-95 pb-50">
+  <section className="breadcrumb__area include-bg pt-50 pb-25">
     <div className="container">
       <div className="row">
-        <div className="col-xxl-12">
-          <div className="breadcrumb__content p-relative z-index-1">
-            <h3 className="breadcrumb__title">Shopping Cart</h3>
-            <div className="breadcrumb__list">
-              <span><a href="#">Home</a></span>
-              <span>Shopping Cart</span>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </section>

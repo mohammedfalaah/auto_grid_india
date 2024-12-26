@@ -3,6 +3,8 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LoginPath } from "../../utils/Constants";
 import { show_toast } from "../../utils/Toast";
+import { registerApi } from "../../services/BaseUrl";
+import Axioscall from "../../services/Axioscall";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -24,15 +26,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://aginode.vercel.app/api/signup",
-        new URLSearchParams(formData),
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await Axioscall("post",registerApi,new URLSearchParams(formData),"header");
       if (response.data.success) {
         show_toast("Registration Successfully", true);
         setTimeout(() => {
