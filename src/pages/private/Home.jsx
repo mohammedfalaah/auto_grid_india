@@ -381,11 +381,10 @@ const Home = () => {
       
     </Carousel>
   </section>
-  {/* slider area end */}
-  {/* product category area start */}
+
   <section className="tp-product-category pt-60 pb-15">
     <div className="container">
-      <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-md-4">
+      <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-sm-6 row-cols-md-4">
         <div className="col">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item text-center mb-40">
             <div className="tp-product-category-thumb fix">

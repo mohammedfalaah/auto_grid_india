@@ -3,9 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { show_toast } from '../../utils/Toast';
 import Axioscall from '../../services/Axioscall';
 import { addToCartApi, addToWishlistApi, productApi } from '../../services/BaseUrl';
+import { useNavigate } from 'react-router-dom';
 
 const ProductPage = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const handleQuickView = (product) => {
+    setSelectedProduct(product);
+  };
 
   const userId = localStorage.getItem("userId")
   const token = localStorage.getItem("token");
@@ -64,17 +71,16 @@ const handleAddToWishlist = async (productId) => {
 
       }
 
-      const response = await Axioscall("post",addToCartApi,body,"header");
+    const response = await Axioscall("post", addToCartApi, body, "header");
 
-      if (response.data.success) {
-        show_toast(response.data.message,true); 
-        console.log("Cart Details:", response.data.cart);
+      if (response?.data?.success) {
+        show_toast(response.data.message, true); // Success case
       } else {
-        show_toast("Failed to add item to cart!",false);
+        show_toast(response?.data?.message || "Failed to add item to cart."); // Handle API failure case
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      show_toast("An error occurred while adding the item to the cart.",false);
+      show_toast(error?.response?.data?.message || "An error occurred while adding to cart."); // Handle network or server errors
     }
   };
 
@@ -451,7 +457,7 @@ const handleAddToWishlist = async (productId) => {
    
     {/* breadcrumb area end */}
     {/* shop area start */}
-    <section className="tp-shop-area pb-120">
+    <section className="tp-shop-area pb-120 mt-120">
       <div className="container">
         <div className="row">
           <div className="col-xl-3 col-lg-4">
@@ -617,7 +623,7 @@ const handleAddToWishlist = async (productId) => {
                     Add to Cart
                   </span>
                 </button>
-                                <button type="button" className="tp-product-action-btn-2 tp-product-quick-view-btn" data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
+                                <button  onClick={() => handleQuickView(product)} type="button" className="tp-product-action-btn-2 tp-product-quick-view-btn" data-bs-toggle="modal" data-bs-target="#producQuickViewModal">
                                   <svg width={18} height={15} viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" clipRule="evenodd" d="M8.99948 5.06828C7.80247 5.06828 6.82956 6.04044 6.82956 7.23542C6.82956 8.42951 7.80247 9.40077 8.99948 9.40077C10.1965 9.40077 11.1703 8.42951 11.1703 7.23542C11.1703 6.04044 10.1965 5.06828 8.99948 5.06828ZM8.99942 10.7482C7.0581 10.7482 5.47949 9.17221 5.47949 7.23508C5.47949 5.29705 7.0581 3.72021 8.99942 3.72021C10.9407 3.72021 12.5202 5.29705 12.5202 7.23508C12.5202 9.17221 10.9407 10.7482 8.99942 10.7482Z" fill="currentColor" />
                                     <path fillRule="evenodd" clipRule="evenodd" d="M1.41273 7.2346C3.08674 10.9265 5.90646 13.1215 8.99978 13.1224C12.0931 13.1215 14.9128 10.9265 16.5868 7.2346C14.9128 3.54363 12.0931 1.34863 8.99978 1.34773C5.90736 1.34863 3.08674 3.54363 1.41273 7.2346ZM9.00164 14.4703H8.99804H8.99714C5.27471 14.4676 1.93209 11.8629 0.0546754 7.50073C-0.0182251 7.33091 -0.0182251 7.13864 0.0546754 6.96883C1.93209 2.60759 5.27561 0.00288103 8.99714 0.000185582C8.99894 -0.000712902 8.99894 -0.000712902 8.99984 0.000185582C9.00164 -0.000712902 9.00164 -0.000712902 9.00254 0.000185582C12.725 0.00288103 16.0676 2.60759 17.945 6.96883C18.0188 7.13864 18.0188 7.33091 17.945 7.50073C16.0685 11.8629 12.725 14.4676 9.00254 14.4703H9.00164Z" fill="currentColor" />
@@ -702,102 +708,73 @@ const handleAddToWishlist = async (productId) => {
     <div className="modal fade tp-product-modal" id="producQuickViewModal" tabIndex={-1} aria-labelledby="producQuickViewModal" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
-          <div className="tp-product-modal-content d-lg-flex align-items-start">
+          {selectedProduct ? (
+            <>
+             <div className="tp-product-modal-content d-lg-flex align-items-start">
             <button type="button" className="tp-product-modal-close-btn" data-bs-toggle="modal" data-bs-target="#producQuickViewModal"><i className="fa-regular fa-xmark" /></button>
             <div className="tp-product-details-thumb-wrapper tp-tab d-sm-flex">
               <nav>
-                <div className="nav nav-tabs flex-sm-column " id="productDetailsNavThumb" role="tablist">
-                  <button className="nav-link active" id="nav-1-tab" data-bs-toggle="tab" data-bs-target="#nav-1" type="button" role="tab" aria-controls="nav-1" aria-selected="true">
-                    <img src="assets/img/product/details/nav/product-details-nav-1.jpg" alt />
-                  </button>
-                  <button className="nav-link" id="nav-2-tab" data-bs-toggle="tab" data-bs-target="#nav-2" type="button" role="tab" aria-controls="nav-2" aria-selected="false">
-                    <img src="assets/img/product/details/nav/product-details-nav-2.jpg" alt />
-                  </button>
-                  <button className="nav-link" id="nav-3-tab" data-bs-toggle="tab" data-bs-target="#nav-3" type="button" role="tab" aria-controls="nav-3" aria-selected="false">
-                    <img src="assets/img/product/details/nav/product-details-nav-3.jpg" alt />
-                  </button>
-                  <button className="nav-link" id="nav-4-tab" data-bs-toggle="tab" data-bs-target="#nav-4" type="button" role="tab" aria-controls="nav-4" aria-selected="false">
-                    <img src="assets/img/product/details/nav/product-details-nav-4.jpg" alt />
-                  </button>
+                <div
+                  className="nav nav-tabs flex-sm-column"
+                  id="productDetailsNavThumb"
+                  role="tablist"
+                >
+                  {selectedProduct.photographs.map((photo, index) => (
+                    <button
+                      key={index}
+                      className={`nav-link ${index === 0 ? "active" : ""}`}
+                      id={`nav-${index + 1}-tab`}
+                      data-bs-toggle="tab"
+                      data-bs-target={`#nav-${index + 1}`}
+                      type="button"
+                      role="tab"
+                      aria-controls={`nav-${index + 1}`}
+                      aria-selected={index === 0}
+                    >
+                      <img
+ src={`https://node.autogridnumberplate.com${photo}`}                        alt={`Thumbnail ${index + 1}`}
+                        className="img-fluid"
+                      />
+                    </button>
+                  ))}
                 </div>
               </nav>
-              <div className="tab-content m-img" id="productDetailsNavContent">
-                <div className="tab-pane fade show active" id="nav-1" role="tabpanel" aria-labelledby="nav-1-tab" tabIndex={0}>
-                  <div className="tp-product-details-nav-main-thumb">
-                    <img src="assets/img/product/details/main/product-details-main-1.jpg" alt />
+              <div className="tab-content m-img" id="productDetailsNavContent" style={{width:'25rem'}}>
+                {selectedProduct.photographs.map((photo, index) => (
+                  <div
+                    key={index}
+                    className={`tab-pane fade ${
+                      index === 0 ? "show active" : ""
+                    }`}
+                    id={`nav-${index + 1}`}
+                    role="tabpanel"
+                    aria-labelledby={`nav-${index + 1}-tab`}
+                    tabIndex={0}
+                  >
+                    <div className="tp-product-details-nav-main-thumb">
+                      <img
+ src={`https://node.autogridnumberplate.com${photo}`}                        alt={`Main View ${index + 1}`}
+                        className="img-fluid"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="tab-pane fade" id="nav-2" role="tabpanel" aria-labelledby="nav-2-tab" tabIndex={0}>
-                  <div className="tp-product-details-nav-main-thumb">
-                    <img src="assets/img/product/details/main/product-details-main-2.jpg" alt />
-                  </div>
-                </div>
-                <div className="tab-pane fade" id="nav-3" role="tabpanel" aria-labelledby="nav-3-tab" tabIndex={0}>
-                  <div className="tp-product-details-nav-main-thumb">
-                    <img src="assets/img/product/details/main/product-details-main-3.jpg" alt />
-                  </div>
-                </div>
-                <div className="tab-pane fade" id="nav-4" role="tabpanel" aria-labelledby="nav-4-tab" tabIndex={0}>
-                  <div className="tp-product-details-nav-main-thumb">
-                    <img src="assets/img/product/details/main/product-details-main-4.jpg" alt />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             <div className="tp-product-details-wrapper">
               <div className="tp-product-details-category">
-                <span>Computers &amp; Tablets</span>
+                <span>{selectedProduct.category}</span>
               </div>
-              <h3 className="tp-product-details-title">Samsung galaxy A8 tablet</h3>
+              <h3 className="tp-product-details-title">{selectedProduct.productName}</h3>
               {/* inventory details */}
-              <div className="tp-product-details-inventory d-flex align-items-center mb-10">
-                <div className="tp-product-details-stock mb-10">
-                  <span>In Stock</span>
-                </div>
-                <div className="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
-                  <div className="tp-product-details-rating">
-                    <span><i className="fa-solid fa-star" /></span>
-                    <span><i className="fa-solid fa-star" /></span>
-                    <span><i className="fa-solid fa-star" /></span>
-                    <span><i className="fa-solid fa-star" /></span>
-                    <span><i className="fa-solid fa-star" /></span>
-                  </div>
-                  <div className="tp-product-details-reviews">
-                    <span>(36 Reviews)</span>
-                  </div>
-                </div>
-              </div>
-              <p>A Screen Everyone Will Love: Whether your family is streaming or video chatting with friends tablet A8... <span>See more</span></p>
+            
+              <p>{selectedProduct.specifications}</p>
               {/* price */}
               <div className="tp-product-details-price-wrapper mb-20">
-                <span className="tp-product-details-price old-price">$320.00</span>
-                <span className="tp-product-details-price new-price">$236.00</span>
+                <span className="tp-product-details-price old-price">₹{selectedProduct.originalPrice}</span>
+                <span className="tp-product-details-price new-price">₹{selectedProduct.currentPrice}</span>
               </div>
-              {/* variations */}
-              <div className="tp-product-details-variation">
-                {/* single item */}
-                <div className="tp-product-details-variation-item">
-                  <h4 className="tp-product-details-variation-title">Color :</h4>
-                  <div className="tp-product-details-variation-list">
-                    <button type="button" className="color tp-color-variation-btn">
-                      <span data-bg-color="#F8B655" />
-                      <span className="tp-color-variation-tootltip">Yellow</span>
-                    </button>
-                    <button type="button" className="color tp-color-variation-btn active">
-                      <span data-bg-color="#CBCBCB" />
-                      <span className="tp-color-variation-tootltip">Gray</span>
-                    </button>
-                    <button type="button" className="color tp-color-variation-btn">
-                      <span data-bg-color="#494E52" />
-                      <span className="tp-color-variation-tootltip">Black</span>
-                    </button>
-                    <button type="button" className="color tp-color-variation-btn">
-                      <span data-bg-color="#B4505A" />
-                      <span className="tp-color-variation-tootltip">Brown</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+            
               {/* actions */}
               <div className="tp-product-details-action-wrapper">
                 <h3 className="tp-product-details-action-title">Quantity</h3>
@@ -852,6 +829,12 @@ const handleAddToWishlist = async (productId) => {
               </div>
             </div>
           </div>
+            
+            </>
+          ) : (
+            <div>Loading...</div>
+          )}
+         
         </div>
       </div>
     </div>
