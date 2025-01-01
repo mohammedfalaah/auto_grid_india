@@ -29,9 +29,7 @@ const LoginPage = () => {
             localStorage.setItem('userName', name);
             localStorage.setItem('userId', id);
             localStorage.setItem('userEmail', email);
-      
-            // Redirect to BasePath
-            window.location.href = BasePath;
+                  window.location.href = BasePath;
           } 
         } catch (error) {
           console.error('Error logging in:', error);

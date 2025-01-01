@@ -9,10 +9,20 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [totalProducts, setTotalProducts] = useState(0);
 
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
+
+  const [pagination, setPagination] = useState({
+    isNext: false,
+    isPrev: false,
+  });
+  const [pages, setPages] = useState({
+    page: 1,
+    limit: 15, 
+  });
 
   const userId = localStorage.getItem("userId")
   const token = localStorage.getItem("token");
@@ -76,11 +86,11 @@ const handleAddToWishlist = async (productId) => {
       if (response?.data?.success) {
         show_toast(response.data.message, true); // Success case
       } else {
-        show_toast(response?.data?.message || "Failed to add item to cart."); // Handle API failure case
+        show_toast(response?.data?.message,false); // Handle API failure case
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      show_toast(error?.response?.data?.message || "An error occurred while adding to cart."); // Handle network or server errors
+      show_toast(error?.response?.data?.message, false); // Handle network or server errors
     }
   };
 
@@ -88,19 +98,29 @@ const handleAddToWishlist = async (productId) => {
 
   const fetchProducts = async () => {
     try {
-      const response = await Axioscall("get",productApi,"","header");
+      const response = await Axioscall(
+        "get",
+        `${productApi}?page=${pages.page}&limit=${pages.limit}`,
+        "",
+        "header"
+      );
 
-      console.log("responseresponse",response);
-      
       setProducts(response.data.products);
+      setTotalProducts(response.data.pagination.totalProducts);
+
+      const { hasNextPage, hasPreviousPage } = response.data.pagination;
+      setPagination({
+        isNext: hasNextPage,
+        isPrev: hasPreviousPage,
+      });
     } catch (err) {
       show_toast(err.response?.data?.message || err.message);
-    } 
+    }
   };
 
   useEffect(() => {
     fetchProducts();
-  }, [])
+  }, [pages])
   
 
 
@@ -558,26 +578,11 @@ const handleAddToWishlist = async (productId) => {
                     <div className="tp-shop-top-left d-flex align-items-center ">
                       
                       <div className="tp-shop-top-result">
-                        <p>Showing 1–14 of 26 results</p>
+                         <p>{totalProducts} results</p>
                       </div>
                     </div>
                   </div>
-                  <div className="col-xl-6">
-                    <div className="tp-shop-top-right d-sm-flex align-items-center justify-content-xl-end">
-                      <div className="tp-shop-top-select">
-                        <select>
-                          <option>Default Sorting</option>
-                          <option>Low to Hight</option>
-                          <option>High to Low</option>
-                          <option>New Added</option>
-                          <option>On Sale</option>
-                        </select>
-                      </div>
-                      <div className="tp-shop-top-filter">
-                      
-                      </div>
-                    </div>
-                  </div>
+                
                 </div>
               </div>
               <div className="tp-shop-items-wrapper tp-shop-item-primary">
@@ -588,11 +593,8 @@ const handleAddToWishlist = async (productId) => {
                       <div className="col-xl-3 col-md-6 col-sm-6">
                         <div className="tp-product-item-2 mb-40">
                           <div className="tp-product-thumb-2 p-relative z-index-1 fix w-img">
-                            <a href="product-details.html">
-                              {/*                             <img
-  src={`https://node.autogridnumberplate.com${product.photographs?.[0] || ""}`}
-  alt={product.productName}
-/> */}
+                            <a onClick={() => handleQuickView(product)} >
+  
                     <img
   src={`https://node.autogridnumberplate.com${product.photographs?.[0] || ""}`}
   alt={product.productName}
@@ -666,39 +668,39 @@ const handleAddToWishlist = async (productId) => {
                 
                 </div>                            
               </div>
-              <div className="tp-shop-pagination mt-20">
-                <div className="tp-pagination">
-                  <nav>
-                    <ul>
-                      <li>
-                        <a href="shop.html" className="tp-pagination-prev prev page-numbers">
-                          <svg width={15} height={13} viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1.00017 6.77879L14 6.77879" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M6.24316 11.9999L0.999899 6.77922L6.24316 1.55762" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="shop.html">1</a>
-                      </li>
-                      <li>
-                        <span className="current">2</span>
-                      </li>
-                      <li>
-                        <a href="shop.html">3</a>
-                      </li>
-                      <li>
-                        <a href="shop.html" className="next page-numbers">
-                          <svg width={15} height={13} viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.9998 6.77883L1 6.77883" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M8.75684 1.55767L14.0001 6.7784L8.75684 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>                                     
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
+              <div className="row mt-4" style={{ textAlign: "right" }}>
+  <nav aria-label="Page navigation example">
+    <ul className="pagination justify-content-end">
+      <li className={`page-item ${!pagination.isPrev ? "disabled" : ""}`}>
+        <button
+          className="page-link"
+          onClick={(e) => {
+            e.preventDefault();
+            if (pagination.isPrev) {
+              setPages((prev) => ({ ...prev, page: prev.page - 1 }));
+            }
+          }}
+        >
+          Prev
+        </button>
+      </li>
+      <li className={`page-item ${!pagination.isNext ? "disabled" : ""}`}>
+        <button
+          className="page-link"
+          onClick={(e) => {
+            e.preventDefault();
+            if (pagination.isNext) {
+              setPages((prev) => ({ ...prev, page: prev.page + 1 }));
+            }
+          }}
+        >
+          Next
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>
+
             </div>
           </div>
         </div>
