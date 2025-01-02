@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import Carousel from 'react-bootstrap/Carousel';
 import { Helmet } from "react-helmet"
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,10 +6,11 @@ import ProductPage from './ProductPage';
 import Axioscall from '../../services/Axioscall';
 import { show_toast } from '../../utils/Toast';
 import { addToCartApi, addToWishlistApi, productApi } from '../../services/BaseUrl';
-
+import { ContextData } from '../../services/Context' 
+// import { ContextData } from '../services/Context' 
 const Home = () => {
     const navigate = useNavigate();
-  
+    const { getCart } = useContext(ContextData);
 
     const [products, setProducts] = useState([]);
 
@@ -87,10 +88,11 @@ const handleAddToWishlist = async (productId) => {
             }
       
             const response = await Axioscall("post",addToCartApi,body,"header");
-            console.log(response,"'=========");
-            
+           
+            getCart()
       
-            if (response.data.success) {
+            if (response.status ===200) {
+        
               show_toast(response.data.message,true); 
               console.log("Cart Details:", response.data.cart);
             } else {

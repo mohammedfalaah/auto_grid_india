@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import Axioscall from '../services/Axioscall'
 import { getCartlistApi, updateQuantityApi } from '../services/BaseUrl'
 import { show_toast } from '../utils/Toast'
+import { ContextData } from '../services/Context' 
 
 const CartPage = () => {
   const [product, setProduct] = useState([])
 
-
+  const { getCart } = useContext(ContextData);
   const getCartlist = async () => {
     try {
       const response = await Axioscall("get",getCartlistApi,"","header")
@@ -26,7 +27,7 @@ const CartPage = () => {
           setProduct((prevProducts) =>
             prevProducts.filter((item) => item.productId !== productId)
           );
-
+          getCart()
           show_toast("Product removed successfully",true);
           getCartlist();
         } catch (err) {

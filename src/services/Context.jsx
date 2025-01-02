@@ -1,10 +1,26 @@
 import { createContext } from "react";
+import Axioscall from "./Axioscall";
+import { getCartlistApi } from "./BaseUrl";
+import { show_toast } from "../utils/Toast";
+import { useState,useEffect } from "react";
 
 export const ContextData = createContext();
 
 export const Context_Provider = ({ children }) => {
+  const [product, setProduct] = useState([])
+  const [length, setLenght] = useState()
 
-    
+  const getCart = async () => {
+    try {
+      const response = await Axioscall("get",getCartlistApi,"","header")
+      console.log(response);
+      console.log(response?.data?.products?.length,"sssssssssssssssssssssssssssssssssssssssssssss")
+      setLenght(response?.data?.products?.length)
+       setProduct(response.data.products);
+        } catch (err) {
+          show_toast(err.response?.data?.message || err.message);
+        } 
+      };
   const isValid = (event, fun_name, setstate) => {
     try {
       const form = event.currentTarget;
@@ -21,9 +37,11 @@ export const Context_Provider = ({ children }) => {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    getCart(); 
+  }, []);
   return (
-    <ContextData.Provider value={{ isValid }}>
+    <ContextData.Provider value={{ isValid,getCart,length }}>
       {children}
     </ContextData.Provider>
   );

@@ -1,15 +1,14 @@
-import React from 'react'
+import React, {useContext}from 'react'
 import { Link } from 'react-router-dom'
 import { BasePath, CartPath, WishlistPath } from '../utils/Constants'
 import LoginPage from '../pages/private/LoginPage'
 import ProfilePage from '../pages/private/ProfilePage'
-import { ContextData } from '../services/Context'
+import { ContextData } from '../services/Context' 
 
 const Header = () => {
 
-
+const { length } = useContext(ContextData);
  
-
 
 
   return (
@@ -256,7 +255,7 @@ const Header = () => {
                         <path d="M7.70365 10.1018H7.74942" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M13.5343 10.1018H13.5801" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>    
-                      <span className="tp-header-action-badge">0</span>                                                                          
+                      <span className="tp-header-action-badge">{length}</span>                                                                          
                     </Link>
                   </div>
                   <div className="tp-header-action-item d-lg-none">
