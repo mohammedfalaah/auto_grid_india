@@ -31,7 +31,7 @@ export default async function Axioscall(method,endpoint,datalist,header) {
     return data
   } catch (error) {
     console.log("error",error)
-    show_toast(error.response.data.message,false)
+     // show_toast(error.response.data.message,false)
     if(error.message==="Request failed with status code 403"){
         window.localStorage.clear()
         return navigate("/");
@@ -60,7 +60,9 @@ export const APIsCall = async (method, endpoint, data, params, is_formdata) => {
     // ShowToast(res.data.message , true)
     return res
   } catch (error) {
-    show_toast(error.response ? error.response.data.message : 'Internal Server Error',false)
+    console.log(error);
+    
+    // show_toast(error.response ? error.response.data.message : 'Internal Server Error',false)
     return error;
   }
 };

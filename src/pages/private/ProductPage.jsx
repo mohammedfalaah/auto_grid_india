@@ -2,15 +2,16 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { show_toast } from '../../utils/Toast';
 import Axioscall from '../../services/Axioscall';
-import { addToCartApi, addToWishlistApi, productApi } from '../../services/BaseUrl';
-import { useNavigate } from 'react-router-dom';
+import { addToCartApi, addToWishlistApi, getCategoryApi, productApi } from '../../services/BaseUrl';
+import { Link, useNavigate } from 'react-router-dom';
+import { ProductsPath, ProfilePath, WishlistPath } from '../../utils/Constants';
 
 const ProductPage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [totalProducts, setTotalProducts] = useState(0);
-
+  const [categories, setCategories] = useState([]);
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
@@ -26,6 +27,25 @@ const ProductPage = () => {
 
   const userId = localStorage.getItem("userId")
   const token = localStorage.getItem("token");
+
+  const getCategory = async () => {
+
+    try {
+      const response = await Axioscall('get', getCategoryApi, '', 'header');
+      console.log("===========",response);
+      
+      if (response?.data) {
+        setCategories(response.data);
+      } else {
+        show_toast('Failed to fetch categories!', false);
+      }
+    } catch (error) {
+      console.error(error);
+      show_toast('Error fetching categories!', false);
+    } 
+  };
+
+
 const handleAddToWishlist = async (productId) => {
   try {
     if (!userId) {
@@ -120,6 +140,7 @@ const handleAddToWishlist = async (productId) => {
 
   useEffect(() => {
     fetchProducts();
+    getCategory()
   }, [pages])
   
 
@@ -130,6 +151,55 @@ const handleAddToWishlist = async (productId) => {
 
     <>
  <div>
+  <div className="body-overlay" />
+  {/* offcanvas area end */}
+  {/* mobile menu area start */}
+  <div id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">
+    <div className="container">
+      <div className="row row-cols-5">
+        <div className="col">
+          <div className="tp-mobile-item text-center">
+            <Link to={ProductsPath} className="tp-mobile-item-btn">
+              <i className="flaticon-store" />
+              <span>Store</span>
+            </Link>
+          </div>
+        </div>
+        <div className="col">
+          <div className="tp-mobile-item text-center">
+            <button className="tp-mobile-item-btn tp-search-open-btn">
+              <i className="flaticon-search-1" />
+              <span>Search</span>
+            </button>
+          </div>
+        </div>
+        <div className="col">
+          <div className="tp-mobile-item text-center">
+            <Link to={WishlistPath}  className="tp-mobile-item-btn">
+              <i className="flaticon-love" />
+              <span>Wishlist</span>
+            </Link>
+          </div>
+        </div>
+        <div className="col">
+          <div className="tp-mobile-item text-center">
+            <Link to={ProfilePath} className="tp-mobile-item-btn">
+              <i className="flaticon-user" />
+              <span>Account</span>
+            </Link>
+          </div>
+        </div>
+        <div className="col">
+          <div className="tp-mobile-item text-center">
+            <button className="tp-mobile-item-btn tp-offcanvas-open-btn">
+              <i className="flaticon-menu-1" />
+              <span>Menu</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   {/* header area end */}
   {/* filter offcanvas area start */}
@@ -269,7 +339,7 @@ const handleAddToWishlist = async (productId) => {
                     </div>
                   </div>
                   <h4 className="tp-shop-widget-product-title">
-                    <a href="product-details.html">Smart watches wood...</a>
+                    <a href="product-details.html">Smart watches wood.</a>
                   </h4>
                   <div className="tp-shop-widget-product-price-wrapper">
                     <span className="tp-shop-widget-product-price">$150.00</span>
@@ -474,10 +544,25 @@ const handleAddToWishlist = async (productId) => {
   {/* filter offcanvas area end */}
   <main>
     {/* breadcrumb area start */}
-   
+<section className="breadcrumb__area include-bg pt-100 pb-50">
+  <div className="container">
+    <div className="row">
+      <div className="col-xxl-12">
+        <div className="breadcrumb__content p-relative z-index-1">
+          <h3 className="breadcrumb__title">Shop </h3>
+          <div className="breadcrumb__list">
+            <span><a>Home</a></span>
+            <span>Shop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
     {/* breadcrumb area end */}
     {/* shop area start */}
-    <section className="tp-shop-area pb-120 mt-120">
+    <section className="tp-shop-area pb-120 ">
       <div className="container">
         <div className="row">
           <div className="col-xl-3 col-lg-4">
@@ -595,7 +680,7 @@ const handleAddToWishlist = async (productId) => {
                           <div className="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                             <a onClick={() => handleQuickView(product)} >
   
-                    <img
+                    <img  style={{width:'270px', height:'270px',objectFit:'cover'}} 
   src={`https://node.autogridnumberplate.com${product.photographs?.[0] || ""}`}
   alt={product.productName}
 />                                                       </a>

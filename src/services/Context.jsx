@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import Axioscall from "./Axioscall";
 import { getCartlistApi } from "./BaseUrl";
-import { show_toast } from "../utils/Toast";
 import { useState,useEffect } from "react";
 
 export const ContextData = createContext();
@@ -14,11 +13,11 @@ export const Context_Provider = ({ children }) => {
     try {
       const response = await Axioscall("get",getCartlistApi,"","header")
       console.log(response);
-      console.log(response?.data?.products?.length,"sssssssssssssssssssssssssssssssssssssssssssss")
+      console.log(response?.data?.products?.length)
       setLenght(response?.data?.products?.length)
        setProduct(response.data.products);
         } catch (err) {
-          show_toast(err.response?.data?.message || err.message);
+          console.log(err);        
         } 
       };
   const isValid = (event, fun_name, setstate) => {
