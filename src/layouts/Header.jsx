@@ -1,9 +1,11 @@
 import React, {useContext}from 'react'
 import { Link } from 'react-router-dom'
-import { BasePath, CartPath, ContactPath, WishlistPath } from '../utils/Constants'
+import { BasePath, CartPath, ContactPath, ProductsPath, WishlistPath } from '../utils/Constants'
 import LoginPage from '../pages/private/LoginPage'
 import ProfilePage from '../pages/private/ProfilePage'
 import { ContextData } from '../services/Context' 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTruck } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
 
@@ -17,79 +19,7 @@ const { length } = useContext(ContextData);
   <header>
     <div className="tp-header-area p-relative z-index-11">
       {/* header top start  */}
-      <div className="tp-header-top black-bg p-relative z-index-1 d-none d-md-block">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-6">
-              <div className="tp-header-welcome d-flex align-items-center">
-                <span>
-                  <svg width={22} height={19} viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14.6364 1H1V12.8182H14.6364V1Z" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M14.6364 5.54545H18.2727L21 8.27273V12.8182H14.6364V5.54545Z" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M5.0909 17.3636C6.3461 17.3636 7.36363 16.3461 7.36363 15.0909C7.36363 13.8357 6.3461 12.8182 5.0909 12.8182C3.83571 12.8182 2.81818 13.8357 2.81818 15.0909C2.81818 16.3461 3.83571 17.3636 5.0909 17.3636Z" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M16.9091 17.3636C18.1643 17.3636 19.1818 16.3461 19.1818 15.0909C19.1818 13.8357 18.1643 12.8182 16.9091 12.8182C15.6539 12.8182 14.6364 13.8357 14.6364 15.0909C14.6364 16.3461 15.6539 17.3636 16.9091 17.3636Z" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>                                 
-                </span>
-                <p>FREE Express Shipping On Orders $570+</p>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="tp-header-top-right d-flex align-items-center justify-content-end">
-                <div className="tp-header-top-menu d-flex align-items-center justify-content-end">
-                  <div className="tp-header-top-menu-item tp-header-lang">
-                    <span className="tp-header-lang-toggle" id="tp-header-lang-toggle">English</span>
-                    <ul>
-                      <li>
-                        <a href="#">Spanish</a>
-                      </li>
-                      <li>
-                        <a href="#">Russian</a>
-                      </li>
-                      <li>
-                        <a href="#">Portuguese</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="tp-header-top-menu-item tp-header-currency">
-                    <span className="tp-header-currency-toggle" id="tp-header-currency-toggle">USD</span>
-                    <ul>
-                      <li>
-                        <a href="#">EUR</a>
-                      </li>
-                      <li>
-                        <a href="#">CHF</a>
-                      </li>
-                      <li>
-                        <a href="#">GBP</a>
-                      </li>
-                      <li>
-                        <a href="#">KWD</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="tp-header-top-menu-item tp-header-setting">
-                    <span className="tp-header-setting-toggle" id="tp-header-setting-toggle">Setting</span>
-                    <ul>
-                      <li>
-                        <a href="profile.html">My Profile</a>
-                      </li>
-                      <li>
-                        <a href="wishlist.html">Wishlist</a>
-                      </li>
-                      <li>
-                        <a href="cart.html">Cart</a>
-                      </li>
-                      <li>
-                        <a href="login.html">Logout</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       {/* header main start */}
       <div className="tp-header-main tp-header-sticky">
         <div className="container">
@@ -103,68 +33,24 @@ const { length } = useContext(ContextData);
             </div>
             <div className="col-xl-6 col-lg-7 d-none d-lg-block">
   <div className="tp-header-search pl-70">
-    <form action="#">
-      <div className="tp-header-search-wrapper d-flex align-items-center">
-        <div className="tp-header-search-box">
-          <input
-            type="text"
-            placeholder="Search for Products..."
-            style={{
-              borderColor: 'black', // Black border by default
-              color: 'black',
-              borderWidth: '2px',
-              outline: 'none', // Removes default outline
-              borderRadius: '4px',
-              padding: '8px',
-            }}
-            // value={searchQuery}
-            // onChange={handleInputChange}
-            onFocus={(e) => e.target.style.borderColor = 'black'} // Black border on focus
-            onBlur={(e) => e.target.style.borderColor = 'black'}  // Ensure black when not focused
-          />
-        </div>
-
-        <div className="tp-header-search-btn">
-          <button
-            type="submit"
-            style={{
-              backgroundColor: 'black',
-              padding: '10px',
-              borderRadius: '4px',
-              border: 'none',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              outline: 'none', // Remove default focus outline
-            }}
-            onFocus={(e) => e.target.style.borderColor = 'black'} // Black outline on button focus
-          >
-            <svg
-              width={20}
-              height={20}
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
-                stroke="white"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M19 19L14.65 14.65"
-                stroke="white"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </form>
+  <div className="main-menu menu-style-1">
+                  <nav className="tp-main-menu-content">
+                    <ul>
+                      <li className=" has-mega-menu">
+                        <Link to={BasePath}>Home</Link>
+                       
+                      </li>
+                     
+                      <li className="has-mega-menu ">
+                        <Link to={'/products'}>Products</Link>
+                       
+                      </li>
+                     
+                 
+                      <li><Link to={ContactPath}>Contact</Link></li>
+                    </ul>
+                  </nav>
+                </div>
   </div>
 </div>
 
@@ -274,71 +160,27 @@ const { length } = useContext(ContextData);
         </div>
       </div>
       {/* header bottom start */}
-      <div className="tp-header-bottom tp-header-bottom-border d-none d-lg-block">
+      <div className="tp-header-bottom tp-header-bottom-border d-none d-lg-block" style={{backgroundColor:'#B2002E'}}>
         <div className="container">
           <div className="tp-mega-menu-wrapper p-relative">
             <div className="row align-items-center">
               <div className="col-xl-3 col-lg-3">
-                <div className="tp-header-category tp-category-menu tp-header-category-toggle">
-                  <button className="tp-category-menu-btn tp-category-menu-toggle bg-black">
-                    <span>
-                      <svg width={18} height={14} viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M0 1C0 0.447715 0.447715 0 1 0H15C15.5523 0 16 0.447715 16 1C16 1.55228 15.5523 2 15 2H1C0.447715 2 0 1.55228 0 1ZM0 7C0 6.44772 0.447715 6 1 6H17C17.5523 6 18 6.44772 18 7C18 7.55228 17.5523 8 17 8H1C0.447715 8 0 7.55228 0 7ZM1 12C0.447715 12 0 12.4477 0 13C0 13.5523 0.447715 14 1 14H11C11.5523 14 12 13.5523 12 13C12 12.4477 11.5523 12 11 12H1Z" fill="currentColor" />
-                      </svg>
-                    </span>     
-                    Product Category                           
-                  </button>
-                  <nav className="tp-category-menu-content">
-                    <ul>
-                      <li>
-                        <a href="shop.html">
-                         
-                          Number Plate Frame</a>
-                      </li>
-                     
-                      <li>
-                        <a href="shop.html">
-                         
-                          Gel Stickers</a>
-                      </li>
-                    
-                      <li>
-                        <a href="shop.html">
-                          
-                          Car Mirror Hanging </a>
-                      </li>
-                      <li>
-                        <a href="shop.html">
-                        
-                         
-                          Keychains</a>
-                      </li>
-             
-                   
-                     
-                    </ul>
-                  </nav>
-                </div>
+           {/* style={{textAlign:'center',color:"black",margin:'0px',padding:'5px'}} */}
               </div>
               <div className="col-xl-6 col-lg-6">
-                <div className="main-menu menu-style-1">
-                  <nav className="tp-main-menu-content">
-                    <ul>
-                      <li className=" has-mega-menu">
-                        <Link to={BasePath}>Home</Link>
-                       
-                      </li>
-                     
-                      <li className="has-mega-menu ">
-                        <Link to={'/products'}>Products</Link>
-                       
-                      </li>
-                     
-                 
-                      <li><Link to={ContactPath}>Contact</Link></li>
-                    </ul>
-                  </nav>
-                </div>
+                <div className="main-menu menu-style-1 d-flex" style={{justifyContent:'center',padding:'10px'}}>
+                  <div>
+                  <p style={{color:'white', margin:'0px',paddingRight:'5px'}}>All India Free Delivery <Link style={{textDecoration:"underline"}} to={ProductsPath}>Order now</Link> 
+                  </p>
+
+                  </div>
+                  <div>
+                  <FontAwesomeIcon icon={faTruck} style={{color:'white'}} /> 
+
+                  </div>
+
+
+               </div>
               </div>
               <div className="col-xl-3 col-lg-3">
                 <div className="tp-header-contact d-flex align-items-center justify-content-end">

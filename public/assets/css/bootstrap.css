@@ -10444,3 +10444,16 @@ fieldset:disabled .btn {
   }
 }
 /*# sourceMappingURL=bootstrap.min.css.map */
+/* style={{width:'270px', height:'270px',objectFit:'cover'}}  */
+.product-img{
+  width: 270px;
+  height: 270px;
+  object-fit: cover;
+}
+
+@media (max-width: 576px) { 
+  .product-img{
+    height: 374px;
+    width: 374px;
+  }
+ }
