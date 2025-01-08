@@ -1,8 +1,56 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { ContactPath, ProductsPath, ProfilePath, WishlistPath } from '../utils/Constants'
 
 const Footer = () => {
   return (
     <>
+     <div id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">
+        <div className="container">
+          <div className="row row-cols-5">
+            <div className="col">
+              <div className="tp-mobile-item text-center">
+                <Link to={ProductsPath} className="tp-mobile-item-btn">
+                  <i className="flaticon-store" />
+                  <span>Store</span>
+                </Link>
+              </div>
+            </div>
+            <div className="col">
+              <div className="tp-mobile-item text-center">
+                <button className="tp-mobile-item-btn tp-search-open-btn">
+                  <i className="flaticon-search-1" />
+                  <span>Search</span>
+                </button>
+              </div>
+            </div>
+            <div className="col">
+              <div className="tp-mobile-item text-center">
+                <Link to={WishlistPath}  className="tp-mobile-item-btn">
+                  <i className="flaticon-love" />
+                  <span>Wishlist</span>
+                </Link>
+              </div>
+            </div>
+            <div className="col">
+              <div className="tp-mobile-item text-center">
+                <Link to={ProfilePath} className="tp-mobile-item-btn">
+                  <i className="flaticon-user" />
+                  <span>Account</span>
+                </Link>
+              </div>
+            </div>
+            <div className="col">
+              <div className="tp-mobile-item text-center">
+                <button className="tp-mobile-item-btn tp-offcanvas-open-btn">
+                  <i className="flaticon-menu-1" />
+                  <span>Menu</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
    
   <footer>
     <div className="tp-footer-area" data-bg-color="footer-bg-grey">
@@ -13,12 +61,12 @@ const Footer = () => {
               <div className="tp-footer-widget footer-col-1 mb-50">
                 <div className="tp-footer-widget-content">
                   <div className="tp-footer-logo">
-                    <a href="index.html">
+                    <a >
                     <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
 
                     </a>
                   </div>
-                  <p className="tp-footer-desc">We are a team of designers and developers that create high quality WordPress</p>
+                  <p className="tp-footer-desc"> Our AUTOGRID NUMBER PLATES are crafted using cutting-edge technology and premium-grade materials, ensuring unmatched durability and style.  </p>
                   <div className="tp-footer-social">
                     <a href="#"><i className="fa-brands fa-facebook-f" /></a>
                     <a href="#"><i className="fa-brands fa-twitter" /></a>
@@ -52,8 +100,7 @@ const Footer = () => {
                     <li><a href="#">Careers</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms &amp; Conditions</a></li>
-                    <li><a href="#">Latest News</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><Link to={ContactPath}>Contact Us</Link></li>
                   </ul>
                 </div>
               </div>

@@ -7,6 +7,7 @@ import Axioscall from '../../services/Axioscall';
 import { show_toast } from '../../utils/Toast';
 import { addToCartApi, addToWishlistApi, productApi } from '../../services/BaseUrl';
 import { ContextData } from '../../services/Context' 
+import { ProductsPath, ProfilePath, WishlistPath } from '../../utils/Constants';
 // import { ContextData } from '../services/Context' 
 const Home = () => {
     const navigate = useNavigate();
@@ -17,6 +18,15 @@ const Home = () => {
     const userId = localStorage.getItem("userId")
     const token = localStorage.getItem("token")
       const [selectedProduct, setSelectedProduct] = useState(null);
+
+      const handleTokenExpiration = () => {
+        show_toast(" Please log in again.", false);
+        localStorage.clear(); // Clear all user-related data
+        setTimeout(() => {
+          navigate("/login"); // Redirect to login page
+        }, 2000);
+      };
+      
     
 
       const fetchProducts = async () => {
@@ -33,74 +43,63 @@ const Home = () => {
       };
 
 
-const handleAddToWishlist = async (productId) => {
-  try {
-    if (!userId) {
-      show_toast("You are not logged in. Please log in Then add items to Wishlist.",false);
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-      return;
-    }
-    if (!token) {
-      show_toast("Authentication token not found. Please log in again.",false);
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-      return;
-    }
-    let body ={productId: productId}
-    const response = await Axioscall ("post",addToWishlistApi,body,"header");
-    if (response.data.success){
-      show_toast(response.data.message,true); 
-
-    }else{
-      show_toast("Failed to add item to wishlist!",false);
-
-    }
-    
-  } catch (error) {
-    
-  }
-}
-      const handleAddToCart = async (productId, quantity = 1) => {
-          try {
-            if (!userId) {
-              show_toast("You are not logged in. Please log in Then add items to the cart.",false);
-              setTimeout(() => {
-                navigate("/login");
-              }, 2000);
-              return;
-            }
-      
-            if (!token) {
-              show_toast("Authentication token not found. Please log in again.",false);
-              setTimeout(() => {
-                navigate("/login");
-              }, 2000);
-              return;
-            }
-            let body = {
-              userId: userId,
-                productId: productId,
-                quantity: quantity,
-      
-            }
-      
-            const response = await Axioscall("post",addToCartApi,body,"header");
-           
-            getCart()
-      
-            if (response.status ===200) {
-        
-              show_toast(response.data.message,true); 
-            } else {
-              show_toast(response.data.message,false);
-            }
-          } catch (error) {
-            console.error("Error adding to cart:", error);
+      const handleAddToWishlist = async (productId) => {
+        try {
+          if (!userId) {
+            show_toast("You are not logged in. Please log in Then add items to Wishlist.", false);
+            setTimeout(() => navigate("/login"), 2000);
+            return;
           }
-        };
+          if (!token) {
+            handleTokenExpiration();
+            return;
+          }
+          const body = { productId: productId };
+          const response = await Axioscall("post", addToWishlistApi, body, "header");
+          if (response.data.success) {
+            show_toast(response.data.message, true);
+          } else {
+            show_toast("Failed to add item to wishlist!", false);
+          }
+        } catch (error) {
+          if (error.response?.data?.message === "Token expired, please log in again") {
+            handleTokenExpiration();
+          } else {
+            console.error("Error adding to wishlist:", error);
+          }
+        }
+      };
+      
+      const handleAddToCart = async (productId, quantity = 1) => {
+        try {
+          if (!userId) {
+            show_toast("You are not logged in. Please log in Then add items to the cart.", false);
+            setTimeout(() => navigate("/login"), 2000);
+            return;
+          }
+          if (!token) {
+            handleTokenExpiration();
+            return;
+          }
+          const body = {
+            userId: userId,
+            productId: productId,
+            quantity: quantity,
+          };
+          
+          const response = await Axioscall("post", addToCartApi, body, "header");
+          getCart();
+      
+          if (response.status === 200) {
+            show_toast(response.data.message, true);
+          } else {
+            handleTokenExpiration();          }
+        } catch (error) {
+          console.log(error);
+          
+        }
+      };
+      
   
   useEffect(() => {
     // Load Instagram script
@@ -222,10 +221,10 @@ const handleAddToWishlist = async (productId) => {
     <div className="row row-cols-5">
       <div className="col">
         <div className="tp-mobile-item text-center">
-          <a href="shop.html" className="tp-mobile-item-btn">
+          <Link to={ProductsPath} className="tp-mobile-item-btn">
             <i className="flaticon-store" />
             <span>Store</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="col">
@@ -238,18 +237,18 @@ const handleAddToWishlist = async (productId) => {
       </div>
       <div className="col">
         <div className="tp-mobile-item text-center">
-          <a href="wishlist.html" className="tp-mobile-item-btn">
+          <Link to={WishlistPath}  className="tp-mobile-item-btn">
             <i className="flaticon-love" />
             <span>Wishlist</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="col">
         <div className="tp-mobile-item text-center">
-          <a href="profile.html" className="tp-mobile-item-btn">
+          <Link to={ProfilePath} className="tp-mobile-item-btn">
             <i className="flaticon-user" />
             <span>Account</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div className="col">

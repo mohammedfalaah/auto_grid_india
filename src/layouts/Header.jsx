@@ -1,6 +1,6 @@
 import React, {useContext}from 'react'
 import { Link } from 'react-router-dom'
-import { BasePath, CartPath, WishlistPath } from '../utils/Constants'
+import { BasePath, CartPath, ContactPath, WishlistPath } from '../utils/Constants'
 import LoginPage from '../pages/private/LoginPage'
 import ProfilePage from '../pages/private/ProfilePage'
 import { ContextData } from '../services/Context' 
@@ -335,7 +335,7 @@ const { length } = useContext(ContextData);
                       </li>
                      
                  
-                      <li><a href="contact.html">Contact</a></li>
+                      <li><Link to={ContactPath}>Contact</Link></li>
                     </ul>
                   </nav>
                 </div>

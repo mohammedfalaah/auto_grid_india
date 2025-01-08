@@ -14,7 +14,7 @@ const CartPage = () => {
       console.log(response);
        setProduct(response.data.products);
         } catch (err) {
-          show_toast(err.response?.data?.message || err.message);
+          console.log(err.response?.data?.message || err.message);
         } 
       };
 
@@ -226,7 +226,6 @@ const CartPage = () => {
       </div>
     </div>
   </section>
-  {/* cart area end */}
 
 
     </>

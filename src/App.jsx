@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import Home from "./pages/private/Home"
 import Header from "./layouts/Header"
-import { BasePath, CartPath, LoginPath, ProductsPath, ProfilePath, RegisterPath, WishlistPath } from "./utils/Constants"
+import { BasePath, CartPath, ContactPath, LoginPath, ProductsPath, ProfilePath, RegisterPath, WishlistPath } from "./utils/Constants"
 import Wishlist from "./pages/private/Wishlist"
 import ProfilePage from "./pages/private/ProfilePage"
 import ProductPage from "./pages/private/ProductPage"
@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage"
 import LoginPage from "./pages/private/LoginPage"
 import RegisterPage from "./pages/private/RegisterPage"
 import { Helmet } from "react-helmet"
+import ContactUs from "./pages/private/ContactUs"
 
 
 
@@ -23,6 +24,7 @@ function App() {
     <Route path={CartPath} element={<CartPage />} />
     <Route path={LoginPath} element={<LoginPage />} />
     <Route path={RegisterPath} element={<RegisterPage />} />
+    <Route path={ContactPath} element={<ContactUs />} />
     </Routes>
     <Helmet>
     <script type="module" src="/src/main.jsx"></script>

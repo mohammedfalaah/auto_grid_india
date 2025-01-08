@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { BasePath, ContactPath, ProductsPath } from '../utils/Constants'
 
 const Header2 = () => {
   return (
@@ -9,10 +11,10 @@ const Header2 = () => {
         <div className="row align-items-center">
           <div className="col-xl-3 col-lg-3 col-md-3 col-6">
             <div className="logo">
-              <a href="index.html">
+              <Link to={BasePath} >
               <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
 
-              </a>
+              </Link>
             </div>
           </div>
           <div className="col-xl-6 col-lg-6 col-md-6 d-none d-md-block">
@@ -20,7 +22,7 @@ const Header2 = () => {
               <nav id="mobile-menu"> 
                 <ul>
                   <li className="has-dropdown has-mega-menu">
-                    <a href="index.html">Home</a>
+                        <Link to={BasePath}>Home</Link>
                     <div className="home-menu tp-submenu tp-mega-menu">
                       <div className="row row-cols-1 row-cols-lg-4 row-cols-xl-5">
                         <div className="col">
@@ -88,12 +90,12 @@ const Header2 = () => {
                   </li>
                   
                   <li className="has-dropdown has-mega-menu ">
-                    <a href="shop.html">Products</a>
+                    <Link to={ProductsPath}>Products</Link>
                   
                   </li>
                   <li><a href="coupon.html">Coupons</a></li>
               
-                  <li><a href="contact.html">Contact</a></li>
+                  <li><Link to={ContactPath}>Contact</Link></li>
                 </ul>
               </nav>
             </div>
