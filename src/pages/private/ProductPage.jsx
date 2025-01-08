@@ -154,52 +154,7 @@ const handleAddToWishlist = async (productId) => {
   <div className="body-overlay" />
   {/* offcanvas area end */}
   {/* mobile menu area start */}
-  <div id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">
-    <div className="container">
-      <div className="row row-cols-5">
-        <div className="col">
-          <div className="tp-mobile-item text-center">
-            <Link to={ProductsPath} className="tp-mobile-item-btn">
-              <i className="flaticon-store" />
-              <span>Store</span>
-            </Link>
-          </div>
-        </div>
-        <div className="col">
-          <div className="tp-mobile-item text-center">
-            <button className="tp-mobile-item-btn tp-search-open-btn">
-              <i className="flaticon-search-1" />
-              <span>Search</span>
-            </button>
-          </div>
-        </div>
-        <div className="col">
-          <div className="tp-mobile-item text-center">
-            <Link to={WishlistPath}  className="tp-mobile-item-btn">
-              <i className="flaticon-love" />
-              <span>Wishlist</span>
-            </Link>
-          </div>
-        </div>
-        <div className="col">
-          <div className="tp-mobile-item text-center">
-            <Link to={ProfilePath} className="tp-mobile-item-btn">
-              <i className="flaticon-user" />
-              <span>Account</span>
-            </Link>
-          </div>
-        </div>
-        <div className="col">
-          <div className="tp-mobile-item text-center">
-            <button className="tp-mobile-item-btn tp-offcanvas-open-btn">
-              <i className="flaticon-menu-1" />
-              <span>Menu</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
 
   {/* header area end */}
   {/* filter offcanvas area start */}
@@ -222,7 +177,7 @@ const handleAddToWishlist = async (productId) => {
           <div className="tp-shop-widget-content">
             <div className="tp-shop-widget-categories">
               <ul>
-                <li><a href="#">Leather <span>10</span></a></li>
+                <li><a href="#">Leatherrrrr <span>10</span></a></li>
                 <li><a href="#">Classic Watch <span>18</span></a></li>
                 <li><a href="#">Leather Man Wacth <span>22</span></a></li>
                 <li><a href="#">Trending Watch <span>17</span></a></li>
@@ -544,7 +499,7 @@ const handleAddToWishlist = async (productId) => {
   {/* filter offcanvas area end */}
   <main>
     {/* breadcrumb area start */}
-<section className="breadcrumb__area include-bg pt-100 pb-50">
+<section className="breadcrumb__area include-bg pt-25 pb-25">
   <div className="container">
     <div className="row">
       <div className="col-xxl-12">
@@ -680,7 +635,7 @@ const handleAddToWishlist = async (productId) => {
                           <div className="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                             <a onClick={() => handleQuickView(product)} >
   
-                    <img  style={{width:'270px', height:'270px',objectFit:'cover'}} 
+                    <img className='product-img'  
   src={`https://node.autogridnumberplate.com${product.photographs?.[0] || ""}`}
   alt={product.productName}
 />                                                       </a>
