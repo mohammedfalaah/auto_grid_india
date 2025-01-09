@@ -19,13 +19,7 @@ const Home = () => {
     const token = localStorage.getItem("token")
       const [selectedProduct, setSelectedProduct] = useState(null);
 
-      const handleTokenExpiration = () => {
-        show_toast(" Please log in again.", false);
-        localStorage.clear(); // Clear all user-related data
-        setTimeout(() => {
-          navigate("/login"); // Redirect to login page
-        }, 2000);
-      };
+     
       
     
 
@@ -50,23 +44,17 @@ const Home = () => {
             setTimeout(() => navigate("/login"), 2000);
             return;
           }
-          if (!token) {
-            handleTokenExpiration();
-            return;
-          }
+         
           const body = { productId: productId };
           const response = await Axioscall("post", addToWishlistApi, body, "header");
           if (response.data.success) {
             show_toast(response.data.message, true);
           } else {
-            show_toast("Failed to add item to wishlist!", false);
+            show_toast("Product Already in wishlist", false);
           }
         } catch (error) {
-          if (error.response?.data?.message === "Token expired, please log in again") {
-            handleTokenExpiration();
-          } else {
-            console.error("Error adding to wishlist:", error);
-          }
+         show_toast("Product Already in wishlist",false);
+         
         }
       };
       
@@ -77,10 +65,7 @@ const Home = () => {
             setTimeout(() => navigate("/login"), 2000);
             return;
           }
-          if (!token) {
-            handleTokenExpiration();
-            return;
-          }
+        
           const body = {
             userId: userId,
             productId: productId,
@@ -88,12 +73,15 @@ const Home = () => {
           };
           
           const response = await Axioscall("post", addToCartApi, body, "header");
+          console.log("responseresponse",response);
+          
           getCart();
       
           if (response.status === 200) {
-            show_toast(response.data.message, true);
+            show_toast("Cart Added Successfully", true);
           } else {
-            handleTokenExpiration();          }
+           show_toast("Product Already Cart",false);
+                   }
         } catch (error) {
           console.log(error);
           

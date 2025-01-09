@@ -102,9 +102,10 @@ const handleAddToWishlist = async (productId) => {
       }
 
     const response = await Axioscall("post", addToCartApi, body, "header");
+console.log(response,"==========");
 
       if (response?.data?.success) {
-        show_toast(response.data.message, true); // Success case
+        show_toast("Product Add to Cart Successfully", true); // Success case
       } else {
         show_toast(response?.data?.message,false); // Handle API failure case
       }
