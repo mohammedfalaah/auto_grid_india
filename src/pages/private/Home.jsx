@@ -1540,7 +1540,7 @@ const Home = () => {
 
   {/* blog area end */}
   {/* instagram area start */}
-  <div className="tp-instagram-area pb-70">
+  <div className="tp-instagram-area pb-70 mt-50">
     <div className="container">
       <div className="row row-cols-lg-8 row-cols-md-3 row-cols-sm-3 row-cols-1">
         <div className="col">
