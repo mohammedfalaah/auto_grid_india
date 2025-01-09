@@ -12,7 +12,7 @@ const Header2 = () => {
           <div className="col-xl-3 col-lg-3 col-md-3 col-6">
             <div className="logo">
               <Link to={BasePath} >
-              <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
+              <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGIWHITE.PNG"alt="logo" />
 
               </Link>
             </div>

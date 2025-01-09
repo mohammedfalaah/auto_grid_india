@@ -10451,6 +10451,19 @@ fieldset:disabled .btn {
   object-fit: cover;
 }
 
+.product-img-home{
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+@media (max-width: 576px) { 
+  .product-img-home{
+    height: 374px;
+    width: 374px;
+  }
+ }
+
 @media (max-width: 576px) { 
   .product-img{
     height: 374px;
