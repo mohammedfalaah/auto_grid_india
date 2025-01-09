@@ -21,13 +21,13 @@ const { length } = useContext(ContextData);
       {/* header top start  */}
       
       {/* header main start */}
-      <div className="tp-header-main tp-header-sticky">
+      <div className="tp-header-main tp-header-sticky bg-black">
         <div className="container">
           <div className="row align-items-center">
             <div className="col-xl-2 col-lg-2 col-md-4 col-6">
               <div className="logo">
                 <Link to={BasePath} >
-                  <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI.png" alt="logo" />
+                  <img style={{width:'100px',height:'25px'}} src="/assets/img/logo/AGI copy.png " alt="logo" />
                 </Link>
               </div>
             </div>
@@ -36,18 +36,18 @@ const { length } = useContext(ContextData);
   <div className="main-menu menu-style-1">
                   <nav className="tp-main-menu-content">
                     <ul>
-                      <li className=" has-mega-menu">
-                        <Link to={BasePath}>Home</Link>
+                      <li className="has-mega-menu">
+                        <Link style={{color:'white'}} to={BasePath}>Home</Link>
                        
                       </li>
                      
-                      <li className="has-mega-menu ">
-                        <Link to={'/products'}>Products</Link>
+                      <li className="has-mega-menu">
+                        <Link style={{color:'white'}} to={'/products'}>Products</Link>
                        
                       </li>
                      
                  
-                      <li><Link to={ContactPath}>Contact</Link></li>
+                      <li><Link style={{color:'white'}} to={ContactPath}>Contact</Link></li>
                     </ul>
                   </nav>
                 </div>
@@ -60,11 +60,11 @@ const { length } = useContext(ContextData);
               <div className="tp-header-main-right d-flex align-items-center justify-content-end">
               <div className="tp-header-login d-none d-lg-block">
   <Link
-    to={localStorage.getItem('userName') ? '/profile' : '/login'} // Dynamically set the link
+    to={localStorage.getItem('userName') ? '/profile' : '/login'} 
     className="d-flex align-items-center"
   >
     <div className="tp-header-login-icon">
-      <span>
+      <span style={{color:'white'}}>
         <svg
           width={17}
           height={21}
@@ -96,15 +96,15 @@ const { length } = useContext(ContextData);
     <div className="tp-header-login-content d-none d-xl-block">
       {localStorage.getItem('userName') ? (
         <>
-          <span style={{ fontSize: '15px', color: 'black',fontWeight:'bold' }}>
+          <span style={{ fontSize: '15px', color:'white',fontWeight:'bold' }}>
             Hello,  {localStorage.getItem('userName')} 
           </span>
         </>
       ) : (
         <>
           <div>
-            <span>Hello, Sign In</span>
-            <h5 className="tp-header-login-title">Your Account</h5>
+            <span style={{color:'white'}}>Hello, Sign In</span>
+            <h5 style={{color:'white'}} className="tp-header-login-title">Your Account</h5>
           </div>
         </>
       )}
@@ -114,19 +114,10 @@ const { length } = useContext(ContextData);
 
 
                 <div className="tp-header-action d-flex align-items-center ml-50">
-                  <div className="tp-header-action-item d-none d-lg-block">
-                    <a href="compare.html" className="tp-header-action-btn">
-                      <svg width={20} height={19} viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.8396 17.3319V3.71411" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M19.1556 13L15.0778 17.0967L11 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M4.91115 1.00056V14.6183" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M0.833496 5.09667L4.91127 1L8.98905 5.09667" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>                                       
-                    </a>
-                  </div>
+                  
                   <div className="tp-header-action-item d-none d-lg-block">
                     <Link to={WishlistPath}  className="tp-header-action-btn">
-                      <svg width={22} height={20} viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg style={{color:'white'}} width={22} height={20} viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg> 
@@ -135,7 +126,7 @@ const { length } = useContext(ContextData);
                   </div>
                   <div className="tp-header-action-item">
                     <Link to={CartPath} type="button" className="tp-header-action-btn cartmini-open-btn">
-                      <svg width={21} height={22} viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg style={{color:'white'}} width={21} height={22} viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M6.48626 20.5H14.8341C17.9004 20.5 20.2528 19.3924 19.5847 14.9348L18.8066 8.89359C18.3947 6.66934 16.976 5.81808 15.7311 5.81808H5.55262C4.28946 5.81808 2.95308 6.73341 2.4771 8.89359L1.69907 14.9348C1.13157 18.889 3.4199 20.5 6.48626 20.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M6.34902 5.5984C6.34902 3.21232 8.28331 1.27803 10.6694 1.27803V1.27803C11.8184 1.27316 12.922 1.72619 13.7362 2.53695C14.5504 3.3477 15.0081 4.44939 15.0081 5.5984V5.5984" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M7.70365 10.1018H7.74942" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -186,7 +177,7 @@ const { length } = useContext(ContextData);
                 <div className="tp-header-contact d-flex align-items-center justify-content-end">
                   <div className="tp-header-contact-icon">
                     <span>
-                      <svg width={21} height={20} viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <svg color='white' width={21} height={20} viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M1.96977 3.24859C2.26945 2.75144 3.92158 0.946726 5.09889 1.00121C5.45111 1.03137 5.76246 1.24346 6.01544 1.49057H6.01641C6.59631 2.05874 8.26011 4.203 8.35352 4.65442C8.58411 5.76158 7.26378 6.39979 7.66756 7.5157C8.69698 10.0345 10.4707 11.8081 12.9908 12.8365C14.1058 13.2412 14.7441 11.9219 15.8513 12.1515C16.3028 12.2459 18.4482 13.9086 19.0155 14.4894V14.4894C19.2616 14.7414 19.4757 15.0537 19.5049 15.4059C19.5487 16.6463 17.6319 18.3207 17.2583 18.5347C16.3767 19.1661 15.2267 19.1544 13.8246 18.5026C9.91224 16.8749 3.65985 10.7408 2.00188 6.68096C1.3675 5.2868 1.32469 4.12906 1.96977 3.24859Z" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M12.936 1.23685C16.4432 1.62622 19.2124 4.39253 19.6065 7.89874" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M12.936 4.59337C14.6129 4.92021 15.9231 6.23042 16.2499 7.90726" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
@@ -194,8 +185,8 @@ const { length } = useContext(ContextData);
                     </span>
                   </div>
                   <div className="tp-header-contact-content">
-                    <h5>Hotline:</h5>
-                    <p><a href="tel:402-763-282-46">+(91) 996 1123 654</a></p>
+                    <h5 style={{color:'white'}}>Hotline:</h5>
+                    <p><a style={{color:'white'}} href="tel:+919961123654">+(91) 996 1123 654</a></p>
                   </div>
                 </div>
               </div>

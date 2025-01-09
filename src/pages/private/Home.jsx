@@ -420,7 +420,7 @@ const Home = () => {
     </Carousel>
   </section>
 
-  <section className="tp-product-category pt-60 pb-15">
+  <section style={{backgroundColor:'black'}} className="tp-product-category pt-60 pb-15">
     <div className="container">
       <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-sm-6 row-cols-md-4">
         <div className="col">
@@ -535,7 +535,7 @@ const Home = () => {
     </div>
   </section>
   
-  <section className="tp-feature-area tp-feature-border-radius pb-70">
+  <section style={{backgroundColor:'black'}} className="tp-feature-area tp-feature-border-radius pb-70">
     <div className="container">
       <div className="row gx-1 gy-1 gy-xl-0">
         <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6">
@@ -612,12 +612,12 @@ const Home = () => {
   </section>
   {/* feature area end */}
   {/* product area start */}
-  <section className="tp-product-area pb-55">
+  <section className="tp-product-area bg-black pb-55">
     <div className="container">
       <div className="row align-items-end">
         <div className="col-xl-5 col-lg-6 col-md-5">
           <div className="tp-section-title-wrapper mb-40">
-            <h3 className="tp-section-title"> Products </h3>
+            <h3 style={{color:'white'}} className="tp-section-title"> Products </h3>
           </div>
         </div>
        
@@ -633,7 +633,7 @@ const Home = () => {
                 <div className="tp-product-item transition-3 mb-25">
                   <div className="tp-product-thumb p-relative fix m-img">
                     <a onClick={() => handleQuickView(products)}>
-                    <img
+                    <img className='product-img-home'
   src={`https://node.autogridnumberplate.com${products.photographs?.[0] || ""}`}
   alt={products.productName}
 />                       </a>
@@ -676,10 +676,8 @@ const Home = () => {
                     </div>
                   </div>
                   {/* product content */}
-                  <div className="tp-product-content">
-                    <div className="tp-product-category">
-                      <a href="shop.html">Backpacks</a>
-                    </div>
+                  <div className="tp-product-content product-bio-home">
+                   
                     <h3 className="tp-product-title">
                     {products.productName}
                     </h3>
