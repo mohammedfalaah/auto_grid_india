@@ -2,6 +2,7 @@ import { createContext } from "react";
 import Axioscall from "./Axioscall";
 import { getCartlistApi } from "./BaseUrl";
 import { useState,useEffect } from "react";
+import { show_toast } from "../utils/Toast";
 
 export const ContextData = createContext();
 
@@ -16,6 +17,9 @@ export const Context_Provider = ({ children }) => {
       console.log(response?.data?.products?.length)
       setLenght(response?.data?.products?.length)
        setProduct(response.data.products);
+       if(response.data.message){
+        show_toast("Cart Added Successfully", true)
+       } 
         } catch (err) {
           console.log(err);        
         } 
