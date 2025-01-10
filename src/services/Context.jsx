@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import Axioscall from "./Axioscall";
-import { getCartlistApi } from "./BaseUrl";
+import { getCartlistApi, getWishlistApi } from "./BaseUrl";
 import { useState,useEffect } from "react";
 import { show_toast } from "../utils/Toast";
 
@@ -8,7 +8,25 @@ export const ContextData = createContext();
 
 export const Context_Provider = ({ children }) => {
   const [product, setProduct] = useState([])
+  const [product2, setProduct2] = useState([])
+
   const [length, setLenght] = useState()
+  const [wishlistLength, setWishlistLength] = useState()
+
+    const getFavouriteContext = async () => {
+      try {
+        const response = await Axioscall("get", getWishlistApi, "", "header");
+        console.log(response);
+        console.log(response?.data?.wishlistedProducts?.length);
+        setWishlistLength(response?.data?.wishlistedProducts?.length)
+        setProduct2(response.data.wishlistedProducts)
+        if(response.data.message){
+          show_toast("Wishlist Added Successfully", true)
+        } 
+      } catch (error) {
+       console.log();("Error fetching wishlist", false);
+      }
+    };
 
   const getCart = async () => {
     try {
@@ -42,9 +60,10 @@ export const Context_Provider = ({ children }) => {
   };
   useEffect(() => {
     getCart(); 
+    getFavouriteContext();
   }, []);
   return (
-    <ContextData.Provider value={{ isValid,getCart,length }}>
+    <ContextData.Provider value={{ isValid,getCart,length,getFavouriteContext,wishlistLength }}>
       {children}
     </ContextData.Provider>
   );
