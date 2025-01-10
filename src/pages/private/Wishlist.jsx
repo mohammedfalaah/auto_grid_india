@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Axioscall from '../../services/Axioscall'
 import { addToCartApi, getWishlistApi, removeWishlistApi } from '../../services/BaseUrl'
 import { show_toast } from '../../utils/Toast'
 import { Link } from 'react-router-dom'
 import { CartPath } from '../../utils/Constants'
+import { ContextData } from '../../services/Context'
 
 const Wishlist = () => {
   const userId = localStorage.getItem("userId")
@@ -11,6 +12,8 @@ const Wishlist = () => {
   
   const token = localStorage.getItem("token");
   const [wishlist, setWishlist] = useState([])
+
+  const { getFavouriteContext } = useContext(ContextData);
 
 const handleAddToCart = async (productId, quantity = 1) => {
     try {
@@ -59,6 +62,7 @@ const handleAddToCart = async (productId, quantity = 1) => {
         setWishlist((prevWishlist) =>
           prevWishlist.filter((item) => item._id !== productId)
         );
+        getFavouriteContext();
         getFavourite();
       }
     } catch (error) {

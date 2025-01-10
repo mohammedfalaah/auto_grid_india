@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { show_toast } from '../../utils/Toast';
 import Axioscall from '../../services/Axioscall';
 import { addToCartApi, addToWishlistApi, getCategoryApi, productApi } from '../../services/BaseUrl';
 import { Link, useNavigate } from 'react-router-dom';
 import { ProductsPath, ProfilePath, WishlistPath } from '../../utils/Constants';
+import { ContextData } from '../../services/Context';
 
 const ProductPage = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const ProductPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [totalProducts, setTotalProducts] = useState(0);
   const [categories, setCategories] = useState([]);
+  const { getFavouriteContext } = useContext(ContextData);
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
@@ -64,6 +66,7 @@ const handleAddToWishlist = async (productId) => {
     }
     let body ={productId: productId}
     const response = await Axioscall ("post",addToWishlistApi,body,"header");
+    getFavouriteContext();
     if (response.data.success){
       show_toast(response.data.message,true); 
 
@@ -73,7 +76,7 @@ const handleAddToWishlist = async (productId) => {
     }
     
   } catch (error) {
-    
+    show_toast("Product Already Wishlist",false)
   }
 }
 
