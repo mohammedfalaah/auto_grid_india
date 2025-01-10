@@ -101,20 +101,19 @@ const handleAddToWishlist = async (productId) => {
         userId: userId,
           productId: productId,
           quantity: quantity,
-
       }
 
     const response = await Axioscall("post", addToCartApi, body, "header");
-console.log(response,"==========");
+console.log("==============",response);
 
-      if (response?.data?.success) {
-        show_toast("Product Add to Cart Successfully", true); // Success case
+      if (response?.status === 200) {
+        show_toast("Product added to cart successfully", true); 
       } else {
-        show_toast(response?.data?.message,false); // Handle API failure case
+        show_toast("Product is already in the cart",false); 
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      show_toast(error?.response?.data?.message, false); // Handle network or server errors
+      show_toast(error?.response?.data?.message, false);
     }
   };
 
