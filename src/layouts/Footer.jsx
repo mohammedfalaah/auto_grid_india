@@ -149,7 +149,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="tp-footer-bottom">
+      {/* <div className="tp-footer-bottom">
         <div className="container">
           <div className="tp-footer-bottom-wrapper">
             <div className="row align-items-center">
@@ -168,7 +168,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   </footer>
   {/* footer area end */}
