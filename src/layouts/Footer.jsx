@@ -67,8 +67,7 @@ const Footer = () => {
                     </a>
                   </div>
                   <p style={{color:'white'}} className="tp-footer-desc"> 
-                 <strong>Autogrid Number Plates, we specialize in delivering  premium-quality number plates </strong>  designed for style, durability, and precision. Since 2022,
-                  ensuring your vehicle reflects your personality.                     </p>
+                  <strong>Autogrid Number Plates, we specialize in delivering premium-quality number plates</strong> designed for style, durability, and precision. Since 2022.                   </p>
                   <div className="tp-footer-social">
                     <a href="#"><i  className="fa-brands fa-facebook-f" /></a>
                     <a href="#"><i className="fa-brands fa-twitter" /></a>
