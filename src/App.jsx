@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import Home from "./pages/private/Home"
 import Header from "./layouts/Header"
-import { AboutUsPath, BasePath, CartPath, ContactPath, LoginPath, PrivacyPolicyPath, ProductsPath, ProfilePath, RefundAndCancellationPath, RegisterPath, TermsAndConditionsPath, WishlistPath } from "./utils/Constants"
+import { AboutUsPath, BasePath, CartPath, ContactPath, LoginPath, PrivacyPolicyPath, ProductsPath, ProfilePath, RefundAndCancellationPath, RegisterPath, ShippingPath, TermsAndConditionsPath, WishlistPath } from "./utils/Constants"
 import Wishlist from "./pages/private/Wishlist"
 import ProfilePage from "./pages/private/ProfilePage"
 import ProductPage from "./pages/private/ProductPage"
@@ -14,6 +14,7 @@ import AboutUs from "./pages/private/AboutUs"
 import PrivacyPolicy from "./pages/private/PrivacyPolicy"
 import TermsAndConditions from "./pages/private/TermsAndConditions"
 import RefundAndCancellation from "./pages/private/RefundAndCancellation"
+import Shipping from "./pages/private/Shipping"
 
 
 
@@ -33,6 +34,7 @@ function App() {
     <Route path={PrivacyPolicyPath} element={<PrivacyPolicy />} />
     <Route path={TermsAndConditionsPath} element={<TermsAndConditions />} />
     <Route path={RefundAndCancellationPath} element={<RefundAndCancellation />} />
+    <Route path={ShippingPath} element={<Shipping />} />
     </Routes>
     <Helmet>
     <script type="module" src="/src/main.jsx"></script>

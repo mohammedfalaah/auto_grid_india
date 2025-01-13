@@ -101,7 +101,7 @@ const ContactUs = () => {
                   <p data-info="phone"><a href="tel:+91 996 11 23654">+91 996 11 23654</a></p>
                 </div>
               </div>
-              {/* <div className="tp-contact-info-item">
+              <div className="tp-contact-info-item">
                 <div className="tp-contact-info-icon">
                   <span>
                     <img src="assets/img/contact/contact-icon-2.png" alt />
@@ -109,12 +109,13 @@ const ContactUs = () => {
                 </div>
                 <div className="tp-contact-info-content">
                   <p>
-                    <a href="https://www.google.com/maps/place/New+York,+NY,+USA/@40.6976637,-74.1197638,11z/data=!3m1!4b1!4m6!3m5!1s0x89c24fa5d33f083b:0xc80b8f06e177fe62!8m2!3d40.7127753!4d-74.0059728!16zL20vMDJfMjg2" target="_blank">
-                      84 sleepy hollow st. <br /> jamaica, New York 1432
+                    
+                    <a href="https://maps.apple.com/?address=Tirur%20Malappuram%20Manjeri%20Road,%20Down%20Hill,%20Malappuram,%20676505,%20Kerala,%20India&ll=11.040257,76.068947&q=Tirur%20Malappuram%20Manjeri%20Road&t=m" target="_blank">
+                      Paravath Building. <br /> Mylappuram, Malappuram 676519
                     </a>
                   </p>
                 </div>
-              </div> */}
+              </div>
               <div className="tp-contact-info-item">
                 <div className="tp-contact-info-icon">
                   <span>
@@ -125,9 +126,9 @@ const ContactUs = () => {
                   <div className="tp-contact-social-wrapper mt-5">
                     <h4 className="tp-contact-social-title">Find on social media</h4>
                     <div className="tp-contact-social-icon">
-                      <a href="#"><i className="fa-brands fa-facebook-f" /></a>
-                      <a href="#"><i className="fa-brands fa-twitter" /></a>
-                      <a href="#"><i className="fa-brands fa-linkedin-in" /></a>
+                      <a href="https://www.facebook.com/share/19fc7Tjb6E/?mibextid=wwXIfr"><i className="fa-brands fa-facebook-f" /></a>
+                      <a href="https://www.instagram.com/autogridindia?igsh=MWRhZTUxbG1peDVobQ=="><i className="fa-brands fa-instagram" /></a>
+                      <a href="https://wa.me/919961123654"><i className="fa-brands fa-whatsapp" /></a>
                     </div>
                   </div>
                 </div>
