@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import Home from "./pages/private/Home"
 import Header from "./layouts/Header"
-import { BasePath, CartPath, ContactPath, LoginPath, ProductsPath, ProfilePath, RegisterPath, WishlistPath } from "./utils/Constants"
+import { AboutUsPath, BasePath, CartPath, ContactPath, LoginPath, PrivacyPolicyPath, ProductsPath, ProfilePath, RefundAndCancellationPath, RegisterPath, TermsAndConditionsPath, WishlistPath } from "./utils/Constants"
 import Wishlist from "./pages/private/Wishlist"
 import ProfilePage from "./pages/private/ProfilePage"
 import ProductPage from "./pages/private/ProductPage"
@@ -10,6 +10,10 @@ import LoginPage from "./pages/private/LoginPage"
 import RegisterPage from "./pages/private/RegisterPage"
 import { Helmet } from "react-helmet"
 import ContactUs from "./pages/private/ContactUs"
+import AboutUs from "./pages/private/AboutUs"
+import PrivacyPolicy from "./pages/private/PrivacyPolicy"
+import TermsAndConditions from "./pages/private/TermsAndConditions"
+import RefundAndCancellation from "./pages/private/RefundAndCancellation"
 
 
 
@@ -25,6 +29,10 @@ function App() {
     <Route path={LoginPath} element={<LoginPage />} />
     <Route path={RegisterPath} element={<RegisterPage />} />
     <Route path={ContactPath} element={<ContactUs />} />
+    <Route path={AboutUsPath} element={<AboutUs />} />
+    <Route path={PrivacyPolicyPath} element={<PrivacyPolicy />} />
+    <Route path={TermsAndConditionsPath} element={<TermsAndConditions />} />
+    <Route path={RefundAndCancellationPath} element={<RefundAndCancellation />} />
     </Routes>
     <Helmet>
     <script type="module" src="/src/main.jsx"></script>
