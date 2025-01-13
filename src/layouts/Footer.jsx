@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { AboutUsPath, CartPath, ContactPath, PrivacyPolicyPath, ProductsPath, ProfilePath, RefundAndCancellationPath, TermsAndConditionsPath, WishlistPath } from '../utils/Constants'
+import { AboutUsPath, CartPath, ContactPath, PrivacyPolicyPath, ProductsPath, ProfilePath, RefundAndCancellationPath, ShippingPath, TermsAndConditionsPath, WishlistPath } from '../utils/Constants'
 
 const Footer = () => {
   return (
@@ -83,10 +83,9 @@ const Footer = () => {
                 <h4 style={{color:'white'}} className="tp-footer-widget-title">My Account</h4>
                 <div className="tp-footer-widget-content">
                   <ul>
-                    <li><a href="#" style={{color:'white'}}>Track Orders</a></li>
-                    <li><a href="#" style={{color:'white'}}>Shipping</a></li>
-                    <li><a href="#" style={{color:'white'}}>Wishlist</a></li>
-                    <li><a href="#" style={{color:'white'}}>My Account</a></li>
+                    <li><Link to={ShippingPath} style={{color:'white'}}>Shipping</Link></li>
+                    <li><Link to={WishlistPath} style={{color:'white'}}>Wishlist</Link></li>
+                    <li><Link to={ProfilePath} style={{color:'white'}}>My Account</Link></li>
                     <li><Link to={CartPath} style={{color:'white'}}>Order </Link></li>
                   </ul>
                 </div>
