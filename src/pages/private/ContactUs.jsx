@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { BasePath } from '../../utils/Constants'
 
 const ContactUs = () => {
+
+  useEffect(() => {
+    window.scrollTo(0,0)
+ 
+  
+  }, [])
+
   return (
     <>
 <main>
@@ -12,7 +21,7 @@ const ContactUs = () => {
           <div className="breadcrumb__content p-relative z-index-1">
             <h3 className="breadcrumb__title">Keep In Touch with Us</h3>
             <div className="breadcrumb__list">
-              <span><a href="#">Home</a></span>
+              <span><Link to={BasePath}>Home</Link></span>
               <span>Contact</span>
             </div>
           </div>
@@ -88,11 +97,11 @@ const ContactUs = () => {
                   </span>
                 </div>
                 <div className="tp-contact-info-content">
-                  <p data-info="mail"><a href="mailto:contact@shofy.com">contact@shofy.com</a></p>
-                  <p data-info="phone"><a href="tel:670-413-90-762">+670 413 90 762</a></p>
+                  <p data-info="mail"><a href="mailto:autogridindia1@gmail.com">autogridindia1@gmail.com</a></p>
+                  <p data-info="phone"><a href="tel:+91 996 11 23654">+91 996 11 23654</a></p>
                 </div>
               </div>
-              <div className="tp-contact-info-item">
+              {/* <div className="tp-contact-info-item">
                 <div className="tp-contact-info-icon">
                   <span>
                     <img src="assets/img/contact/contact-icon-2.png" alt />
@@ -105,7 +114,7 @@ const ContactUs = () => {
                     </a>
                   </p>
                 </div>
-              </div>
+              </div> */}
               <div className="tp-contact-info-item">
                 <div className="tp-contact-info-icon">
                   <span>
