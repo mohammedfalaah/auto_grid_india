@@ -39,53 +39,57 @@ const ContactUs = () => {
             <div className="tp-contact-wrapper">
               <h3 className="tp-contact-title">Sent A Message</h3>
               <div className="tp-contact-form">
-                <form id="contact-form" action="https://html.storebuild.shop/shofy-prv/shofy/assets/mail.php" method="POST">
-                  <div className="tp-contact-input-wrapper">
-                    <div className="tp-contact-input-box">
-                      <div className="tp-contact-input">
-                        <input name="name" id="name" type="text" placeholder="Shahnewaz Sakil" />
-                      </div>
-                      <div className="tp-contact-input-title">
-                        <label htmlFor="name">Your Name</label>
-                      </div>
-                    </div>
-                    <div className="tp-contact-input-box">
-                      <div className="tp-contact-input">
-                        <input name="email" id="email" type="email" placeholder="shofy@mail.com" />
-                      </div>
-                      <div className="tp-contact-input-title">
-                        <label htmlFor="email">Your Email</label>
-                      </div>
-                    </div>
-                    <div className="tp-contact-input-box">
-                      <div className="tp-contact-input">
-                        <input name="subject" id="subject" type="text" placeholder="Write your subject" />
-                      </div>
-                      <div className="tp-contact-input-title">
-                        <label htmlFor="subject">Subject</label>
-                      </div>
-                    </div>
-                    <div className="tp-contact-input-box">
-                      <div className="tp-contact-input">
-                        <textarea id="message" name="message" placeholder="Write your message here..." defaultValue={""} />
-                      </div>
-                      <div className="tp-contact-input-title">
-                        <label htmlFor="message">Your Message</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="tp-contact-suggetions mb-20">
-                    <div className="tp-contact-remeber">
-                      <input id="remeber" type="checkbox" />
-                      <label htmlFor="remeber">Save my name, email, and website in this browser for the next time I comment.</label>
-                    </div>
-                  </div>
-                  <div className="tp-contact-btn">
-                    <button type="submit">Send Message</button>
-                  </div>
-                </form>
-                <p className="ajax-response" />
-              </div>
+  <form id="contact-form"  method="POST" onSubmit={(e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    alert('Your message has been submitted successfully!');
+  }}>
+    <div className="tp-contact-input-wrapper">
+      <div className="tp-contact-input-box">
+        <div className="tp-contact-input">
+          <input name="name" id="name" type="text" placeholder="name" required />
+        </div>
+        <div className="tp-contact-input-title">
+          <label htmlFor="name">Your Name</label>
+        </div>
+      </div>
+      <div className="tp-contact-input-box">
+        <div className="tp-contact-input">
+          <input name="email" id="email" type="email" placeholder="example@example.com" required />
+        </div>
+        <div className="tp-contact-input-title">
+          <label htmlFor="email">Your Email</label>
+        </div>
+      </div>
+      <div className="tp-contact-input-box">
+        <div className="tp-contact-input">
+          <input name="subject" id="subject" type="text" placeholder="Write your subject" required />
+        </div>
+        <div className="tp-contact-input-title">
+          <label htmlFor="subject">Subject</label>
+        </div>
+      </div>
+      <div className="tp-contact-input-box">
+        <div className="tp-contact-input">
+          <textarea id="message" name="message" placeholder="Write your message here..." required />
+        </div>
+        <div className="tp-contact-input-title">
+          <label htmlFor="message">Your Message</label>
+        </div>
+      </div>
+    </div>
+    <div className="tp-contact-suggetions mb-20">
+      <div className="tp-contact-remeber">
+        <input id="remeber" type="checkbox" />
+        <label htmlFor="remeber">Save my name, email, and website in this browser for the next time I comment.</label>
+      </div>
+    </div>
+    <div className="tp-contact-btn">
+      <button type="submit">Send Message</button>
+    </div>
+  </form>
+  <p className="ajax-response" />
+</div>
+
             </div>
           </div>
           <div className="col-xl-3 col-lg-4">
