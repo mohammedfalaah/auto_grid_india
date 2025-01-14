@@ -21907,3 +21907,11 @@ product all slider
   outline: none;
   border-color: black !important; /* Ensure button outline is black */
 }
+
+.carousel-control-prev-icon{
+  display: none;
+}
+
+.carousel-control-next-icon{
+  display: none;
+}
