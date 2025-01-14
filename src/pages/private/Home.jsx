@@ -117,6 +117,84 @@ const Home = () => {
   return (
     <>
     <div>
+    <div>
+  {/* offcanvas area start */}
+  <div className="offcanvas__area offcanvas__radius">
+    <div className="offcanvas__wrapper">
+      <div className="offcanvas__close">
+        <button className="offcanvas__close-btn offcanvas-close-btn">
+          <svg width={12} height={12} viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 1L1 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M1 1L11 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <div className="offcanvas__content">
+        <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
+          <div className="offcanvas__logo logo">
+            <a href="index.html">
+              <img src="assets/img/logo/logo.svg" alt="logo" />
+            </a>
+          </div>
+        </div>
+        <div className="offcanvas__category pb-40">
+          <button className="tp-offcanvas-category-toggle">
+            <i className="fa-solid fa-bars" />
+            All Categories
+          </button>
+          <div className="tp-category-mobile-menu">
+          </div>
+        </div>
+        <div className="tp-main-menu-mobile fix d-lg-none mb-40" />
+        <div className="offcanvas__contact align-items-center d-none">
+          <div className="offcanvas__contact-icon mr-20">
+            <span>
+              <img src="assets/img/icon/contact.png" alt />
+            </span>
+          </div>
+          <div className="offcanvas__contact-content">
+            <h3 className="offcanvas__contact-title">
+              <a href="tel:098-852-987">004524865</a>
+            </h3>
+          </div>
+        </div>
+        <div className="offcanvas__btn">
+          <a href="contact.html" className="tp-btn-2 tp-btn-border-2">Contact Us</a>
+        </div>
+      </div>
+      <div className="offcanvas__bottom">
+        <div className="offcanvas__footer d-flex align-items-center justify-content-between">
+          <div className="offcanvas__currency-wrapper currency">
+            <span className="offcanvas__currency-selected-currency tp-currency-toggle" id="tp-offcanvas-currency-toggle">Currency : USD</span>
+            <ul className="offcanvas__currency-list tp-currency-list">
+              <li>USD</li>
+              <li>ERU</li>
+              <li>BDT </li>
+              <li>INR</li>
+            </ul>
+          </div>
+          <div className="offcanvas__select language">
+            <div className="offcanvas__lang d-flex align-items-center justify-content-md-end">
+              <div className="offcanvas__lang-img mr-15">
+                <img src="assets/img/icon/language-flag.png" alt />
+              </div>
+              <div className="offcanvas__lang-wrapper">
+                <span className="offcanvas__lang-selected-lang tp-lang-toggle" id="tp-offcanvas-lang-toggle">English</span>
+                <ul className="offcanvas__lang-list tp-lang-list">
+                  <li>Spanish</li>
+                  <li>Portugese</li>
+                  <li>American</li>
+                  <li>Canada</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="body-overlay" />
+</div>
 
     
 <div className="back-to-top-wrapper">
@@ -347,35 +425,19 @@ const Home = () => {
       {/* First Slide */}
       <Carousel.Item interval={1000}>
         <img style={{ width: '100%' }} src="/assets/img/slider/AGI_banner_01.1.jpg" alt="Slide 1" />
-        {/* Uncomment if you want captions */}
-        {/* 
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption> 
-        */}
+       
       </Carousel.Item>
 
       {/* Second Slide */}
       <Carousel.Item interval={2000}>
         <img style={{ width: '100%' }} src="/assets/img/slider/AGI_banner_01.jpg" alt="Slide 2" />
-        {/* 
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption> 
-        */}
+       
       </Carousel.Item>
 
       {/* Third Slide */}
       <Carousel.Item interval={3000}>
         <img style={{ width: '100%' }} src="/assets/img/slider/AGI_banner_02.jpg" alt="Slide 3" />
-        {/* 
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-        </Carousel.Caption> 
-        */}
+       
       </Carousel.Item>
 
       {/* Fourth Slide */}
@@ -389,21 +451,11 @@ const Home = () => {
       </Carousel.Item>
       <Carousel.Item interval={6000}>
         <img style={{ width: '100%' }} src="/assets/img/slider/AGI_banner_05.jpg" alt="Slide 4" />
-        {/* 
-        <Carousel.Caption>
-          <h3>Fourth slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption> 
-        */}
+        
       </Carousel.Item>
       <Carousel.Item interval={7000}>
         <img style={{ width: '100%' }} src="/assets/img/slider/AGI_banner_06.jpg" alt="Slide 4" />
-        {/* 
-        <Carousel.Caption>
-          <h3>Fourth slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption> 
-        */}
+       
       </Carousel.Item>
 
       
@@ -412,10 +464,10 @@ const Home = () => {
 
   <section className="tp-product-category pt-60 pb-15">
     <div className="container">
-      <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-sm-6 row-cols-md-4">
+      <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-sm-6 row-cols-md-5">
         <div className="col">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item text-center mb-40">
-            <div className="tp-product-category-thumb fix">
+            <div className="tp-product-category-thumb fix ">
               <a href="shop-category.html">
                 <img style={{width:'200px'}} src="/assets/img/product/iPhone SE - 1 (1).jpg" alt="product-category" />
               </a>
@@ -983,7 +1035,8 @@ const Home = () => {
 
 <Helmet>
 <script type="module" src="/src/main.jsx"></script>
-  <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/assets/js/vendor/jquery.js"></script>
+  <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  <script src="/assets/js/vendor/jquery.js"></script>
   <script src="/assets/js/vendor/waypoints.js"></script>
   <script src="/assets/js/bootstrap-bundle.js"></script>
   <script src="/assets/js/meanmenu.js"></script>
