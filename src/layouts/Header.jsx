@@ -11,10 +11,10 @@ import LoginPage from "../pages/private/LoginPage";
 import ProfilePage from "../pages/private/ProfilePage";
 import { ContextData } from "../services/Context";
 import { Helmet } from "react-helmet";
-
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const menuRef = useRef(null); 
-
+  const navigate = useNavigate();
   const { length, categories,handleCategoryClick } = useContext(ContextData);
   const { wishlistLength } = useContext(ContextData);
   console.log(categories, "categoriescategoriescategoriescategories");
@@ -453,10 +453,15 @@ const Header = () => {
         {categoryItem.subcategories.map((subcategory, index) => (
           <li key={index} 
           style={{cursor:"pointer"}}
-          onClick={() =>
+          // onClick={() =>
             
-            handleCategoryClick(subcategory)
-          }>
+          //   handleCategoryClick(subcategory)
+          // }
+          onClick={() => {
+            handleCategoryClick(subcategory); // Call your custom logic
+            navigate(`/products`, { state: { subcategory } }); // Navigate
+          }}
+          >
             <a >{subcategory}</a>
         
           </li>
