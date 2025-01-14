@@ -64,7 +64,16 @@ const CartPage = () => {
   useEffect(() => {
     getCartlist();
   }, [])
-  
+  const [cartTotal, setCartTotal] = useState(0);
+
+  // Recalculate the total when product data changes
+  useEffect(() => {
+    const total = product.reduce((acc, currentProduct) => {
+      return acc + currentProduct.total; // Sum up the 'total' of each product
+    }, 0);
+    setCartTotal(total);
+  }, [product]); // Recalculate whenever 'product' changes
+
   return (
     <>
     
@@ -89,6 +98,7 @@ const CartPage = () => {
       <th colSpan={2} className="tp-cart-header-product">Product</th>
       <th className="tp-cart-header-price">Price</th>
       <th className="tp-cart-header-quantity">Quantity</th>
+      <th className="tp-cart-header-quantity">Total Price</th>
       <th />
     </tr>
   </thead>
@@ -168,6 +178,9 @@ const CartPage = () => {
               </span>
             </div>
           </td>
+          <td className="tp-cart-price">
+            <span>{product.total}</span>
+          </td>
           {/* action */}
           <td className="tp-cart-action">
             <button
@@ -217,7 +230,7 @@ const CartPage = () => {
           <div className="tp-cart-checkout-wrapper">
             <div className="tp-cart-checkout-top d-flex align-items-center justify-content-between">
               <span className="tp-cart-checkout-top-title">Subtotal</span>
-              <span className="tp-cart-checkout-top-price">$742</span>
+              <span className="tp-cart-checkout-top-price">{cartTotal}</span>
             </div>
             <div className="tp-cart-checkout-shipping">
               <h4 className="tp-cart-checkout-shipping-title">Shipping</h4>
@@ -238,7 +251,7 @@ const CartPage = () => {
             </div>
             <div className="tp-cart-checkout-total d-flex align-items-center justify-content-between">
               <span>Total</span>
-              <span>$724</span>
+              <span>{cartTotal}</span>
             </div>
             <div className="tp-cart-checkout-proceed">
               <a href="checkout.html" className="tp-cart-checkout-btn w-100">Proceed to Checkout</a>
