@@ -39,6 +39,7 @@ const CartPage = () => {
           const endpoint = `${updateQuantityApi}/${cartId}`;
           const response = await Axioscall("put",endpoint,{ quantity },"header");
           console.log("Quantity updated", response.data);
+          getCartlist()
           show_toast("Quantity Upadated successfully",true)
         } catch (err) {
           show_toast(err.response?.data?.message || err.message);
