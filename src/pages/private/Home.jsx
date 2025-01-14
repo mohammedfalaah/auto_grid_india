@@ -11,7 +11,7 @@ import { ProductsPath, ProfilePath, WishlistPath } from '../../utils/Constants';
 // import { ContextData } from '../services/Context' 
 const Home = () => {
     const navigate = useNavigate();
-    const { getCart } = useContext(ContextData);
+    // const { getCart,categories ,products } = useContext(ContextData);
     const { getFavouriteContext } = useContext(ContextData);
 
     const [products, setProducts] = useState([]);
