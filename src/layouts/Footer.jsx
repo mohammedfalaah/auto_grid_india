@@ -49,12 +49,12 @@ const Footer = () => {
       state: { subcategory },
     });
 
-    if (offcanvasRef.current) {
-      offcanvasRef.current.classList.remove('offcanvas-opened');
-      console.log('Classes removed');
-    } else {
-      console.log('Offcanvas element not found');
-    }
+    // if (offcanvasRef.current) {
+    //   offcanvasRef.current.classList.remove('offcanvas-opened');
+    //   console.log('Classes removed');
+    // } else {
+    //   console.log('Offcanvas element not found');
+    // }
   };
 
   return (
