@@ -348,34 +348,7 @@ const ProductPage = () => {
     </div>
 
                     {/* categories */}
-                    <div className="tp-shop-widget hide-on-small-devices mb-50">
-                      <h3 className="tp-shop-widget-title">Categories</h3>
-                      <div className="tp-shop-widget-content">
-                        <div className="tp-shop-widget-categories">
-                          <ul>
-                            {categories.map((categoryItem) => (
-                              <li key={categoryItem._id}>
-                                <strong>{categoryItem.category}</strong>
-                                <ul>
-                                  {categoryItem.subcategories.map(
-                                    (subcategory, index) => (
-                                      <li
-                                        key={index}
-                                        onClick={() =>
-                                          handleCategoryClick(subcategory)
-                                        }
-                                      >
-                                        <a>{subcategory}</a>
-                                      </li>
-                                    )
-                                  )}
-                                </ul>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                  
 
                     {/* color */}
 
