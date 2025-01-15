@@ -74,45 +74,7 @@ const Header = () => {
                 </button>
               </div>
             
-              <div className="offcanvas__bottom">
-                <div className="offcanvas__footer d-flex align-items-center justify-content-between">
-                  <div className="offcanvas__currency-wrapper currency">
-                    <span
-                      className="offcanvas__currency-selected-currency tp-currency-toggle"
-                      id="tp-offcanvas-currency-toggle"
-                    >
-                      Currency : USD
-                    </span>
-                    <ul className="offcanvas__currency-list tp-currency-list">
-                      <li>USD</li>
-                      <li>ERU</li>
-                      <li>BDT </li>
-                      <li>INR</li>
-                    </ul>
-                  </div>
-                  <div className="offcanvas__select language">
-                    <div className="offcanvas__lang d-flex align-items-center justify-content-md-end">
-                      <div className="offcanvas__lang-img mr-15">
-                        <img src="assets/img/icon/language-flag.png" alt />
-                      </div>
-                      <div className="offcanvas__lang-wrapper">
-                        <span
-                          className="offcanvas__lang-selected-lang tp-lang-toggle"
-                          id="tp-offcanvas-lang-toggle"
-                        >
-                          English
-                        </span>
-                        <ul className="offcanvas__lang-list tp-lang-list">
-                          <li>Spanish</li>
-                          <li>Portugese</li>
-                          <li>American</li>
-                          <li>Canada</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            
             </div>
           </div>
           <div className="body-overlay" />
