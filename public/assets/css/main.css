@@ -21976,7 +21976,6 @@ product all slider
   position: absolute;
   top: 100%; /* Position submenu below the parent item */
   left: 0;
-  background-color: #fff; /* Set background for submenu */
   list-style: none;
   padding: 10px;
   margin: 0;
