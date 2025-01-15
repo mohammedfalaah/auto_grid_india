@@ -73,40 +73,7 @@ const Header = () => {
                   </svg>
                 </button>
               </div>
-              {/* <div className="offcanvas__content">
-                <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
-                  <div className="offcanvas__logo logo">
-                    <a href="index.html">
-                      <img src="assets/img/logo/logo.svg" alt="logo" />
-                    </a>
-                  </div>
-                </div>
-                <div className="offcanvas__category pb-40">
-                  <button className="tp-offcanvas-category-toggle">
-                    <i className="fa-solid fa-bars" />
-                    All Categories
-                  </button>
-                  <div className="tp-category-mobile-menu"></div>
-                </div>
-                <div className="tp-main-menu-mobile fix d-lg-none mb-40" />
-                <div className="offcanvas__contact align-items-center d-none">
-                  <div className="offcanvas__contact-icon mr-20">
-                    <span>
-                      <img src="assets/img/icon/contact.png" alt />
-                    </span>
-                  </div>
-                  <div className="offcanvas__contact-content">
-                    <h3 className="offcanvas__contact-title">
-                      <a href="tel:098-852-987">004524865</a>
-                    </h3>
-                  </div>
-                </div>
-                <div className="offcanvas__btn">
-                  <a href="contact.html" className="tp-btn-2 tp-btn-border-2">
-                    Contact Us
-                  </a>
-                </div>
-              </div> */}
+            
               <div className="offcanvas__bottom">
                 <div className="offcanvas__footer d-flex align-items-center justify-content-between">
                   <div className="offcanvas__currency-wrapper currency">
