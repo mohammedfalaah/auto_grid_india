@@ -11,7 +11,7 @@ import { ProductsPath, ProfilePath, WishlistPath } from '../../utils/Constants';
 // import { ContextData } from '../services/Context' 
 const Home = () => {
     const navigate = useNavigate();
-    const { getCart } = useContext(ContextData);
+    // const { getCart,categories ,products } = useContext(ContextData);
     const { getFavouriteContext } = useContext(ContextData);
 
     const [products, setProducts] = useState([]);
@@ -129,7 +129,7 @@ const Home = () => {
           </svg>
         </button>
       </div>
-      <div className="offcanvas__content">
+      {/* <div className="offcanvas__content">
         <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
           <div className="offcanvas__logo logo">
             <a href="index.html">
@@ -161,7 +161,7 @@ const Home = () => {
         <div className="offcanvas__btn">
           <a href="contact.html" className="tp-btn-2 tp-btn-border-2">Contact Us</a>
         </div>
-      </div>
+      </div> */}
       <div className="offcanvas__bottom">
         <div className="offcanvas__footer d-flex align-items-center justify-content-between">
           <div className="offcanvas__currency-wrapper currency">
@@ -465,7 +465,7 @@ const Home = () => {
   <section className="tp-product-category pt-60 pb-15">
     <div className="container">
       <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-sm-6 row-cols-md-5">
-        <div className="col">
+      <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item text-center mb-40">
             <div className="tp-product-category-thumb fix ">
               <a href="shop-category.html">
@@ -480,7 +480,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
           <div style={{height:'250px'}}  className="tp-product-category-item tp-product-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
@@ -495,7 +495,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
@@ -510,7 +510,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
@@ -525,7 +525,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item  text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
@@ -540,7 +540,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col">
+        <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
@@ -555,7 +555,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col">
+       <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
           <div style={{height:'250px'}} className="tp-product-category-item tp-product-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
               <a href="shop-category.html">
@@ -612,7 +612,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+        {/* <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6"> */}
+        <div className="col-xl-3 col-lg-6 col-md-6 col-sm-6 col-6">
           <div className="tp-feature-item d-flex align-items-start">
             <div className="tp-feature-icon mr-15">
               <span>

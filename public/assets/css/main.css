@@ -7920,6 +7920,7 @@ body .ui-tooltip {
   font-size: 14px;
   color: var(--tp-common-white);
   background-color: var(--tp-theme-primary);
+  /* background-color: var(--tp-theme-primary); */
   width: 100%;
   padding: 12px 30px;
   text-align: left;

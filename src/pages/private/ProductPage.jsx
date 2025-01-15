@@ -14,16 +14,16 @@ import { ContextData } from "../../services/Context";
 
 const ProductPage = () => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [categories, setCategories] = useState([]);
-  const { getFavouriteContext } = useContext(ContextData);
+  // const [totalProducts, setTotalProducts] = useState(0);
+  // const [categories, setCategories] = useState([]);
+  const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading } = useContext(ContextData);
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
   console.log(categories, "categoriescategoriescategories");
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  // const [selectedCategory, setSelectedCategory] = useState(null);
   const [pagination, setPagination] = useState({
     isNext: false,
     isPrev: false,
@@ -32,25 +32,25 @@ const ProductPage = () => {
     page: 1,
     limit: 15,
   });
-  const [loading, setLoading] = useState(false);
+  
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
-  const getCategory = async () => {
-    try {
-      const response = await Axioscall("get", getCategoryApi, "", "header");
-      console.log("==========getCategoryApigetCategoryApi=", response);
+  // const getCategory = async () => {
+  //   try {
+  //     const response = await Axioscall("get", getCategoryApi, "", "header");
+  //     console.log("==========getCategoryApigetCategoryApi=", response);
 
-      if (response?.data) {
-        setCategories(response.data);
-      } else {
-        show_toast("Failed to fetch categories!", false);
-      }
-    } catch (error) {
-      console.error(error);
-      show_toast("Error fetching categories!", false);
-    }
-  };
+  //     if (response?.data) {
+  //       setCategories(response.data);
+  //     } else {
+  //       show_toast("Failed to fetch categories!", false);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     show_toast("Error fetching categories!", false);
+  //   }
+  // };
 
   const handleAddToWishlist = async (productId) => {
     try {
@@ -135,35 +135,35 @@ const ProductPage = () => {
     }
   };
 
-  const fetchProducts = async () => {
-    setLoading(true);
-    try {
-      // Construct the query string
-      const subcategoryQuery = selectedCategory
-        ? `&subcategory=${selectedCategory}`
-        : "";
+  // const fetchProducts = async () => {
+  //   setLoading(true);
+  //   try {
+  //     // Construct the query string
+  //     const subcategoryQuery = selectedCategory
+  //       ? `&subcategory=${selectedCategory}`
+  //       : "";
 
-      const response = await Axioscall(
-        "get",
-        `${productApi}?page=${pages.page}&limit=${pages.limit}${subcategoryQuery}`,
-        "",
-        "header"
-      );
-      setLoading(false);
-      console.log("PRODUCTS", response);
+  //     const response = await Axioscall(
+  //       "get",
+  //       `${productApi}?page=${pages.page}&limit=${pages.limit}${subcategoryQuery}`,
+  //       "",
+  //       "header"
+  //     );
+  //     setLoading(false);
+  //     console.log("PRODUCTS", response);
 
-      setProducts(response.data.products);
-      setTotalProducts(response.data.pagination.totalProducts);
+  //     setProducts(response.data.products);
+  //     setTotalProducts(response.data.pagination.totalProducts);
 
-      const { hasNextPage, hasPreviousPage } = response.data.pagination;
-      setPagination({
-        isNext: hasNextPage,
-        isPrev: hasPreviousPage,
-      });
-    } catch (err) {
-      show_toast(err.response?.data?.message || err.message);
-    }
-  };
+  //     const { hasNextPage, hasPreviousPage } = response.data.pagination;
+  //     setPagination({
+  //       isNext: hasNextPage,
+  //       isPrev: hasPreviousPage,
+  //     });
+  //   } catch (err) {
+  //     show_toast(err.response?.data?.message || err.message);
+  //   }
+  // };
 
   // const fetchProducts = async () => {
   //   try {
@@ -188,21 +188,21 @@ const ProductPage = () => {
   //   }
   // };
 
-  useEffect(() => {
-    fetchProducts();
-    getCategory();
-  }, [pages]);
+  // useEffect(() => {
+  //   fetchProducts();
+  //   getCategory();
+  // }, [pages]);
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId); // Set the selected category
-    setPages({ ...pages, page: 1 }); // Reset to the first page
-    fetchProducts(); // Fetch products with the selected category
-  };
+  // const handleCategoryClick = (categoryId) => {
+  //   setSelectedCategory(categoryId); // Set the selected category
+  //   setPages({ ...pages, page: 1 }); // Reset to the first page
+  //   fetchProducts(); // Fetch products with the selected category
+  // };
 
-  // Fetch products on page or category change
-  useEffect(() => {
-    fetchProducts();
-  }, [pages.page, pages.limit]);
+  // // Fetch products on page or category change
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, [pages.page, pages.limit]);
 
   return (
     <>
@@ -239,7 +239,7 @@ const ProductPage = () => {
                                 <li
                                   key={index}
                                   onClick={() =>
-                                    handleCategoryClick(subcategory._id)
+                                    handleCategoryClick(subcategory)
                                   }
                                 >
                                   <a href="#">{subcategory}</a>
