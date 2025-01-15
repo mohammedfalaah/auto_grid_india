@@ -686,42 +686,35 @@ const Footer = () => {
       </div>
       <div style={{backgroundColor:'black'}} id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">
         <div className="container">
-          <div className="row row-cols-5">
+          <div className="row row-cols-4">
             <div className="col">
-              <div style={{color:'white'}} className="tp-mobile-item text-center">
-                <Link to={ProductsPath} className="tp-mobile-item-btn">
+              <div  className="tp-mobile-item text-center">
+                <Link to={ProductsPath} style={{color:'white'}} className="tp-mobile-item-btn">
                   <i className="flaticon-store" />
                   <span>Store</span>
                 </Link>
               </div>
             </div>
+           
             <div className="col">
-              <div style={{color:'white'}} className="tp-mobile-item text-center">
-                <button className="tp-mobile-item-btn tp-search-open-btn">
-                  <i className="flaticon-search-1" />
-                  <span>Search</span>
-                </button>
-              </div>
-            </div>
-            <div className="col">
-              <div style={{color:'white'}} className="tp-mobile-item text-center">
-                <Link to={WishlistPath} className="tp-mobile-item-btn">
+              <div className="tp-mobile-item text-center">
+                <Link to={WishlistPath} style={{color:'white'}} className="tp-mobile-item-btn">
                   <i className="flaticon-love" />
                   <span>Wishlist</span>
                 </Link>
               </div>
             </div>
             <div className="col">
-              <div style={{color:'white'}} className="tp-mobile-item text-center">
-                <Link to={ProfilePath} className="tp-mobile-item-btn">
+              <div  className="tp-mobile-item text-center">
+                <Link to={ProfilePath} style={{color:'white'}} className="tp-mobile-item-btn">
                   <i className="flaticon-user" />
                   <span>Account</span>
                 </Link>
               </div>
             </div>
             <div className="col">
-              <div style={{color:'white'}} className="tp-mobile-item text-center">
-                <button className="tp-mobile-item-btn tp-offcanvas-open-btn">
+              <div  className="tp-mobile-item text-center">
+                <button style={{color:'white'}} className="tp-mobile-item-btn tp-offcanvas-open-btn">
                   <i className="flaticon-menu-1" />
                   <span>Menu</span>
                 </button>

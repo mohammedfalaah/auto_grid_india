@@ -21916,3 +21916,94 @@ product all slider
 .carousel-control-next-icon{
   display: none;
 }
+
+@media (max-width: 768px) {
+  .hide-on-small-devices {
+    display: none;
+  }
+}
+
+/* Hide categories by default on small screens */
+@media (max-width: 768px) {
+  .tp-shop-widget {
+    display: none;
+  }
+
+  .tp-shop-widget.show {
+    display: block;
+  }
+
+  .filter-button {
+    display: block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+}
+
+/* Ensure button is hidden on larger screens */
+@media (min-width: 769px) {
+  .filter-button {
+    display: none;
+  }
+}
+
+/* chhhttt */
+.tp-main-menu-content ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tp-main-menu-content ul > li {
+  margin-right: 20px; /* Adjust the spacing between items as needed */
+  position: relative;
+}
+
+.tp-main-menu-content ul > li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.tp-submenu {
+  display: none; /* Hide submenu by default */
+  position: absolute;
+  top: 100%; /* Position submenu below the parent item */
+  left: 0;
+  background-color: #fff; /* Set background for submenu */
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.tp-main-menu-content ul > li:hover .tp-submenu {
+  display: block; /* Show submenu on hover */
+}
+
+.tp-submenu li {
+  margin: 0;
+  padding: 5px 0;
+  white-space: nowrap; /* Prevent submenu items from wrapping */
+}
+
+.tp-submenu li a {
+  color: black;
+  text-decoration: none;
+}
+
+.tp-submenu li a:hover {
+  text-decoration: underline; /* Add hover effect for submenu items */
+}
+
+
+
+
+

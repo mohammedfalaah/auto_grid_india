@@ -5,6 +5,11 @@ import { show_toast } from '../utils/Toast'
 import { ContextData } from '../services/Context' 
 
 const CartPage = () => {
+  useEffect(() => {
+      window.scrollTo(0,0)
+   
+    
+    }, [])
   const [product, setProduct] = useState([])
 
   const { getCart } = useContext(ContextData);
