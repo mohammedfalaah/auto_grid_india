@@ -2,6 +2,7 @@ import React, { useState, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   AboutUsPath,
+  BasePath,
   CartPath,
   ContactPath,
   PrivacyPolicyPath,
@@ -14,6 +15,7 @@ import {
 } from "../utils/Constants";
 import { ContextData } from "../services/Context";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ const Footer = () => {
     <>
       <div>
         {/* offcanvas area start */}
-        <div className="offcanvas__area offcanvas__radius" ref={offcanvasRef}>
+        <div className="offcanvas__area offcanvas__radius bg-black" ref={offcanvasRef}>
           <div className="offcanvas__wrapper">
             <div className="offcanvas__close">
               <button className="offcanvas__close-btn offcanvas-close-btn">
@@ -89,22 +91,19 @@ const Footer = () => {
                 </svg>
               </button>
             </div>
-            <div className="offcanvas__content">
+            <div className="offcanvas__content ">
               <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
                 <div className="offcanvas__logo logo">
-                  <a href="index.html">
-                    <img src="assets/img/logo/logo.svg" alt="logo" />
-                  </a>
+                <Link to={BasePath}>
+                                      <img
+                                        style={{ width: "100px", height: "25px" }}
+                                        src="/assets/img/logo/AGI copy.png "
+                                        alt="logo"
+                                      />
+                                    </Link>
                 </div>
               </div>
-              {/* <div className="offcanvas__category pb-40">
-          <button className="tp-offcanvas-category-toggle">
-            <i className="fa-solid fa-bars" />
-            All Categories
-          </button>
-          <div className="tp-category-mobile-menu">
-          </div>
-        </div> */}
+              
 
               <div className="offcanvas__category pb-40">
                 <button
@@ -602,7 +601,7 @@ const Footer = () => {
                         <li key={categoryItem._id} className="has-dropdown">
                           <a>
                             <span></span>
-                            <strong>{categoryItem.category}</strong>
+                            <strong style={{color:'white'}}>{categoryItem.category}</strong>
                             <button
                               className={`dropdown-toggle-btn ${
                                 isMenuVisibleSub ? "dropdown-opened" : ""
@@ -622,7 +621,7 @@ const Footer = () => {
                               (subcategory, index) => (
                                 <li
                                   key={index}
-                                  style={{ cursor: "pointer" }}
+                                  style={{ cursor: "pointer", color:'white' }}
                                   // onClick={() =>
 
                                   //   handleCategoryClick(subcategory)
@@ -635,7 +634,7 @@ const Footer = () => {
                                   // }}
                                   onClick={() => handleclick(subcategory)}
                                 >
-                                  <a>{subcategory}</a>
+                                  <a style={{color:'white'}}>{subcategory}</a>
                                 </li>
                               )
                             )}
@@ -669,38 +668,14 @@ const Footer = () => {
             <div className="offcanvas__bottom">
               <div className="offcanvas__footer d-flex align-items-center justify-content-between">
                 <div className="offcanvas__currency-wrapper currency">
-                  <span
-                    className="offcanvas__currency-selected-currency tp-currency-toggle"
-                    id="tp-offcanvas-currency-toggle"
-                  >
-                    Currency : USD
-                  </span>
-                  <ul className="offcanvas__currency-list tp-currency-list">
-                    <li>USD</li>
-                    <li>ERU</li>
-                    <li>BDT </li>
-                    <li>INR</li>
-                  </ul>
+                  
+                  
                 </div>
                 <div className="offcanvas__select language">
                   <div className="offcanvas__lang d-flex align-items-center justify-content-md-end">
                     <div className="offcanvas__lang-img mr-15">
-                      <img src="assets/img/icon/language-flag.png" alt />
                     </div>
-                    <div className="offcanvas__lang-wrapper">
-                      <span
-                        className="offcanvas__lang-selected-lang tp-lang-toggle"
-                        id="tp-offcanvas-lang-toggle"
-                      >
-                        English
-                      </span>
-                      <ul className="offcanvas__lang-list tp-lang-list">
-                        <li>Spanish</li>
-                        <li>Portugese</li>
-                        <li>American</li>
-                        <li>Canada</li>
-                      </ul>
-                    </div>
+                   
                   </div>
                 </div>
               </div>
@@ -709,11 +684,11 @@ const Footer = () => {
         </div>
         <div className="body-overlay" />
       </div>
-      <div id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">
+      <div style={{backgroundColor:'black'}} id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">
         <div className="container">
           <div className="row row-cols-5">
             <div className="col">
-              <div className="tp-mobile-item text-center">
+              <div style={{color:'white'}} className="tp-mobile-item text-center">
                 <Link to={ProductsPath} className="tp-mobile-item-btn">
                   <i className="flaticon-store" />
                   <span>Store</span>
@@ -721,7 +696,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col">
-              <div className="tp-mobile-item text-center">
+              <div style={{color:'white'}} className="tp-mobile-item text-center">
                 <button className="tp-mobile-item-btn tp-search-open-btn">
                   <i className="flaticon-search-1" />
                   <span>Search</span>
@@ -729,7 +704,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col">
-              <div className="tp-mobile-item text-center">
+              <div style={{color:'white'}} className="tp-mobile-item text-center">
                 <Link to={WishlistPath} className="tp-mobile-item-btn">
                   <i className="flaticon-love" />
                   <span>Wishlist</span>
@@ -737,7 +712,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col">
-              <div className="tp-mobile-item text-center">
+              <div style={{color:'white'}} className="tp-mobile-item text-center">
                 <Link to={ProfilePath} className="tp-mobile-item-btn">
                   <i className="flaticon-user" />
                   <span>Account</span>
@@ -745,7 +720,7 @@ const Footer = () => {
               </div>
             </div>
             <div className="col">
-              <div className="tp-mobile-item text-center">
+              <div style={{color:'white'}} className="tp-mobile-item text-center">
                 <button className="tp-mobile-item-btn tp-offcanvas-open-btn">
                   <i className="flaticon-menu-1" />
                   <span>Menu</span>
@@ -983,6 +958,35 @@ const Footer = () => {
         </div>
       </footer>
       {/* footer area end */}
+      <Helmet>
+    <script type="module" src="/src/main.jsx"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js" crossorigin></script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
+  crossorigin></script>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
+  crossorigin></script>
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/assets/js/vendor/jquery.js"></script>
+    <script src="/assets/js/vendor/waypoints.js"></script>
+    <script src="/assets/js/bootstrap-bundle.js"></script>
+    <script src="/assets/js/meanmenu.js"></script>
+    <script src="/assets/js/swiper-bundle.js"></script>
+    <script src="/assets/js/slick.js"></script>
+    <script src="/assets/js/range-slider.js"></script>
+    <script src="/assets/js/magnific-popup.js"></script>
+    <script src="/assets/js/nice-select.js"></script>
+    <script src="/assets/js/purecounter.js"></script>
+    <script src="/assets/js/countdown.js"></script>
+    <script src="/assets/js/wow.js"></script>
+    <script src="/assets/js/isotope-pkgd.js"></script>
+    <script src="/assets/js/imagesloaded-pkgd.js"></script>
+    <script src="/assets/js/ajax-form.js"></script>
+    <script src="/assets/js/main.js"></script>
+    
+    </Helmet>
     </>
   );
 };
