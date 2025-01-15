@@ -161,7 +161,7 @@ const Header = () => {
                   <div className="logo">
                     <Link to={BasePath}>
                       <img
-                        style={{ width: "100px", height: "25px" }}
+                        style={{ width: "100px", height: "25px"}}
                         src="/assets/img/logo/AGI copy.png "
                         alt="logo"
                       />
@@ -359,6 +359,7 @@ const Header = () => {
                         <button
                           type="button"
                           className="tp-header-action-btn tp-offcanvas-open-btn"
+                          style={{color:'white'}}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
