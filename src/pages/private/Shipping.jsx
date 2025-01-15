@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom'
 import { BasePath } from '../../utils/Constants'
 
 const Shipping = () => {
+  useEffect(() => {
+      window.scrollTo(0,0)
+   
+    
+    }, [])
   return (
     <>
       <main>

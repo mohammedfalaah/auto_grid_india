@@ -7,6 +7,11 @@ import { CartPath } from '../../utils/Constants'
 import { ContextData } from '../../services/Context'
 
 const Wishlist = () => {
+  useEffect(() => {
+      window.scrollTo(0,0)
+   
+    
+    }, [])
   const userId = localStorage.getItem("userId")
   console.log(userId,"userIduserId");
   

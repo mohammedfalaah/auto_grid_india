@@ -171,25 +171,41 @@ const Header = () => {
                 <div className="col-xl-6 col-lg-7 d-none d-lg-block">
                   <div className="tp-header-search pl-70">
                     <div className="main-menu menu-style-1">
-                      <nav className="tp-main-menu-content">
+                      <nav className="tp-main-menu-content tp-category-menu-content">
                         <ul>
-                          <li className="has-mega-menu">
+                        <li  className="has-mega-menu">
                             <Link style={{ color: "white" }} to={BasePath}>
-                              Home
+                            <strong>HOME</strong>  
                             </Link>
                           </li>
 
-                          <li className="has-mega-menu">
-                            <Link style={{ color: "white" }} to={"/products"}>
-                              Products
-                            </Link>
-                          </li>
+                          {categories?.map((categoryItem) => (
+                              <li  className="has-dropdown">
+                              <a style={{ color: "white" }} >
+                              <strong>{categoryItem.category}</strong> 
+                              </a>
+                              <ul className="tp-submenu" >
+                                {categoryItem.subcategories.map((subcategory, index)=>(
+                                   <li key={index} 
+                                   style={{cursor:"pointer"}}
+                                   
+                                   onClick={() => {
+                                     handleCategoryClick(subcategory); // Call your custom logic
+                                     navigate(`/products`, { state: { subcategory } }); // Navigate
+                                   }}
+                                   >
+                                     <a >{subcategory}</a>
+                                 
+                                   </li>
 
-                          <li>
-                            <Link style={{ color: "white" }} to={ContactPath}>
-                              Contact
-                            </Link>
-                          </li>
+                                ))}
+
+                              </ul>
+                            </li>
+                          ))}
+                         
+
+            
                         </ul>
                       </nav>
                     </div>
@@ -430,16 +446,7 @@ const Header = () => {
                         All Category
                       </button>
                       <nav className="tp-category-menu-content">
-                        {/* <ul style={{ display: isMenuVisible ? "block" : "none" }}>
-                <li>
-                  <a href="shop.html">
-                    <span>
-                    
-                    </span>
-                    New Arrivals</a>
-                </li>
-             
-              </ul> */}
+                      
                     <ul style={{ display: isMenuVisible ? "block" : "none" }}
                         ref={menuRef}>
   {categories?.map((categoryItem) => (
@@ -454,10 +461,7 @@ const Header = () => {
         {categoryItem.subcategories.map((subcategory, index) => (
           <li key={index} 
           style={{cursor:"pointer"}}
-          // onClick={() =>
-            
-          //   handleCategoryClick(subcategory)
-          // }
+          
           onClick={() => {
             handleCategoryClick(subcategory); // Call your custom logic
             navigate(`/products`, { state: { subcategory } }); // Navigate
