@@ -609,7 +609,7 @@ const Home = () => {
             </div>
             <div className="tp-feature-content">
               <h3 className="tp-feature-title">NO 1 NUMBER PLATES </h3>
-              <p>Onevery order over $140.00</p>
+              <p>Custom number plates</p>
             </div>
           </div>
         </div>
