@@ -14248,8 +14248,8 @@ div.tp-author-info-avater img {
   display: inline-block;
   width: 180px;
   height: 180px;
-  /* background-color: var(--tp-grey-1);  */
-  /* background-image: radial-gradient(95.56% 95.56% at 50% 50%, #FFFFFF 0%, #BDDEFF 100%);  */
+  background-color: var(--tp-grey-1);
+  background-image: radial-gradient(95.56% 95.56% at 50% 50%, #FFFFFF 0%, #BDDEFF 100%);
   border-radius: 50%;
   text-align: center;
   display: flex;
@@ -18502,7 +18502,6 @@ product all slider
   cursor: pointer;
 }
 .tp-shop-widget-categories {
-  height: 288px;
   overflow-y: scroll;
   overflow-y: scroll;
   overscroll-behavior-y: contain;
