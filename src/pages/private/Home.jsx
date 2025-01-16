@@ -45,11 +45,7 @@ const Home = () => {
 
       const handleAddToWishlist = async (productId) => {
         try {
-          if (!userId) {
-            show_toast("You are not logged in. Please log in Then add items to Wishlist.", false);
-            setTimeout(() => navigate("/login"), 2000);
-            return;
-          }
+         
          
           const body = { productId: productId };
           const response = await Axioscall("post", addToWishlistApi, body, "header");
@@ -67,11 +63,7 @@ const Home = () => {
       
       const handleAddToCart = async (productId, quantity = 1) => {
         try {
-          if (!userId) {
-            show_toast("You are not logged in. Please log in Then add items to the cart.", false);
-            setTimeout(() => navigate("/login"), 2000);
-            return;
-          }
+        
         
           const body = {
             userId: userId,
