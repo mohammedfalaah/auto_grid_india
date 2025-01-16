@@ -14,18 +14,13 @@ import { ContextData } from "../../services/Context";
 
 const ProductPage = () => {
  
-    const [showCategories, setShowCategories] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
-  // const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  // const [totalProducts, setTotalProducts] = useState(0);
-  // const [categories, setCategories] = useState([]);
   const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading } = useContext(ContextData);
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
-  console.log(categories, "categoriescategoriescategories");
-  // const [selectedCategory, setSelectedCategory] = useState(null);
   const [pagination, setPagination] = useState({
     isNext: false,
     isPrev: false,
@@ -38,44 +33,10 @@ const ProductPage = () => {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
-  // const getCategory = async () => {
-  //   try {
-  //     const response = await Axioscall("get", getCategoryApi, "", "header");
-  //     console.log("==========getCategoryApigetCategoryApi=", response);
-
-  //     if (response?.data) {
-  //       setCategories(response.data);
-  //     } else {
-  //       show_toast("Failed to fetch categories!", false);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //     show_toast("Error fetching categories!", false);
-  //   }
-  // };
+  
 
   const handleAddToWishlist = async (productId) => {
     try {
-      if (!userId) {
-        show_toast(
-          "You are not logged in. Please log in Then add items to the cart.",
-          false
-        );
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
-        return;
-      }
-      if (!token) {
-        show_toast(
-          "Authentication token not found. Please log in again.",
-          false
-        );
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
-        return;
-      }
       let body = { productId: productId };
       const response = await Axioscall(
         "post",
@@ -96,27 +57,9 @@ const ProductPage = () => {
 
   const handleAddToCart = async (productId, quantity = 1) => {
     try {
-      if (!userId) {
-        show_toast(
-          "You are not logged in. Please log in Then add items to the cart.",
-          false
-        );
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
-        return;
-      }
+      
 
-      if (!token) {
-        show_toast(
-          "Authentication token not found. Please log in again.",
-          false
-        );
-        setTimeout(() => {
-          navigate("/login");
-        }, 2000);
-        return;
-      }
+      
       let body = {
         userId: userId,
         productId: productId,
@@ -124,7 +67,6 @@ const ProductPage = () => {
       };
 
       const response = await Axioscall("post", addToCartApi, body, "header");
-      console.log("==============", response);
 
       if (response?.status === 200) {
         show_toast("Product added to cart successfully", true);
@@ -137,74 +79,8 @@ const ProductPage = () => {
     }
   };
 
-  // const fetchProducts = async () => {
-  //   setLoading(true);
-  //   try {
-  //     // Construct the query string
-  //     const subcategoryQuery = selectedCategory
-  //       ? `&subcategory=${selectedCategory}`
-  //       : "";
 
-  //     const response = await Axioscall(
-  //       "get",
-  //       `${productApi}?page=${pages.page}&limit=${pages.limit}${subcategoryQuery}`,
-  //       "",
-  //       "header"
-  //     );
-  //     setLoading(false);
-  //     console.log("PRODUCTS", response);
 
-  //     setProducts(response.data.products);
-  //     setTotalProducts(response.data.pagination.totalProducts);
-
-  //     const { hasNextPage, hasPreviousPage } = response.data.pagination;
-  //     setPagination({
-  //       isNext: hasNextPage,
-  //       isPrev: hasPreviousPage,
-  //     });
-  //   } catch (err) {
-  //     show_toast(err.response?.data?.message || err.message);
-  //   }
-  // };
-
-  // const fetchProducts = async () => {
-  //   try {
-  //     const response = await Axioscall(
-  //       "get",
-  //       `${productApi}?page=${pages.page}&limit=${pages.limit}`,
-  //       "",
-  //       "header"
-  //     );
-  //     console.log("PRODUCTS",response);
-
-  //     setProducts(response.data.products);
-  //     setTotalProducts(response.data.pagination.totalProducts);
-
-  //     const { hasNextPage, hasPreviousPage } = response.data.pagination;
-  //     setPagination({
-  //       isNext: hasNextPage,
-  //       isPrev: hasPreviousPage,
-  //     });
-  //   } catch (err) {
-  //     show_toast(err.response?.data?.message || err.message);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchProducts();
-  //   getCategory();
-  // }, [pages]);
-
-  // const handleCategoryClick = (categoryId) => {
-  //   setSelectedCategory(categoryId); // Set the selected category
-  //   setPages({ ...pages, page: 1 }); // Reset to the first page
-  //   fetchProducts(); // Fetch products with the selected category
-  // };
-
-  // // Fetch products on page or category change
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, [pages.page, pages.limit]);
 
   return (
     <>
