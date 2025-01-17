@@ -102,11 +102,11 @@ const Header = () => {
                     <div className="main-menu menu-style-1">
                       <nav className="tp-main-menu-content tp-category-menu-content">
                         <ul>
-                        <li  className="has-mega-menu">
+                        {/* <li  className="has-mega-menu">
                             <Link style={{ color: "white" }} to={BasePath}>
                             <strong>HOME</strong>  
                             </Link>
-                          </li>
+                          </li> */}
 
                           {categories?.map((categoryItem) => (
                               <li  className="has-dropdown">
