@@ -85,7 +85,7 @@ const Header = () => {
           {/* header main start */}
           <div className="tp-header-main tp-header-sticky bg-black">
             <div className="container">
-              <div className="row align-items-center">
+              <div className="row align-items-center justify-content-between justify-content-md-between">
                 <div className="col-xl-2 col-lg-2 col-md-4 col-6">
                   <div className="logo">
                     <Link to={BasePath}>
@@ -102,11 +102,11 @@ const Header = () => {
                     <div className="main-menu menu-style-1">
                       <nav className="tp-main-menu-content tp-category-menu-content">
                         <ul>
-                        <li  className="has-mega-menu">
+                        {/* <li  className="has-mega-menu">
                             <Link style={{ color: "white" }} to={BasePath}>
                             <strong>HOME</strong>  
                             </Link>
-                          </li>
+                          </li> */}
 
                           {categories?.map((categoryItem) => (
                               <li  className="has-dropdown">
@@ -140,8 +140,93 @@ const Header = () => {
                     </div>
                   </div>
                 </div>
+                <div className="tp-header-action-item">
+                        <Link
+                          to={CartPath}
+                          type="button"
+                          className="tp-header-action-btn cartmini-open-btn"
+                        >
+                          <svg
+                            style={{ color: "white" }}
+                            width={21}
+                            height={22}
+                            viewBox="0 0 21 22"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M6.48626 20.5H14.8341C17.9004 20.5 20.2528 19.3924 19.5847 14.9348L18.8066 8.89359C18.3947 6.66934 16.976 5.81808 15.7311 5.81808H5.55262C4.28946 5.81808 2.95308 6.73341 2.4771 8.89359L1.69907 14.9348C1.13157 18.889 3.4199 20.5 6.48626 20.5Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M6.34902 5.5984C6.34902 3.21232 8.28331 1.27803 10.6694 1.27803V1.27803C11.8184 1.27316 12.922 1.72619 13.7362 2.53695C14.5504 3.3477 15.0081 4.44939 15.0081 5.5984V5.5984"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M7.70365 10.1018H7.74942"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M13.5343 10.1018H13.5801"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          <span className="tp-header-action-badge">
+                            {length}
+                          </span>
+                        </Link>
+                      </div>
+                      <div className="tp-header-action-item d-lg-none">
+                        <button
+                          type="button"
+                          className="tp-header-action-btn tp-offcanvas-open-btn"
+                          style={{color:'white'}}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={30}
+                            height={16}
+                            viewBox="0 0 30 16"
+                          >
+                            <rect
+                              x={10}
+                              width={20}
+                              height={2}
+                              fill="currentColor"
+                            />
+                            <rect
+                              x={5}
+                              y={7}
+                              width={25}
+                              height={2}
+                              fill="currentColor"
+                            />
+                            <rect
+                              x={10}
+                              y={14}
+                              width={20}
+                              height={2}
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </button>
+                      </div>
 
-                <div className="col-xl-4 col-lg-3 col-md-8 col-6">
+                <div className="col-xl-3 col-lg-3 col-md-8 col-6">
                   <div className="tp-header-main-right d-flex align-items-center justify-content-end">
                     <div className="tp-header-login d-none d-lg-block">
                       <Link
@@ -250,91 +335,7 @@ const Header = () => {
                           </span>
                         </Link>
                       </div>
-                      <div className="tp-header-action-item">
-                        <Link
-                          to={CartPath}
-                          type="button"
-                          className="tp-header-action-btn cartmini-open-btn"
-                        >
-                          <svg
-                            style={{ color: "white" }}
-                            width={21}
-                            height={22}
-                            viewBox="0 0 21 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M6.48626 20.5H14.8341C17.9004 20.5 20.2528 19.3924 19.5847 14.9348L18.8066 8.89359C18.3947 6.66934 16.976 5.81808 15.7311 5.81808H5.55262C4.28946 5.81808 2.95308 6.73341 2.4771 8.89359L1.69907 14.9348C1.13157 18.889 3.4199 20.5 6.48626 20.5Z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M6.34902 5.5984C6.34902 3.21232 8.28331 1.27803 10.6694 1.27803V1.27803C11.8184 1.27316 12.922 1.72619 13.7362 2.53695C14.5504 3.3477 15.0081 4.44939 15.0081 5.5984V5.5984"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M7.70365 10.1018H7.74942"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M13.5343 10.1018H13.5801"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <span className="tp-header-action-badge">
-                            {length}
-                          </span>
-                        </Link>
-                      </div>
-                      <div className="tp-header-action-item d-lg-none">
-                        <button
-                          type="button"
-                          className="tp-header-action-btn tp-offcanvas-open-btn"
-                          style={{color:'white'}}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={30}
-                            height={16}
-                            viewBox="0 0 30 16"
-                          >
-                            <rect
-                              x={10}
-                              width={20}
-                              height={2}
-                              fill="currentColor"
-                            />
-                            <rect
-                              x={5}
-                              y={7}
-                              width={25}
-                              height={2}
-                              fill="currentColor"
-                            />
-                            <rect
-                              x={10}
-                              y={14}
-                              width={20}
-                              height={2}
-                              fill="currentColor"
-                            />
-                          </svg>
-                        </button>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>
