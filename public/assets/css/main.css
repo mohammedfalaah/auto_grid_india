@@ -21957,6 +21957,7 @@ product all slider
   list-style: none;
   padding: 0;
   margin: 0;
+  /* flex-direction: column;  */
 }
 
 .tp-main-menu-content ul > li {
@@ -22000,7 +22001,30 @@ product all slider
 .tp-submenu li a:hover {
   text-decoration: underline; /* Add hover effect for submenu items */
 }
-
+.tp-header-action-item{
+  width: fit-content;
+}
+@media(max-width:480px){
+  .tp-header-action-item{
+    width: fit-content;
+  }
+  .tp-header-action-item.d-lg-none{
+    order:-1
+  }
+  .logo{
+    text-align: center;
+  }
+  .tp-header-action-item:not(:first-child){
+    margin-left: 0;
+  }
+  .tp-main-menu-content ul{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-direction: column; 
+  }
+}
 
 
 

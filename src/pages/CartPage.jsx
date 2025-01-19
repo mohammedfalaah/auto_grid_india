@@ -15,13 +15,22 @@ const CartPage = () => {
   const { getCart } = useContext(ContextData);
   const getCartlist = async () => {
     try {
-      const response = await Axioscall("get",getCartlistApi,"","header")
-      console.log(response);
-       setProduct(response.data.products);
-        } catch (err) {
-          console.log(err.response?.data?.message || err.message);
-        } 
-      };
+      const token = localStorage.getItem("token"); // Assuming "token" is the key for the token
+      if (token) {
+        // Fetch cart from the API if token is available
+        const response = await Axioscall("get", getCartlistApi, "", "header");
+        console.log(response);
+        setProduct(response.data.products);
+      } else {
+        const localCart = JSON.parse(localStorage.getItem("cart")) || [];
+        console.log("Local cart data:", localCart);
+        setProduct(localCart);
+      }
+    } catch (err) {
+      console.log(err.response?.data?.message || err.message);
+    }
+  };
+  
 
       const removeFromCart = async (productId) => {
         try {

@@ -25,11 +25,13 @@ const Footer = () => {
   const { length, categories, handleCategoryClick } = useContext(ContextData);
   const [visibleItems, setVisibleItems] = useState({});
   const toggleMenu = () => {
+    console.log("categoriescategoriescateg............oriescategories");
     setIsMenuVisible(!isMenuVisible);
   };
+ 
   const offcanvasRef = useRef(null);
   const toggleMenuSub = (index) => {
-    toggleItem(index)
+    toggleItem(index);
     setIsMenuVisibleSub(!isMenuVisibleSub);
   };
   const toggleItem = (index) => {
@@ -39,8 +41,8 @@ const Footer = () => {
     }));
   };
   const handleClick = (index) => {
-    toggleMenuSub();      // Toggle main menu visibility
-    toggleItem(index);    // Toggle visibility of the specific submenu item
+    toggleMenuSub(); // Toggle main menu visibility
+    toggleItem(index); // Toggle visibility of the specific submenu item
   };
   const handleclick = (subcategory) => {
     // Call your custom logic
@@ -63,7 +65,10 @@ const Footer = () => {
     <>
       <div>
         {/* offcanvas area start */}
-        <div className="offcanvas__area offcanvas__radius bg-black" ref={offcanvasRef}>
+        <div
+          className="offcanvas__area offcanvas__radius bg-black"
+          ref={offcanvasRef}
+        >
           <div className="offcanvas__wrapper">
             <div className="offcanvas__close">
               <button className="offcanvas__close-btn offcanvas-close-btn">
@@ -94,16 +99,15 @@ const Footer = () => {
             <div className="offcanvas__content ">
               <div className="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
                 <div className="offcanvas__logo logo">
-                <Link to={BasePath}>
-                                      <img
-                                        style={{ width: "100px", height: "25px" }}
-                                        src="/assets/img/logo/AGI copy.png "
-                                        alt="logo"
-                                      />
-                                    </Link>
+                  <Link to={BasePath}>
+                    <img
+                      style={{ width: "100px", height: "25px" }}
+                      src="/assets/img/logo/AGI copy.png "
+                      alt="logo"
+                    />
+                  </Link>
                 </div>
               </div>
-              
 
               <div className="offcanvas__category pb-40">
                 <button
@@ -594,14 +598,18 @@ const Footer = () => {
                       </li>
                     </ul> */}
                     <ul
+                    className="sidebar-menu"
+                      // style={{ display: "none" }}
                       style={{ display: isMenuVisible ? "block" : "none" }}
                       ref={menuRef}
                     >
-                      {categories?.map((categoryItem,index) => (
+                      {categories?.map((categoryItem, index) => (
                         <li key={categoryItem._id} className="has-dropdown">
                           <a>
                             <span></span>
-                            <strong style={{color:'white'}}>{categoryItem.category}</strong>
+                            <strong style={{ color: "white" }}>
+                              {categoryItem.category}
+                            </strong>
                             <button
                               className={`dropdown-toggle-btn ${
                                 isMenuVisibleSub ? "dropdown-opened" : ""
@@ -613,15 +621,17 @@ const Footer = () => {
                           </a>
                           <ul
                             className="tp-submenu"
-                            style={{ display: visibleItems[index] ? 'block' : 'none' }}
+                            style={{
+                              display: visibleItems[index] ? "block" : "none",
+                            }}
                             // style={{ display: "none" }}
                           >
                             {" "}
-                            {categoryItem.subcategories.map(
+                            {categoryItem?.subcategories.map(
                               (subcategory, index) => (
                                 <li
                                   key={index}
-                                  style={{ cursor: "pointer", color:'white' }}
+                                  style={{ cursor: "pointer", color: "white" }}
                                   // onClick={() =>
 
                                   //   handleCategoryClick(subcategory)
@@ -634,7 +644,7 @@ const Footer = () => {
                                   // }}
                                   onClick={() => handleclick(subcategory)}
                                 >
-                                  <a style={{color:'white'}}>{subcategory}</a>
+                                  {/* <a style={{color:'white'}}>{subcategory}</a> */}
                                 </li>
                               )
                             )}
@@ -667,15 +677,10 @@ const Footer = () => {
             </div>
             <div className="offcanvas__bottom">
               <div className="offcanvas__footer d-flex align-items-center justify-content-between">
-                <div className="offcanvas__currency-wrapper currency">
-                  
-                  
-                </div>
+                <div className="offcanvas__currency-wrapper currency"></div>
                 <div className="offcanvas__select language">
                   <div className="offcanvas__lang d-flex align-items-center justify-content-md-end">
-                    <div className="offcanvas__lang-img mr-15">
-                    </div>
-                   
+                    <div className="offcanvas__lang-img mr-15"></div>
                   </div>
                 </div>
               </div>
@@ -684,37 +689,56 @@ const Footer = () => {
         </div>
         <div className="body-overlay" />
       </div>
-      <div style={{backgroundColor:'black'}} id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">
+      <div
+        style={{ backgroundColor: "black" }}
+        id="tp-bottom-menu-sticky"
+        className="tp-mobile-menu d-lg-none"
+      >
         <div className="container">
           <div className="row row-cols-4">
             <div className="col">
-              <div  className="tp-mobile-item text-center">
-                <Link to={ProductsPath} style={{color:'white'}} className="tp-mobile-item-btn">
+              <div className="tp-mobile-item text-center">
+                <Link
+                  to={ProductsPath}
+                  style={{ color: "white" }}
+                  className="tp-mobile-item-btn"
+                >
                   <i className="flaticon-store" />
                   <span>Store</span>
                 </Link>
               </div>
             </div>
-           
+
             <div className="col">
               <div className="tp-mobile-item text-center">
-                <Link to={WishlistPath} style={{color:'white'}} className="tp-mobile-item-btn">
+                <Link
+                  to={WishlistPath}
+                  style={{ color: "white" }}
+                  className="tp-mobile-item-btn"
+                >
                   <i className="flaticon-love" />
                   <span>Wishlist</span>
                 </Link>
               </div>
             </div>
             <div className="col">
-              <div  className="tp-mobile-item text-center">
-                <Link to={ProfilePath} style={{color:'white'}} className="tp-mobile-item-btn">
+              <div className="tp-mobile-item text-center">
+                <Link
+                  to={ProfilePath}
+                  style={{ color: "white" }}
+                  className="tp-mobile-item-btn"
+                >
                   <i className="flaticon-user" />
                   <span>Account</span>
                 </Link>
               </div>
             </div>
             <div className="col">
-              <div  className="tp-mobile-item text-center">
-                <button style={{color:'white'}} className="tp-mobile-item-btn tp-offcanvas-open-btn">
+              <div className="tp-mobile-item text-center">
+                <button
+                  style={{ color: "white" }}
+                  className="tp-mobile-item-btn tp-offcanvas-open-btn"
+                >
                   <i className="flaticon-menu-1" />
                   <span>Menu</span>
                 </button>
@@ -952,34 +976,42 @@ const Footer = () => {
       </footer>
       {/* footer area end */}
       <Helmet>
-    <script type="module" src="/src/main.jsx"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js" crossorigin></script>
+        <script type="module" src="/src/main.jsx"></script>
+        <script
+          src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"
+          crossorigin
+        ></script>
 
-<script
-  src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
-  crossorigin></script>
+        <script
+          src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
+          crossorigin
+        ></script>
 
-<script
-  src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
-  crossorigin></script>
-    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/assets/js/vendor/jquery.js"></script>
-    <script src="/assets/js/vendor/waypoints.js"></script>
-    <script src="/assets/js/bootstrap-bundle.js"></script>
-    <script src="/assets/js/meanmenu.js"></script>
-    <script src="/assets/js/swiper-bundle.js"></script>
-    <script src="/assets/js/slick.js"></script>
-    <script src="/assets/js/range-slider.js"></script>
-    <script src="/assets/js/magnific-popup.js"></script>
-    <script src="/assets/js/nice-select.js"></script>
-    <script src="/assets/js/purecounter.js"></script>
-    <script src="/assets/js/countdown.js"></script>
-    <script src="/assets/js/wow.js"></script>
-    <script src="/assets/js/isotope-pkgd.js"></script>
-    <script src="/assets/js/imagesloaded-pkgd.js"></script>
-    <script src="/assets/js/ajax-form.js"></script>
-    <script src="/assets/js/main.js"></script>
-    
-    </Helmet>
+        <script
+          src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
+          crossorigin
+        ></script>
+        <script
+          data-cfasync="false"
+          src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+        ></script>
+        <script src="/assets/js/vendor/jquery.js"></script>
+        <script src="/assets/js/vendor/waypoints.js"></script>
+        <script src="/assets/js/bootstrap-bundle.js"></script>
+        <script src="/assets/js/meanmenu.js"></script>
+        <script src="/assets/js/swiper-bundle.js"></script>
+        <script src="/assets/js/slick.js"></script>
+        <script src="/assets/js/range-slider.js"></script>
+        <script src="/assets/js/magnific-popup.js"></script>
+        <script src="/assets/js/nice-select.js"></script>
+        <script src="/assets/js/purecounter.js"></script>
+        <script src="/assets/js/countdown.js"></script>
+        <script src="/assets/js/wow.js"></script>
+        <script src="/assets/js/isotope-pkgd.js"></script>
+        <script src="/assets/js/imagesloaded-pkgd.js"></script>
+        <script src="/assets/js/ajax-form.js"></script>
+        <script src="/assets/js/main.js"></script>
+      </Helmet>
     </>
   );
 };
