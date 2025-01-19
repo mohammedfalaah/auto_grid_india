@@ -358,7 +358,7 @@ const handleAddToCart = async (productId) => {
                                             type="button"
                                             className="tp-product-action-btn-2 tp-product-add-cart-btn"
                                             onClick={() =>
-                                              handleAddToCart(product._id)
+                                              handleAddToCart(product)
                                             }
                                           >
                                             <svg
