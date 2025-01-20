@@ -63,7 +63,7 @@ const [totalProducts, setTotalProducts] = useState(0);
         // If no token, fetch cart from localStorage
         const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
         setLenght(localCart.length); // Set length of the local cart
-        setProduct(localCart); // Set the local cart items
+        // setProduct(localCart); // Set the local cart items
       }
     };
     

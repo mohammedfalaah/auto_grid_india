@@ -202,6 +202,9 @@ console.log(product,"productproductproductproduct")
       localStorage.setItem(cartKey, JSON.stringify(updatedCart));
       setProduct(updatedCart); // Update state
       show_toast("Quantity updated successfully", true);
+      getCartlist()
+      const total = product.reduce((acc, item) => acc + item.total, 0);
+      setCartTotal(total);
     } else {
       // Update quantity in API
       try {
