@@ -87,17 +87,74 @@ const ProductPage = () => {
   //   }
   // };
 
-const handleAddToCart = async (productId) => {
+//   const handleAddToCart = async ( productId, product ) => {
+//   console.log(product,"productproductproduct")
+//   try {
+//     const token = localStorage.getItem("token"); // Check for token
+//     const cartKey = "cart";
+
+//     // Reusable function to handle localStorage cart
+//     const updateLocalStorageCart = (product) => {
+//       const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+//       if (!cart.includes(product?._id)) {
+//         cart.push(product);
+//         localStorage.setItem(cartKey, JSON.stringify(cart));
+//         show_toast("Product added to Cart", true);
+//       } else {
+//         show_toast("Product is already in your Cart", false);
+//       }
+//     };
+
+//     // Check if token exists; if not, use localStorage
+//     if (!token) {
+//       updateLocalStorageCart(productId);
+//       return;
+//     }
+
+//     // Ensure required variables are available
+//     if (!userId || !quantity) {
+//       show_toast("Missing user or quantity information", false);
+//       return;
+//     }
+
+//     // Prepare API call payload
+//     const body = {
+//       userId, // Ensure userId is defined in your scope
+//       productId,
+//       quantity,
+//     };
+
+//     // API call to add the product to the cart
+//     const response = await Axioscall("post", addToCartApi, body, "header");
+
+//     if (response?.status === 200) {
+//       show_toast("Product added to cart successfully", true);
+//     } else {
+//       show_toast(response?.data?.message || "Failed to add product to cart", false);
+//     }
+//   } catch (error) {
+//     console.error("Error adding to cart:", error);
+//     show_toast(error?.response?.data?.message || "An unexpected error occurred", false);
+//   }
+// };
+
+  
+
+
+const handleAddToCart = async (productId, product) => {
+  console.log(product, "productproductproduct");
   try {
     const token = localStorage.getItem("token"); // Check for token
     const cartKey = "cart";
 
     // Reusable function to handle localStorage cart
-    const updateLocalStorageCart = (productId) => {
+    const updateLocalStorageCart = (product) => {
       const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      const productExists = cart.some((item) => item._id === product._id); // Check if the product is already in the cart
 
-      if (!cart.includes(productId)) {
-        cart.push(productId);
+      if (!productExists) {
+        cart.push(product); // Add product to cart
         localStorage.setItem(cartKey, JSON.stringify(cart));
         show_toast("Product added to Cart", true);
       } else {
@@ -107,7 +164,7 @@ const handleAddToCart = async (productId) => {
 
     // Check if token exists; if not, use localStorage
     if (!token) {
-      updateLocalStorageCart(productId);
+      updateLocalStorageCart(product); // Use `product` to update localStorage
       return;
     }
 
@@ -137,10 +194,6 @@ const handleAddToCart = async (productId) => {
     show_toast(error?.response?.data?.message || "An unexpected error occurred", false);
   }
 };
-
-  
-
-
 
 
   return (
@@ -358,7 +411,7 @@ const handleAddToCart = async (productId) => {
                                             type="button"
                                             className="tp-product-action-btn-2 tp-product-add-cart-btn"
                                             onClick={() =>
-                                              handleAddToCart(product._id)
+                                              handleAddToCart(product._id,product)
                                             }
                                           >
                                             <svg

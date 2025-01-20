@@ -1,85 +1,195 @@
-import React, { useEffect, useState,useContext } from 'react'
-import Axioscall from '../services/Axioscall'
-import { getCartlistApi, updateQuantityApi } from '../services/BaseUrl'
-import { show_toast } from '../utils/Toast'
-import { ContextData } from '../services/Context' 
+// import React, { useEffect, useState,useContext } from 'react'
+// import Axioscall from '../services/Axioscall'
+// import { getCartlistApi, updateQuantityApi } from '../services/BaseUrl'
+// import { show_toast } from '../utils/Toast'
+// import { ContextData } from '../services/Context' 
 
-const CartPage = () => {
-  useEffect(() => {
-      window.scrollTo(0,0)
+// const CartPage = () => {
+//   useEffect(() => {
+//       window.scrollTo(0,0)
    
     
-    }, [])
-  const [product, setProduct] = useState([])
+//     }, [])
+//   const [product, setProduct] = useState([])
 
-  const { getCart } = useContext(ContextData);
-  const getCartlist = async () => {
-    try {
-      const response = await Axioscall("get",getCartlistApi,"","header")
-      console.log(response);
-       setProduct(response.data.products);
-        } catch (err) {
-          console.log(err.response?.data?.message || err.message);
-        } 
-      };
+//   const { getCart } = useContext(ContextData);
+//   const getCartlist = async () => {
+//     try {
+//       const response = await Axioscall("get",getCartlistApi,"","header")
+//       console.log(response);
+//        setProduct(response.data.products);
+//         } catch (err) {
+//           console.log(err.response?.data?.message || err.message);
+//         } 
+//       };
 
-      const removeFromCart = async (productId) => {
-        try {
-          const endpoint = `/removeCartItem/${productId}`;
-          const response = await Axioscall("delete", endpoint, "", "header");
-          console.log("Product removed", response.data);
-          show_toast( "Product removed successfully", true);
+//       const removeFromCart = async (productId) => {
+//         try {
+//           const endpoint = `/removeCartItem/${productId}`;
+//           const response = await Axioscall("delete", endpoint, "", "header");
+//           console.log("Product removed", response.data);
+//           show_toast( "Product removed successfully", true);
 
-          setProduct((prevProducts) =>
-            prevProducts.filter((item) => item.productId !== productId)
-          );
-          getCart()
-                    getCartlist();
-        } catch (err) {
-          show_toast(err.response?.data?.message || err.message);
-        }
-      };
-      const updateCartItemQuantity = async (cartId, quantity) => {
-        try {
-          const endpoint = `${updateQuantityApi}/${cartId}`;
-          const response = await Axioscall("put",endpoint,{ quantity },"header");
-          console.log("Quantity updated", response.data);
-          getCartlist()
-          show_toast("Quantity Upadated successfully",true)
-        } catch (err) {
-          show_toast(err.response?.data?.message || err.message);
-        }
-      };
+//           setProduct((prevProducts) =>
+//             prevProducts.filter((item) => item.productId !== productId)
+//           );
+//           getCart()
+//                     getCartlist();
+//         } catch (err) {
+//           show_toast(err.response?.data?.message || err.message);
+//         }
+//       };
+//       const updateCartItemQuantity = async (cartId, quantity) => {
+//         try {
+//           const endpoint = `${updateQuantityApi}/${cartId}`;
+//           const response = await Axioscall("put",endpoint,{ quantity },"header");
+//           console.log("Quantity updated", response.data);
+//           getCartlist()
+//           show_toast("Quantity Upadated successfully",true)
+//         } catch (err) {
+//           show_toast(err.response?.data?.message || err.message);
+//         }
+//       };
     
-      const handleQuantityChange = (cartId, operation) => {
-        setProduct((prevProducts) =>
-          prevProducts.map((item) => {
-            if (item.cartId === cartId) {
-              const updatedQuantity =
-                operation === "increment" ? item.quantity + 1 : item.quantity - 1;
-                  if (updatedQuantity < 1) return item;
-                  updateCartItemQuantity(cartId, updatedQuantity);
-                  return { ...item, quantity: updatedQuantity };
-            }
-            return item;
-          })
-        );
-      };
+//       const handleQuantityChange = (cartId, operation) => {
+//         setProduct((prevProducts) =>
+//           prevProducts.map((item) => {
+//             if (item.cartId === cartId) {
+//               const updatedQuantity =
+//                 operation === "increment" ? item.quantity + 1 : item.quantity - 1;
+//                   if (updatedQuantity < 1) return item;
+//                   updateCartItemQuantity(cartId, updatedQuantity);
+//                   return { ...item, quantity: updatedQuantity };
+//             }
+//             return item;
+//           })
+//         );
+//       };
 
 
+//   useEffect(() => {
+//     getCartlist();
+//   }, [])
+//   const [cartTotal, setCartTotal] = useState(0);
+
+//   // Recalculate the total when product data changes
+//   useEffect(() => {
+//     const total = product.reduce((acc, currentProduct) => {
+//       return acc + currentProduct.total; // Sum up the 'total' of each product
+//     }, 0);
+//     setCartTotal(total);
+//   }, [product]); // Recalculate whenever 'product' changes
+import React, { useEffect, useState, useContext } from 'react';
+import Axioscall from '../services/Axioscall';
+import { getCartlistApi, updateQuantityApi } from '../services/BaseUrl';
+import { show_toast } from '../utils/Toast';
+import { ContextData } from '../services/Context';
+
+const CartPage = () => {
+  const [product, setProduct] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
+  const { getCart } = useContext(ContextData);
+
+  const cartKey = "cart"; // Key for localStorage
+console.log(product,"productproductproductproduct")
+  // Fetch cart data from localStorage or API
+  const getCartlist = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // If no token, fetch cart from localStorage
+      const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      setProduct(localCart);
+    } else {
+      // If token exists, fetch cart from API
+      try {
+        const response = await Axioscall("get", getCartlistApi, "", "header");
+        setProduct(response.data.products);
+      } catch (err) {
+        console.log(err.response?.data?.message || err.message);
+      }
+    }
+  };
+
+  // Update cart item quantity
+  const updateCartItemQuantity = async (cartId, quantity) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // If no token, update quantity in localStorage
+      setProduct((prevProducts) =>
+        prevProducts.map((item) => {
+          if (item.cartId === cartId) {
+            item.quantity = quantity;
+          }
+          return item;
+        })
+      );
+      localStorage.setItem(cartKey, JSON.stringify(product));
+      show_toast("Quantity updated successfully", true);
+    } else {
+      // If token exists, update quantity in API
+      try {
+        const endpoint = `${updateQuantityApi}/${cartId}`;
+        await Axioscall("put", endpoint, { quantity }, "header");
+        getCartlist();
+        show_toast("Quantity updated successfully", true);
+      } catch (err) {
+        show_toast(err.response?.data?.message || err.message);
+      }
+    }
+  };
+
+  // Handle quantity changes
+  const handleQuantityChange = (cartId, operation) => {
+    setProduct((prevProducts) =>
+      prevProducts.map((item) => {
+        if (item.cartId === cartId) {
+          const updatedQuantity =
+            operation === "increment" ? item.quantity + 1 : item.quantity - 1;
+          if (updatedQuantity < 1) return item;
+          updateCartItemQuantity(cartId, updatedQuantity);
+          return { ...item, quantity: updatedQuantity };
+        }
+        return item;
+      })
+    );
+  };
+
+  // Remove item from cart
+  const removeFromCart = async (cartId) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      // If no token, remove item from localStorage
+      const updatedCart = product.filter((item) => item.cartId !== cartId);
+      setProduct(updatedCart);
+      localStorage.setItem(cartKey, JSON.stringify(updatedCart));
+      show_toast("Product removed successfully", true);
+    } else {
+      // If token exists, remove item via API
+      try {
+        const endpoint = `/removeCartItem/${cartId}`;
+        await Axioscall("delete", endpoint, "", "header");
+        show_toast("Product removed successfully", true);
+        getCartlist();
+      } catch (err) {
+        show_toast(err.response?.data?.message || err.message);
+      }
+    }
+  };
+
+  // Recalculate cart total when products change
+  useEffect(() => {
+    const total = product.reduce((acc, item) => acc + item.total, 0);
+    setCartTotal(total);
+  }, [product]);
+
+  // Fetch cart data on component mount
   useEffect(() => {
     getCartlist();
-  }, [])
-  const [cartTotal, setCartTotal] = useState(0);
-
-  // Recalculate the total when product data changes
-  useEffect(() => {
-    const total = product.reduce((acc, currentProduct) => {
-      return acc + currentProduct.total; // Sum up the 'total' of each product
-    }, 0);
-    setCartTotal(total);
-  }, [product]); // Recalculate whenever 'product' changes
-
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
     
@@ -115,7 +225,7 @@ const CartPage = () => {
           {/* img */}
           <td className="tp-cart-img">
             <a href="product-details.html">
-              <img src={`https://node.autogridnumberplate.com${product.image}`} alt={product.name} />
+              <img src={`https://node.autogridnumberplate.com${product.photographs[0] || ""}`} alt={product.name} />
             </a>
           </td>
           {/* title */}
