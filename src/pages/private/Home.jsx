@@ -17,7 +17,7 @@ const Home = () => {
       }, [])
     const navigate = useNavigate();
     // const { getCart,categories ,products } = useContext(ContextData);
-    const { getFavouriteContext } = useContext(ContextData);
+    const { getFavouriteContext,handleCategoryClick } = useContext(ContextData);
 
     const [products, setProducts] = useState([]);
 
@@ -435,7 +435,12 @@ const Home = () => {
             </div>
             <div className="tp-product-category-content">
               <h3 className="tp-product-category-title">
-                <a href="shop-category.html"><strong>CAR GEL PLATES</strong></a>
+                <a  onClick={() => {
+                                        handleCategoryClick(subcategory); // Call your custom logic
+                                        navigate(`/products`, {
+                                          state: { subcategory },
+                                        }); // Navigate
+                                      }}><strong>CAR GEL PLATES</strong></a>
               </h3>
             </div>
           </div>
@@ -443,13 +448,23 @@ const Home = () => {
         <div className="col"  style={{padding:'0px'}}>
           <div className="tp-product-category-item text-center mb-40">
             <div className="tp-product-category-thumb fix">
-              <a href="shop-category.html">
+              <a onClick={() => {
+                                        handleCategoryClick("BIKE ALUMINIUM PUNCHING PLATE"); // Call your custom logic
+                                        navigate(`/products`, {
+                                          // state: { subcategory },
+                                        }); // Navigate
+                                      }}>
                 <img style={{width:'160px'}} src="assets/img/product/bikealuminium.png" alt="product-category" />
               </a>
             </div>
             <div className="tp-product-category-content">
               <h3 className="tp-product-category-title">
-                <a href="shop-category.html"><strong>BIKE ALUMINUIM PUNCHING</strong></a>
+                <a  onClick={() => {
+                                        handleCategoryClick("BIKE ALUMINIUM PUNCHING PLATE"); // Call your custom logic
+                                        navigate(`/products`, {
+                                          state: { subcategory },
+                                        }); // Navigate
+                                      }}><strong>BIKE ALUMINUIM PUNCHING</strong></a>
               </h3>
             </div>
           </div>

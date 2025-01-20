@@ -1,4 +1,4 @@
-import React, { useContext, useState,useRef,useEffect  } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   BasePath,
@@ -11,11 +11,11 @@ import LoginPage from "../pages/private/LoginPage";
 import ProfilePage from "../pages/private/ProfilePage";
 import { ContextData } from "../services/Context";
 import { Helmet } from "react-helmet";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 const Header = () => {
-  const menuRef = useRef(null); 
+  const menuRef = useRef(null);
   const navigate = useNavigate();
-  const { length, categories,handleCategoryClick } = useContext(ContextData);
+  const { length, categories, handleCategoryClick } = useContext(ContextData);
   const { wishlistLength } = useContext(ContextData);
   console.log(categories, "categoriescategoriescategoriescategories");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -31,14 +31,14 @@ const Header = () => {
     };
 
     // Add event listener
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     // Cleanup event listener
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  const cartKey = 'cart'; 
+  const cartKey = "cart";
   return (
     <>
       {/* header area start */}
@@ -73,8 +73,6 @@ const Header = () => {
                   </svg>
                 </button>
               </div>
-            
-            
             </div>
           </div>
           <div className="body-overlay" />
@@ -90,7 +88,7 @@ const Header = () => {
                   <div className="logo">
                     <Link to={BasePath}>
                       <img
-                        style={{ width: "100px", height: "25px"}}
+                        style={{ width: "100px", height: "25px" }}
                         src="/assets/img/logo/AGI copy.png "
                         alt="logo"
                       />
@@ -102,133 +100,127 @@ const Header = () => {
                     <div className="main-menu menu-style-1">
                       <nav className="tp-main-menu-content tp-category-menu-content">
                         <ul>
-                        {/* <li  className="has-mega-menu">
+                          {/* <li  className="has-mega-menu">
                             <Link style={{ color: "white" }} to={BasePath}>
                             <strong>HOME</strong>  
                             </Link>
                           </li> */}
 
                           {categories?.map((categoryItem) => (
-                              <li  className="has-dropdown">
-                              <a style={{ color: "white" }} >
-                              <strong>{categoryItem.category}</strong> 
+                            <li className="has-dropdown">
+                              <a style={{ color: "white" }}>
+                                <strong>{categoryItem.category}</strong>
                               </a>
-                              <ul className="tp-submenu" >
-                                {categoryItem.subcategories.map((subcategory, index)=>(
-                                   <li key={index} 
-                                   style={{cursor:"pointer"}}
-                                   
-                                   onClick={() => {
-                                     handleCategoryClick(subcategory); // Call your custom logic
-                                     navigate(`/products`, { state: { subcategory } }); // Navigate
-                                   }}
-                                   >
-                                     <a >{subcategory}</a>
-                                 
-                                   </li>
-
-                                ))}
-
+                              <ul className="tp-submenu">
+                                {categoryItem.subcategories.map(
+                                  (subcategory, index) => (
+                                    <li
+                                      key={index}
+                                      style={{ cursor: "pointer" }}
+                                      onClick={() => {
+                                        handleCategoryClick(subcategory); // Call your custom logic
+                                        navigate(`/products`, {
+                                          state: { subcategory },
+                                        }); // Navigate
+                                      }}
+                                    >
+                                      <a>{subcategory}</a>
+                                    </li>
+                                  )
+                                )}
                               </ul>
                             </li>
                           ))}
-                         
-
-            
                         </ul>
                       </nav>
                     </div>
                   </div>
                 </div>
                 <div className="tp-header-action-item">
-                        <Link
-                          to={CartPath}
-                          type="button"
-                          className="tp-header-action-btn cartmini-open-btn"
-                        >
-                          <svg
-                            style={{ color: "white" }}
-                            width={21}
-                            height={22}
-                            viewBox="0 0 21 22"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M6.48626 20.5H14.8341C17.9004 20.5 20.2528 19.3924 19.5847 14.9348L18.8066 8.89359C18.3947 6.66934 16.976 5.81808 15.7311 5.81808H5.55262C4.28946 5.81808 2.95308 6.73341 2.4771 8.89359L1.69907 14.9348C1.13157 18.889 3.4199 20.5 6.48626 20.5Z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M6.34902 5.5984C6.34902 3.21232 8.28331 1.27803 10.6694 1.27803V1.27803C11.8184 1.27316 12.922 1.72619 13.7362 2.53695C14.5504 3.3477 15.0081 4.44939 15.0081 5.5984V5.5984"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M7.70365 10.1018H7.74942"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M13.5343 10.1018H13.5801"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                          <span className="tp-header-action-badge">
-                      
-                            {localStorage.getItem("token")
-    ? length // Use `length` when token exists
-    : JSON.parse(localStorage.getItem(cartKey))?.length || 0 // Calculate length from localStorage
-  }
-                          </span>
-                        </Link>
-                      </div>
-                      <div className="tp-header-action-item d-lg-none">
-                        <button
-                          type="button"
-                          className="tp-header-action-btn tp-offcanvas-open-btn"
-                          style={{color:'white'}}
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={30}
-                            height={16}
-                            viewBox="0 0 30 16"
-                          >
-                            <rect
-                              x={10}
-                              width={20}
-                              height={2}
-                              fill="currentColor"
-                            />
-                            <rect
-                              x={5}
-                              y={7}
-                              width={25}
-                              height={2}
-                              fill="currentColor"
-                            />
-                            <rect
-                              x={10}
-                              y={14}
-                              width={20}
-                              height={2}
-                              fill="currentColor"
-                            />
-                          </svg>
-                        </button>
-                      </div>
+                  <Link
+                    to={CartPath}
+                    type="button"
+                    className="tp-header-action-btn cartmini-open-btn"
+                  >
+                    <svg
+                      style={{ color: "white" }}
+                      width={21}
+                      height={22}
+                      viewBox="0 0 21 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M6.48626 20.5H14.8341C17.9004 20.5 20.2528 19.3924 19.5847 14.9348L18.8066 8.89359C18.3947 6.66934 16.976 5.81808 15.7311 5.81808H5.55262C4.28946 5.81808 2.95308 6.73341 2.4771 8.89359L1.69907 14.9348C1.13157 18.889 3.4199 20.5 6.48626 20.5Z"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M6.34902 5.5984C6.34902 3.21232 8.28331 1.27803 10.6694 1.27803V1.27803C11.8184 1.27316 12.922 1.72619 13.7362 2.53695C14.5504 3.3477 15.0081 4.44939 15.0081 5.5984V5.5984"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M7.70365 10.1018H7.74942"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M13.5343 10.1018H13.5801"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    <span className="tp-header-action-badge">
+                      {
+                        localStorage.getItem("token")
+                          ? length // Use `length` when token exists
+                          : JSON.parse(localStorage.getItem(cartKey))?.length ||
+                            0 // Calculate length from localStorage
+                      }
+                    </span>
+                  </Link>
+                </div>
+                <div className="tp-header-action-item d-lg-none">
+                  <button
+                    type="button"
+                    className="tp-header-action-btn tp-offcanvas-open-btn"
+                    style={{ color: "white" }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={30}
+                      height={16}
+                      viewBox="0 0 30 16"
+                    >
+                      <rect x={10} width={20} height={2} fill="currentColor" />
+                      <rect
+                        x={5}
+                        y={7}
+                        width={25}
+                        height={2}
+                        fill="currentColor"
+                      />
+                      <rect
+                        x={10}
+                        y={14}
+                        width={20}
+                        height={2}
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </button>
+                </div>
 
                 <div className="col-xl-3 col-lg-3 col-md-8 col-6">
                   <div className="tp-header-main-right d-flex align-items-center justify-content-end">
@@ -339,7 +331,6 @@ const Header = () => {
                           </span>
                         </Link>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -380,36 +371,37 @@ const Header = () => {
                         All Category
                       </button>
                       <nav className="tp-category-menu-content">
-                      
-                    <ul style={{ display: isMenuVisible ? "block" : "none" }}
-                        ref={menuRef}>
-  {categories?.map((categoryItem) => (
-    <li key={categoryItem._id} className="has-dropdown">
-      <a >
-        <span>
-          {/* Optional: SVG icon here */}
-        </span>
-        <strong>{categoryItem.category}</strong>
-      </a>
-      <ul className="tp-submenu">
-        {categoryItem.subcategories.map((subcategory, index) => (
-          <li key={index} 
-          style={{cursor:"pointer"}}
-          
-          onClick={() => {
-            handleCategoryClick(subcategory); // Call your custom logic
-            navigate(`/products`, { state: { subcategory } }); // Navigate
-          }}
-          >
-            <a >{subcategory}</a>
-        
-          </li>
-        ))}
-      </ul>
-    </li>
-  ))}
-</ul>
-
+                        <ul
+                          style={{ display: isMenuVisible ? "block" : "none" }}
+                          ref={menuRef}
+                        >
+                          {categories?.map((categoryItem) => (
+                            <li key={categoryItem._id} className="has-dropdown">
+                              <a>
+                                <span>{/* Optional: SVG icon here */}</span>
+                                <strong>{categoryItem.category}</strong>
+                              </a>
+                              <ul className="tp-submenu">
+                                {categoryItem.subcategories.map(
+                                  (subcategory, index) => (
+                                    <li
+                                      key={index}
+                                      style={{ cursor: "pointer" }}
+                                      onClick={() => {
+                                        handleCategoryClick(subcategory); // Call your custom logic
+                                        navigate(`/products`, {
+                                          state: { subcategory },
+                                        }); // Navigate
+                                      }}
+                                    >
+                                      <a>{subcategory}</a>
+                                    </li>
+                                  )
+                                )}
+                              </ul>
+                            </li>
+                          ))}
+                        </ul>
                       </nav>
                     </div>
                   </div>
