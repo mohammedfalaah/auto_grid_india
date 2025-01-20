@@ -239,7 +239,9 @@ console.log(product,"productproductproductproduct")
           </td>
           {/* price */}
           <td className="tp-cart-price">
-            <span>{product.price}</span>
+            <span>{token ? product.price || "" : product.currentPrice|| ""}
+            {/* {product.price} */}
+            </span>
           </td>
           {/* quantity */}
           <td className="tp-cart-quantity">
