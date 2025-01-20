@@ -99,7 +99,14 @@ console.log(product,"productproductproductproduct")
     if (!token) {
       // If no token, fetch cart from localStorage
       const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
-      setProduct(localCart);
+      const updatedCart = localCart.map(product => ({
+        ...product,
+        quantity: product.quantity || 1,
+        total: (product.quantity || 1) * product?.currentPrice,
+      }));
+      setProduct(updatedCart);
+      localStorage.setItem(cartKey, JSON.stringify(updatedCart));
+   
     } else {
       // If token exists, fetch cart from API
       try {
@@ -112,73 +119,149 @@ console.log(product,"productproductproductproduct")
   };
 
   // Update cart item quantity
-  const updateCartItemQuantity = async (cartId, quantity) => {
+  // const updateCartItemQuantity = async (cartId, quantity) => {
+  //   const token = localStorage.getItem("token");
+
+  //   if (!token) {
+  //     // If no token, update quantity in localStorage
+  //     setProduct((prevProducts) =>
+  //       prevProducts.map((item) => {
+  //         if (item.cartId === cartId) {
+  //           item.quantity = quantity;
+  //         }
+  //         return item;
+  //       })
+  //     );
+  //     localStorage.setItem(cartKey, JSON.stringify(product));
+  //     show_toast("Quantity updated successfully", true);
+  //   } else {
+  //     // If token exists, update quantity in API
+  //     try {
+  //       const endpoint = `${updateQuantityApi}/${cartId}`;
+  //       await Axioscall("put", endpoint, { quantity }, "header");
+  //       getCartlist();
+  //       show_toast("Quantity updated successfully", true);
+  //     } catch (err) {
+  //       show_toast(err.response?.data?.message || err.message);
+  //     }
+  //   }
+  // };
+
+  // // Handle quantity changes
+  // const handleQuantityChange = (cartId, operation) => {
+  //   setProduct((prevProducts) =>
+  //     prevProducts.map((item) => {
+  //       if (item.cartId === cartId) {
+  //         const updatedQuantity =
+  //           operation === "increment" ? item.quantity + 1 : item.quantity - 1;
+  //         if (updatedQuantity < 1) return item;
+  //         updateCartItemQuantity(cartId, updatedQuantity);
+  //         return { ...item, quantity: updatedQuantity };
+  //       }
+  //       return item;
+  //     })
+  //   );
+  // };
+
+
+
+  const handleQuantityChange = (id, operation) => {
     const token = localStorage.getItem("token");
-
-    if (!token) {
-      // If no token, update quantity in localStorage
-      setProduct((prevProducts) =>
-        prevProducts.map((item) => {
-          if (item.cartId === cartId) {
-            item.quantity = quantity;
-          }
-          return item;
-        })
-      );
-      localStorage.setItem(cartKey, JSON.stringify(product));
-      show_toast("Quantity updated successfully", true);
-    } else {
-      // If token exists, update quantity in API
-      try {
-        const endpoint = `${updateQuantityApi}/${cartId}`;
-        await Axioscall("put", endpoint, { quantity }, "header");
-        getCartlist();
-        show_toast("Quantity updated successfully", true);
-      } catch (err) {
-        show_toast(err.response?.data?.message || err.message);
-      }
-    }
-  };
-
-  // Handle quantity changes
-  const handleQuantityChange = (cartId, operation) => {
+  
     setProduct((prevProducts) =>
       prevProducts.map((item) => {
-        if (item.cartId === cartId) {
+        // Check conditionally for cartId or _id based on the token
+        const itemId = token ? item.cartId : item._id;
+  
+        if (itemId === id) {
           const updatedQuantity =
             operation === "increment" ? item.quantity + 1 : item.quantity - 1;
+  
+          // Ensure quantity does not drop below 1
           if (updatedQuantity < 1) return item;
-          updateCartItemQuantity(cartId, updatedQuantity);
+  
+          // Update the quantity
+          updateCartItemQuantity(id, updatedQuantity, token);
           return { ...item, quantity: updatedQuantity };
         }
         return item;
       })
     );
   };
-
-  // Remove item from cart
-  const removeFromCart = async (cartId) => {
-    const token = localStorage.getItem("token");
-
+  
+  const updateCartItemQuantity = async (id, quantity, token) => {
     if (!token) {
-      // If no token, remove item from localStorage
-      const updatedCart = product.filter((item) => item.cartId !== cartId);
-      setProduct(updatedCart);
+      // Update quantity in localStorage
+      const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      const updatedCart = localCart.map((item) => {
+        if (item._id === id) {
+          item.quantity = quantity;
+        }
+        return item;
+      });
       localStorage.setItem(cartKey, JSON.stringify(updatedCart));
-      show_toast("Product removed successfully", true);
+      setProduct(updatedCart); // Update state
+      show_toast("Quantity updated successfully", true);
+      getCartlist()
+      const total = product.reduce((acc, item) => acc + item.total, 0);
+      setCartTotal(total);
     } else {
-      // If token exists, remove item via API
+      // Update quantity in API
       try {
-        const endpoint = `/removeCartItem/${cartId}`;
-        await Axioscall("delete", endpoint, "", "header");
-        show_toast("Product removed successfully", true);
-        getCartlist();
+        const endpoint = `${updateQuantityApi}/${id}`; // Use cartId for API
+        await Axioscall("put", endpoint, { quantity }, "header");
+        getCartlist(); // Refresh the cart from the server
+        show_toast("Quantity updated successfully", true);
       } catch (err) {
         show_toast(err.response?.data?.message || err.message);
       }
     }
   };
+  
+  // // Remove item from cart
+  // const removeFromCart = async (cartId) => {
+  //   const token = localStorage.getItem("token");
 
+  //   if (!token) {
+  //     // If no token, remove item from localStorage
+  //     const updatedCart = product.filter((item) => item.cartId !== cartId);
+  //     setProduct(updatedCart);
+  //     localStorage.setItem(cartKey, JSON.stringify(updatedCart));
+  //     show_toast("Product removed successfully", true);
+  //   } else {
+  //     // If token exists, remove item via API
+  //     try {
+  //       const endpoint = `/removeCartItem/${cartId}`;
+  //       await Axioscall("delete", endpoint, "", "header");
+  //       show_toast("Product removed successfully", true);
+  //       getCartlist();
+  //     } catch (err) {
+  //       show_toast(err.response?.data?.message || err.message);
+  //     }
+  //   }
+  // };
+  const removeFromCart = async (id) => {
+    const token = localStorage.getItem("token");
+  
+    if (!token) {
+      // If no token, remove item from localStorage
+      const updatedCart = product.filter((item) => item._id !== id); // Use _id when no token
+      setProduct(updatedCart);
+      localStorage.setItem(cartKey, JSON.stringify(updatedCart));
+      show_toast("Product removed successfully", true);
+      getCartlist()
+    } else {
+      // If token exists, remove item via API
+      try {
+        const endpoint = `/removeCartItem/${id}`; // Use cartId for API request
+        await Axioscall("delete", endpoint, "", "header");
+        show_toast("Product removed successfully", true);
+        getCartlist(); // Refresh the cart list after successful removal
+      } catch (err) {
+        show_toast(err.response?.data?.message || err.message);
+      }
+    }
+  };
   // Recalculate cart total when products change
   useEffect(() => {
     const total = product.reduce((acc, item) => acc + item.total, 0);
@@ -235,18 +318,26 @@ console.log(product,"productproductproductproduct")
           </td>
           {/* title */}
           <td className="tp-cart-title">
-            <a href="product-details.html">{product.name}</a>
+            <a href="product-details.html">{token ? product?.name|| "" : product?.productName|| ""}</a>
           </td>
           {/* price */}
           <td className="tp-cart-price">
-            <span>{product.price}</span>
+            <span>{token ? product.price || "" : product.currentPrice|| ""}
+            {/* {product.price} */}
+            </span>
           </td>
           {/* quantity */}
           <td className="tp-cart-quantity">
             <div className="tp-product-quantity mt-10 mb-10">
               <span
                 className="tp-cart-minus"
-                onClick={() => handleQuantityChange(product.cartId, "decrement")}
+                onClick={() =>
+                  handleQuantityChange(
+                    token ? product?.cartId : product?._id,
+                    "decrement"
+                  )
+                }
+                // onClick={() => handleQuantityChange(product.cartId, "decrement")}
               >
                 <svg
                   width={10}
@@ -267,12 +358,18 @@ console.log(product,"productproductproductproduct")
               <input
                 className="tp-cart-input"
                 type="text"
-                value={product.quantity}
+                value={product?.quantity}
                 readOnly
               />
               <span
                 className="tp-cart-plus"
-                onClick={() => handleQuantityChange(product.cartId, "increment")}
+                // onClick={() => handleQuantityChange(product.cartId, "increment")}
+                onClick={() =>
+                  handleQuantityChange(
+                    token ? product?.cartId : product?._id,
+                    "increment"
+                  )
+                }
               >
                 <svg
                   width={10}
@@ -306,7 +403,10 @@ console.log(product,"productproductproductproduct")
           <td className="tp-cart-action">
             <button
               className="tp-cart-action-btn"
-              onClick={() => removeFromCart(product.cartId)}
+              // onClick={() => removeFromCart(product.cartId)}
+              onClick={() =>
+                removeFromCart(localStorage.getItem("token") ? product.cartId : product._id)
+              }
             >
               <svg
                 width={10}

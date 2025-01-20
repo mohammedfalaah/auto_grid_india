@@ -142,7 +142,7 @@ const ProductPage = () => {
   
 
 
-const handleAddToCart = async (productId, product) => {
+const handleAddToCart = async (productId, product,quantity = 1) => {
   console.log(product, "productproductproduct");
   try {
     const token = localStorage.getItem("token"); // Check for token
