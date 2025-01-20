@@ -38,7 +38,7 @@ const Header = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
+  const cartKey = 'cart'; 
   return (
     <>
       {/* header area start */}
@@ -186,7 +186,11 @@ const Header = () => {
                             />
                           </svg>
                           <span className="tp-header-action-badge">
-                            {length}
+                      
+                            {localStorage.getItem("token")
+    ? length // Use `length` when token exists
+    : JSON.parse(localStorage.getItem(cartKey))?.length || 0 // Calculate length from localStorage
+  }
                           </span>
                         </Link>
                       </div>

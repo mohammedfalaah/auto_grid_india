@@ -38,21 +38,49 @@ const [totalProducts, setTotalProducts] = useState(0);
        console.log();("Error fetching wishlist", false);
       }
     };
-
-  const getCart = async () => {
-    try {
-      const response = await Axioscall("get",getCartlistApi,"","header")
-      console.log(response);
-      console.log(response?.data?.products?.length)
-      setLenght(response?.data?.products?.length)
-       setProduct(response.data.products);
-       if(response.data.message){
-        show_toast("Cart Added Successfully", true)
-       } 
+    const getCart = async () => {
+      const token = localStorage.getItem("token");
+    
+      if (token) {
+        // If token exists, fetch cart from the API
+        try {
+          const response = await Axioscall("get", getCartlistApi, "", "header");
+          console.log(response);
+          
+          const cartProducts = response?.data?.products || [];
+          setLenght(cartProducts.length); // Set length of the cart
+          setProduct(cartProducts);
+    
+          // Show success toast if a message exists in the response
+          if (response.data.message) {
+            show_toast("Cart Added Successfully", true);
+          }
         } catch (err) {
-          console.log(err);        
-        } 
-      };
+          console.log(err);
+          show_toast("Error fetching cart", false); // Optional: show error toast
+        }
+      } else {
+        // If no token, fetch cart from localStorage
+        const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+        setLenght(localCart.length); // Set length of the local cart
+        setProduct(localCart); // Set the local cart items
+      }
+    };
+    
+  // const getCart = async () => {
+  //   try {
+  //     const response = await Axioscall("get",getCartlistApi,"","header")
+  //     console.log(response);
+  //     console.log(response?.data?.products?.length)
+  //     setLenght(response?.data?.products?.length)
+  //      setProduct(response.data.products);
+  //      if(response.data.message){
+  //       show_toast("Cart Added Successfully", true)
+  //      } 
+  //       } catch (err) {
+  //         console.log(err);        
+  //       } 
+  //     };
   const isValid = (event, fun_name, setstate) => {
     try {
       const form = event.currentTarget;
