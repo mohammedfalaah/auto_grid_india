@@ -190,6 +190,7 @@ console.log(product,"productproductproductproduct")
     getCartlist();
     window.scrollTo(0, 0);
   }, []);
+  const token = localStorage.getItem("token");
   return (
     <>
     
@@ -225,7 +226,11 @@ console.log(product,"productproductproductproduct")
           {/* img */}
           <td className="tp-cart-img">
             <a href="product-details.html">
-              <img src={`https://node.autogridnumberplate.com${product.photographs[0] || ""}`} alt={product.name} />
+              {/* <img src={`https://node.autogridnumberplate.com${product.photographs[0] || ""}`} alt={product.name} /> */}
+              <img
+  src={`https://node.autogridnumberplate.com${token ? product.image || "" : product.photographs?.[0] || ""}`}
+  alt={product.name}
+/>
             </a>
           </td>
           {/* title */}
