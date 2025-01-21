@@ -181,14 +181,25 @@ const Header = () => {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <span className="tp-header-action-badge">
-                      {/* {
+                    {/* <span className="tp-header-action-badge">
+                      {
                         localStorage.getItem("token")
                           ? length // Use `length` when token exists
                           : JSON.parse(localStorage.getItem(cartKey))?.length ||
                             0 // Calculate length from localStorage
-                      } */}{length}
-                    </span>
+                      }
+                    </span> */}
+                    <span className="tp-header-action-badge">
+  {
+    localStorage.getItem("token")
+      ? length // Use `length` when token exists
+      : (() => {
+          const cartData = localStorage.getItem(cartKey);
+          return cartData ? JSON.parse(cartData).length : 0; // Safely parse and get length
+        })()
+  }
+</span>
+
                   </Link>
                 </div>
                 <div className="tp-header-action-item d-lg-none">

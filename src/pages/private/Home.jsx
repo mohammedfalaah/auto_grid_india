@@ -476,38 +476,66 @@ const Home = () => {
             <Carousel>
               {/* First Slide */}
               <Carousel.Item interval={1000}>
-                <img
-                  style={{ width: "100%" }}
-                  src="/assets/img/slider/AGI_banner_01.1.jpg"
-                  alt="Slide 1"
-                />
+                <a onClick={()=> {
+                  handleCategoryClick("CAR GEL PLATE")
+                  navigate(`/products`,{
+                  })
+                }}>  <img
+                style={{ width: "100%" }}
+                src="/assets/img/slider/AGI_banner_01.1.jpg"
+                alt="Slide 1"
+              /></a>
+                
               </Carousel.Item>
 
               {/* Second Slide */}
               <Carousel.Item interval={2000}>
-                <img
+                <a onClick={()=> {
+                  handleCategoryClick("BIKE GEL PLATE")
+                  navigate(`/products`,{})
+                }}>
+ <img
                   style={{ width: "100%" }}
                   src="/assets/img/slider/AGI_banner_01.jpg"
                   alt="Slide 2"
                 />
+                </a>
+               
               </Carousel.Item>
 
               {/* Third Slide */}
               <Carousel.Item interval={3000}>
-                <img
+                <a onClick={()=> {
+                  handleCategoryClick("CAR ALUMINIUM PUNCHING PLATE")
+                  navigate(`products`, {
+
+                  } )
+                }}>
+                   <img
                   style={{ width: "100%" }}
                   src="/assets/img/slider/AGI_banner_02.jpg"
                   alt="Slide 3"
                 />
+                </a>
+               
               </Carousel.Item>
 
               {/* Fourth Slide */}
               <Carousel.Item interval={4000}>
-                <img
+                <a onClick={() => {
+                  handleCategoryClick("WRC EDITION NUMBER PLATE")
+                  navigate(`/products`, {
+
+                  })
+                }}>
+                   <img
                   style={{ width: "100%" }}
                   src="/assets/img/slider/AGI_banner_03.jpg"
                   alt="Slide 4"
                 />
+
+                </a>
+               
               </Carousel.Item>
               <Carousel.Item interval={5000}>
                 <img
@@ -524,11 +552,15 @@ const Home = () => {
                 />
               </Carousel.Item>
               <Carousel.Item interval={7000}>
-                <img
-                  style={{ width: "100%" }}
-                  src="/assets/img/slider/AGI_banner_06.jpg"
-                  alt="Slide 4"
-                />
+                <a onClick={() => {
+                  handleCategoryClick("CAR MIRROR HANGING")
+                  navigate(`/products`)
+                }}> <img
+                style={{ width: "100%" }}
+                src="/assets/img/slider/AGI_banner_06.jpg"
+                alt="Slide 4"
+              /></a>
+               
               </Carousel.Item>
             </Carousel>
           </section>
@@ -735,6 +767,31 @@ const Home = () => {
                         <h3 className="tp-product-category-title">
                           <a href="shop-category.html">
                             <strong>BIKE GEL FRAME</strong>{" "}
+                          </a>
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col " style={{ padding: "0px" }}>
+                    <div className="tp-product-category-item text-center mb-40">
+                      <div className="tp-product-category-thumb fix">
+                        <a  onClick={() => {
+                            handleCategoryClick("WRC EDITION NUMBER PLATE"); // Call your custom logic
+                            navigate(`/products`, {
+                              // state: { subcategory },
+                            }); // Navigate
+                          }}>
+                          <img
+                            style={{ width: "160px" }}
+                            src="assets/img/product/wrc.png"
+                            alt="product-category"
+                          />
+                        </a>
+                      </div>
+                      <div className="tp-product-category-content">
+                        <h3 className="tp-product-category-title">
+                          <a href="shop-category.html">
+                            <strong>WRC NUMBER PLATE </strong>{" "}
                           </a>
                         </h3>
                       </div>
