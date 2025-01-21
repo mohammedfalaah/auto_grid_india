@@ -90,9 +90,7 @@ const CartPage = () => {
   const [cartTotal, setCartTotal] = useState(0);
   const { getCart } = useContext(ContextData);
 
-  const cartKey = "cart"; // Key for localStorage
-console.log(product,"productproductproductproduct")
-  // Fetch cart data from localStorage or API
+  const cartKey = "cart"; // Key for localStorage  // Fetch cart data from localStorage or API
   const getCartlist = async () => {
     const token = localStorage.getItem("token");
 
@@ -101,12 +99,14 @@ console.log(product,"productproductproductproduct")
       const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
       const updatedCart = localCart.map(product => ({
         ...product,
-        quantity: product.quantity || 1,
-        total: (product.quantity || 1) * product?.currentPrice,
+        quantity: product?.quantity || 1,
+        total: (product?.quantity || 1) * product?.currentPrice,
       }));
       setProduct(updatedCart);
       localStorage.setItem(cartKey, JSON.stringify(updatedCart));
    
+console.log(product,"productproductproductproduct")
+
     } else {
       // If token exists, fetch cart from API
       try {
@@ -249,6 +249,7 @@ console.log(product,"productproductproductproduct")
       setProduct(updatedCart);
       localStorage.setItem(cartKey, JSON.stringify(updatedCart));
       show_toast("Product removed successfully", true);
+      getCart()
       getCartlist()
     } else {
       // If token exists, remove item via API
