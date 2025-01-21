@@ -245,7 +245,7 @@ const Wishlist = () => {
                                 <img
                                   src={`https://node.autogridnumberplate.com${
                                     token
-                                      ? item.photographs?.[0] | ""
+                                      ? item.photographs?.[0] || ""
                                       : item?.product?.photographs?.[0] || ""
                                   }`}
                                   // src={`https://node.autogridnumberplate.com${
