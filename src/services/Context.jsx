@@ -26,6 +26,17 @@ const [totalProducts, setTotalProducts] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(null);
     const getFavouriteContext = async () => {
       try {
+
+        const token = localStorage.getItem("token"); 
+
+        if (!token) {
+         
+          const localWishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+          setWishlistLength(localWishlist?.length); 
+          setProduct2(localWishlist);
+          return;
+        }
+
         const response = await Axioscall("get", getWishlistApi, "", "header");
         console.log(response);
         console.log(response?.data?.wishlistedProducts?.length);
