@@ -15,15 +15,12 @@ const Wishlist = () => {
     window.scrollTo(0, 0);
   }, []);
   const userId = localStorage.getItem("userId");
-  console.log(userId, "userIduserId");
   const token = localStorage.getItem("token");
 
   const [wishlist, setWishlist] = useState([]);
-  console.log(wishlist, "wishlistwishlistwishlistwishlistwishlist");
   const { getFavouriteContext,getCart } = useContext(ContextData);
 
   const handleAddToCart = async (productId, product,quantity = 1) => {
-    console.log(product, "productproductproduct");
     try {
       const token = localStorage.getItem("token"); // Check for token
       const cartKey = "cart";
