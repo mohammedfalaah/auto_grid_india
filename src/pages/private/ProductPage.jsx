@@ -151,7 +151,7 @@ const handleAddToCart = async (productId, product,quantity = 1) => {
     // Reusable function to handle localStorage cart
     const updateLocalStorageCart = (product) => {
       const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-      const productExists = cart.some((item) => item._id === product._id); // Check if the product is already in the cart
+      const productExists = cart.some((item) => item?._id === product?._id); // Check if the product is already in the cart
 
       if (!productExists) {
         cart.push(product); // Add product to cart
