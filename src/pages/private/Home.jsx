@@ -572,7 +572,9 @@ const Home = () => {
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
-                        <a  onClick={() => {
+                        <a 
+                        style={{cursor:"pointer"}}
+                        onClick={() => {
                               handleCategoryClick("CAR GEL PLATES"); // Call your custom logic
                               navigate(`/products`, {
                                 // state: { subcategory },
@@ -605,6 +607,7 @@ const Home = () => {
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
                         <a
+                           style={{cursor:"pointer"}}
                           onClick={() => {
                             handleCategoryClick(
                               "BIKE ALUMINIUM PUNCHING PLATE"
@@ -636,6 +639,7 @@ const Home = () => {
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
                         <a
+                           style={{cursor:"pointer"}}
                           onClick={() => {
                             handleCategoryClick("BIKE GEL PLATE"); // Call your custom logic
                             navigate(`/products`, {
@@ -663,6 +667,7 @@ const Home = () => {
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
                         <a
+                           style={{cursor:"pointer"}}
                           onClick={() => {
                             handleCategoryClick("CAR ALUMINIUM PUNCHING PLATE"); // Call your custom logic
                             navigate(`/products`, {
@@ -689,7 +694,9 @@ const Home = () => {
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
-                        <a  onClick={() => {
+                        <a 
+                           style={{cursor:"pointer"}}
+                         onClick={() => {
                             handleCategoryClick("NUMBER PLATE GEL FRAME"); // Call your custom logic
                             navigate(`/products`, {
                               // state: { subcategory },
@@ -714,7 +721,9 @@ const Home = () => {
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
-                        <a  onClick={() => {
+                        <a  
+                           style={{cursor:"pointer"}}
+                        onClick={() => {
                             handleCategoryClick("KEYCHAINS"); // Call your custom logic
                             navigate(`/products`, {
                               // state: { subcategory },
@@ -739,7 +748,9 @@ const Home = () => {
                   <div className="col " style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
-                        <a  onClick={() => {
+                        <a  
+                           style={{cursor:"pointer"}}
+                        onClick={() => {
                             handleCategoryClick("BIKE GEL FRAME"); // Call your custom logic
                             navigate(`/products`, {
                               // state: { subcategory },
@@ -790,7 +801,9 @@ const Home = () => {
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
-                        <a onClick={() => {
+                        <a 
+                           style={{cursor:"pointer"}}
+                        onClick={() => {
                             handleCategoryClick("CAR MIRROR HANGING"); // Call your custom logic
                             navigate(`/products`, {
                               // state: { subcategory },
