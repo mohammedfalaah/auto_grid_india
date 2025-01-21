@@ -256,8 +256,10 @@ console.log(product,"productproductproductproduct")
       try {
         const endpoint = `/removeCartItem/${id}`; // Use cartId for API request
         await Axioscall("delete", endpoint, "", "header");
+        getCart()
         show_toast("Product removed successfully", true);
         getCartlist(); // Refresh the cart list after successful removal
+    
       } catch (err) {
         show_toast(err.response?.data?.message || err.message);
       }

@@ -64,6 +64,7 @@ const Wishlist = () => {
   
       if (response?.status === 200) {
         show_toast("Product added to cart successfully", true);
+        getCart()
       } else {
         show_toast(response?.data?.message || "Failed to add product to cart", false);
       }
