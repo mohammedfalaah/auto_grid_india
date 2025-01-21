@@ -38,6 +38,7 @@ const [totalProducts, setTotalProducts] = useState(0);
        console.log();("Error fetching wishlist", false);
       }
     };
+    const cartKey = "cart";
     const getCart = async () => {
       const token = localStorage.getItem("token");
     
@@ -62,7 +63,7 @@ const [totalProducts, setTotalProducts] = useState(0);
       } else {
         // If no token, fetch cart from localStorage
         const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
-        setLenght(localCart.length); // Set length of the local cart
+        setLenght(localCart?.length); // Set length of the local cart
         // setProduct(localCart); // Set the local cart items
       }
     };

@@ -249,6 +249,7 @@ console.log(product,"productproductproductproduct")
       setProduct(updatedCart);
       localStorage.setItem(cartKey, JSON.stringify(updatedCart));
       show_toast("Product removed successfully", true);
+      getCart()
       getCartlist()
     } else {
       // If token exists, remove item via API

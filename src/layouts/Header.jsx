@@ -17,7 +17,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { length, categories, handleCategoryClick } = useContext(ContextData);
   const { wishlistLength } = useContext(ContextData);
-  console.log(categories, "categoriescategoriescategoriescategories");
+  console.log(length, "lengthlengthlengthlengthlength");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -182,12 +182,12 @@ const Header = () => {
                       />
                     </svg>
                     <span className="tp-header-action-badge">
-                      {
+                      {/* {
                         localStorage.getItem("token")
                           ? length // Use `length` when token exists
                           : JSON.parse(localStorage.getItem(cartKey))?.length ||
                             0 // Calculate length from localStorage
-                      }
+                      } */}{length}
                     </span>
                   </Link>
                 </div>
