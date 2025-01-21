@@ -17,7 +17,7 @@ const ProductPage = () => {
   const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading,getCart } = useContext(ContextData);
+  const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading,getCart ,} = useContext(ContextData);
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
@@ -35,23 +35,27 @@ const ProductPage = () => {
 
   
 
-  const handleAddToWishlist = async (productId) => {
+  const handleAddToWishlist = async (productId, product) => {
     try {
       const token = localStorage.getItem("token"); // Check for token
   
       if (!token) {
         // If no token, store wishlist data in localStorage
         const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-        if (!wishlist.includes(productId)) {
-          wishlist.push(productId);
+        
+        // Check if product is already in the wishlist
+        const isProductInWishlist = wishlist?.some(item => item.productId === productId);
+  
+        if (!isProductInWishlist) {
+          wishlist.push({ productId, product }); // Add the product object to wishlist
           localStorage.setItem("wishlist", JSON.stringify(wishlist));
           show_toast("Product added to wishlist", true);
+          getFavouriteContext()
         } else {
           show_toast("Product is already in your wishlist", false);
         }
         return;
       }
-  
       // If token exists, proceed with API call
       let body = { productId: productId };
       const response = await Axioscall("post", addToWishlistApi, body, "header");
@@ -472,7 +476,8 @@ useEffect(() => {
                                           </button>
                                           <button
                                             onClick={() =>
-                                              handleAddToWishlist(product._id)
+                                      
+                                              handleAddToWishlist(product._id,product)
                                             }
                                             type="button"
                                             className="tp-product-action-btn-2 tp-product-add-to-wishlist-btn"
