@@ -10,3 +10,4 @@ export const removeWishlistApi = "removeFromFavorites"
 export const getCartlistApi = 'getCart'
 export const updateQuantityApi = 'updateCartItemQuantity'
 export const getCategoryApi = 'getCategories'
+export const createOrderApi ='createorder'
