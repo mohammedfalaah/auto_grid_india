@@ -84,6 +84,8 @@ import Axioscall from '../services/Axioscall';
 import { getCartlistApi, updateQuantityApi } from '../services/BaseUrl';
 import { show_toast } from '../utils/Toast';
 import { ContextData } from '../services/Context';
+import { Link } from 'react-router-dom';
+import { CheckoutPath } from '../utils/Constants';
 
 const CartPage = () => {
   const [product, setProduct] = useState([]);
@@ -91,6 +93,7 @@ const CartPage = () => {
   const { getCart } = useContext(ContextData);
 
   const cartKey = "cart"; // Key for localStorage  // Fetch cart data from localStorage or API
+  
   const getCartlist = async () => {
     const token = localStorage.getItem("token");
 
@@ -118,50 +121,7 @@ console.log(product,"productproductproductproduct")
     }
   };
 
-  // Update cart item quantity
-  // const updateCartItemQuantity = async (cartId, quantity) => {
-  //   const token = localStorage.getItem("token");
 
-  //   if (!token) {
-  //     // If no token, update quantity in localStorage
-  //     setProduct((prevProducts) =>
-  //       prevProducts.map((item) => {
-  //         if (item.cartId === cartId) {
-  //           item.quantity = quantity;
-  //         }
-  //         return item;
-  //       })
-  //     );
-  //     localStorage.setItem(cartKey, JSON.stringify(product));
-  //     show_toast("Quantity updated successfully", true);
-  //   } else {
-  //     // If token exists, update quantity in API
-  //     try {
-  //       const endpoint = `${updateQuantityApi}/${cartId}`;
-  //       await Axioscall("put", endpoint, { quantity }, "header");
-  //       getCartlist();
-  //       show_toast("Quantity updated successfully", true);
-  //     } catch (err) {
-  //       show_toast(err.response?.data?.message || err.message);
-  //     }
-  //   }
-  // };
-
-  // // Handle quantity changes
-  // const handleQuantityChange = (cartId, operation) => {
-  //   setProduct((prevProducts) =>
-  //     prevProducts.map((item) => {
-  //       if (item.cartId === cartId) {
-  //         const updatedQuantity =
-  //           operation === "increment" ? item.quantity + 1 : item.quantity - 1;
-  //         if (updatedQuantity < 1) return item;
-  //         updateCartItemQuantity(cartId, updatedQuantity);
-  //         return { ...item, quantity: updatedQuantity };
-  //       }
-  //       return item;
-  //     })
-  //   );
-  // };
 
 
 
@@ -218,28 +178,7 @@ console.log(product,"productproductproductproduct")
     }
   };
   
-  // // Remove item from cart
-  // const removeFromCart = async (cartId) => {
-  //   const token = localStorage.getItem("token");
 
-  //   if (!token) {
-  //     // If no token, remove item from localStorage
-  //     const updatedCart = product.filter((item) => item.cartId !== cartId);
-  //     setProduct(updatedCart);
-  //     localStorage.setItem(cartKey, JSON.stringify(updatedCart));
-  //     show_toast("Product removed successfully", true);
-  //   } else {
-  //     // If token exists, remove item via API
-  //     try {
-  //       const endpoint = `/removeCartItem/${cartId}`;
-  //       await Axioscall("delete", endpoint, "", "header");
-  //       show_toast("Product removed successfully", true);
-  //       getCartlist();
-  //     } catch (err) {
-  //       show_toast(err.response?.data?.message || err.message);
-  //     }
-  //   }
-  // };
   const removeFromCart = async (id) => {
     const token = localStorage.getItem("token");
   
@@ -459,16 +398,8 @@ console.log(product,"productproductproductproduct")
             <div className="tp-cart-checkout-shipping">
               <h4 className="tp-cart-checkout-shipping-title">Shipping</h4>
               <div className="tp-cart-checkout-shipping-option-wrapper">
+              
                 <div className="tp-cart-checkout-shipping-option">
-                  <input id="flat_rate" type="radio" name="shipping" />
-                  <label htmlFor="flat_rate">Flat rate: <span>$20.00</span></label>
-                </div>
-                <div className="tp-cart-checkout-shipping-option">
-                  <input id="local_pickup" type="radio" name="shipping" />
-                  <label htmlFor="local_pickup">Local pickup: <span> $25.00</span></label>
-                </div>
-                <div className="tp-cart-checkout-shipping-option">
-                  <input id="free_shipping" type="radio" name="shipping" />
                   <label htmlFor="free_shipping">Free shipping</label>
                 </div>
               </div>
@@ -478,7 +409,7 @@ console.log(product,"productproductproductproduct")
               <span>{cartTotal}</span>
             </div>
             <div className="tp-cart-checkout-proceed">
-              <a href="checkout.html" className="tp-cart-checkout-btn w-100">Proceed to Checkout</a>
+              <Link to={'/checkout'} className="tp-cart-checkout-btn w-100">Proceed to Checkout</Link>
             </div>
           </div>
         </div>

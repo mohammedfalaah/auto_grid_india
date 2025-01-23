@@ -1,6 +1,124 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { createOrderApi, getCartlistApi } from '../services/BaseUrl';
+import Axioscall from '../services/Axioscall';
 
 const CheckOutPage = () => {
+    const [product, setProduct] = useState([]);
+    const [formData, setFormData] = useState({
+      firstName: "",
+      lastName: "",
+      company: "",
+      country: "",
+      street: "",
+      apartment: "",
+      city: "",
+      postalCode: "",
+      phone: "",
+      email: "",
+    });
+  
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
+    
+      
+  
+    const validateForm = () => {
+      const requiredFields = [
+        "firstName",
+        "lastName",
+        "street",
+        "city",
+        "postalCode",
+        "phone",
+        "email",
+      ];
+      for (let field of requiredFields) {
+        if (!formData[field]) {
+          alert(`Please fill out the ${field} field.`);
+          return false;
+        }
+      }
+      return true;
+    };
+  
+    const createOrder = async () => {
+      if (!validateForm()) return;
+    
+      // Example calculation of total amount (adjust this based on your application logic)
+      const totalAmount = product.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
+    
+      const orderPayload = {
+        products: product.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+        })),
+        address: {
+          street: formData.street,
+          city: formData.city,
+          state: formData.country,
+          postalCode: formData.postalCode,
+          phone: formData.phone,
+          email: formData.email,
+        },
+        totalAmount, // Include total amount in the payload
+      };
+    
+      try {
+        const response = await Axioscall(
+          "post",
+          createOrderApi,
+          orderPayload,
+          "header"
+        );
+        console.log("Order Response:", response);
+        alert("Order placed successfully!");
+      } catch (error) {
+        console.error("Error placing order:", error);
+        alert("Failed to place order. Please try again.");
+      }
+    };
+    
+
+      const getCartlist = async () => {
+        
+        const token = localStorage.getItem("token");
+    
+        if (!token) {
+          // If no token, fetch cart from localStorage
+          const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+          const updatedCart = localCart.map(product => ({
+            ...product,
+            quantity: product?.quantity || 1,
+            total: (product?.quantity || 1) * product?.currentPrice,
+          }));
+          setProduct(updatedCart);
+          localStorage.setItem(cartKey, JSON.stringify(updatedCart));
+       
+    console.log(product,"productproductproductproduct")
+    
+        } else {
+          // If token exists, fetch cart from API
+          try {
+            const response = await Axioscall("get", getCartlistApi, "", "header");
+            setProduct(response.data.products);
+          } catch (err) {
+            console.log(err.response?.data?.message || err.message);
+          }
+        }
+      };
+       useEffect(() => {
+          getCartlist();
+          window.scrollTo(0, 0);
+        }, []);
+  
   return (
     <>
   <main>
@@ -30,77 +148,130 @@ const CheckOutPage = () => {
           <div className="tp-checkout-bill-area">
             <h3 className="tp-checkout-bill-title">Billing Details</h3>
             <div className="tp-checkout-bill-form">
-              <form action="#">
-                <div className="tp-checkout-bill-inner">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="tp-checkout-input">
-                        <label>First Name <span>*</span></label>
-                        <input type="text" placeholder="First Name" />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="tp-checkout-input">
-                        <label>Last Name <span>*</span></label>
-                        <input type="text" placeholder="Last Name" />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="tp-checkout-input">
-                        <label>Company name (optional)</label>
-                        <input type="text" placeholder="Example LTD." />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="tp-checkout-input">
-                        <label>Country / Region </label>
-                        <input type="text" placeholder="India" />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="tp-checkout-input">
-                        <label>Street address</label>
-                        <input type="text" placeholder="House number and street name" />
-                      </div>
-                      <div className="tp-checkout-input">
-                        <input type="text" placeholder="Apartment, suite, unit, etc. (optional)" />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="tp-checkout-input">
-                        <label>Town / City</label>
-                        <input type="text" placeholder />
-                      </div>
-                    </div>
-                   
-                    <div className="col-md-6">
-                      <div className="tp-checkout-input">
-                        <label>Postcode ZIP</label>
-                        <input type="text" placeholder />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="tp-checkout-input">
-                        <label>Phone <span>*</span></label>
-                        <input type="text" placeholder />
-                      </div>
-                    </div>
-                    <div className="col-md-12">
-                      <div className="tp-checkout-input">
-                        <label>Email address <span>*</span></label>
-                        <input type="email" placeholder />
-                      </div>
-                    </div>
-                    
-                    <div className="col-md-12">
-                      <div className="tp-checkout-input">
-                        <label>Order notes (optional)</label>
-                        <textarea placeholder="Notes about your order, e.g. special notes for delivery." defaultValue={""} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
+            <form>
+  <div className="tp-checkout-bill-inner">
+    <div className="row">
+      <div className="col-md-6">
+        <div className="tp-checkout-input">
+          <label>First Name <span>*</span></label>
+          <input
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
+            placeholder="First Name"
+          />
+        </div>
+      </div>
+      <div className="col-md-6">
+        <div className="tp-checkout-input">
+          <label>Last Name <span>*</span></label>
+          <input
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            placeholder="Last Name"
+          />
+        </div>
+      </div>
+      <div className="col-md-12">
+        <div className="tp-checkout-input">
+          <label>Company name (optional)</label>
+          <input
+            type="text"
+            name="company"
+            value={formData.company}
+            onChange={handleInputChange}
+            placeholder="Example LTD."
+          />
+        </div>
+      </div>
+      <div className="col-md-12">
+        <div className="tp-checkout-input">
+          <label>Country / Region </label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleInputChange}
+            placeholder="India"
+          />
+        </div>
+      </div>
+      <div className="col-md-12">
+        <div className="tp-checkout-input">
+          <label>Street address</label>
+          <input
+            type="text"
+            name="street"
+            value={formData.street}
+            onChange={handleInputChange}
+            placeholder="House number and street name"
+          />
+        </div>
+        <div className="tp-checkout-input">
+          <input
+            type="text"
+            name="apartment"
+            value={formData.apartment}
+            onChange={handleInputChange}
+            placeholder="Apartment, suite, unit, etc. (optional)"
+          />
+        </div>
+      </div>
+      <div className="col-md-12">
+        <div className="tp-checkout-input">
+          <label>Town / City</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleInputChange}
+            placeholder="Town / City"
+          />
+        </div>
+      </div>
+      <div className="col-md-6">
+        <div className="tp-checkout-input">
+          <label>Postcode ZIP</label>
+          <input
+            type="text"
+            name="postalCode"
+            value={formData.postalCode}
+            onChange={handleInputChange}
+            placeholder="Postcode ZIP"
+          />
+        </div>
+      </div>
+      <div className="col-md-12">
+        <div className="tp-checkout-input">
+          <label>Phone <span>*</span></label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            placeholder="Phone"
+          />
+        </div>
+      </div>
+      <div className="col-md-12">
+        <div className="tp-checkout-input">
+          <label>Email address <span>*</span></label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            placeholder="Email address"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
             </div>
           </div>
         </div>
@@ -116,88 +287,79 @@ const CheckOutPage = () => {
                   <h4>Total</h4>
                 </li>
                 {/* item list */}
-                <li className="tp-order-info-list-desc">
-                  <p>Xiaomi Redmi Note 9 Global V. <span> x 2</span></p>
-                  <span>$274:00</span>
+                {product.length > 0 ? (
+                  product.map((item) => (
+                    <li key={item.cartId} className="tp-order-info-list-desc">
+<p>
+              {item.name || item.productName} <span> x {item.quantity}</span>
+            </p>                   <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  </li>
+                  ))
+                ):(
+                  <li className="tp-order-info-list-empty">
+                  <p>Your order is empty.</p>
                 </li>
-                <li className="tp-order-info-list-desc">
-                  <p>Office Chair Multifun <span> x 1</span></p>
-                  <span>$74:00</span>
-                </li>
-                <li className="tp-order-info-list-desc">
-                  <p>Apple Watch Series 6 Stainless  <span> x 3</span></p>
-                  <span>$362:00</span>
-                </li>
-                <li className="tp-order-info-list-desc">
-                  <p>Body Works Mens Collection <span> x 1</span></p>
-                  <span>$145:00</span>
-                </li>
+                )}
+               
+                
                 {/* subtotal */}
                 <li className="tp-order-info-list-subtotal">
                   <span>Subtotal</span>
-                  <span>$507.00</span>
-                </li>
-                {/* shipping */}
-                <li className="tp-order-info-list-shipping">
-                  <span>Shipping</span>
-                  <div className="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
-                    <span>
-                      <input id="flat_rate" type="radio" name="shipping" />
-                      <label htmlFor="flat_rate">Flat rate: <span>$20.00</span></label>
-                    </span>
-                    <span>
-                      <input id="local_pickup" type="radio" name="shipping" />
-                      <label htmlFor="local_pickup">Local pickup: <span>$25.00</span></label>
-                    </span>
-                    <span>
-                      <input id="free_shipping" type="radio" name="shipping" />
-                      <label htmlFor="free_shipping">Free shipping</label>
-                    </span>
-                  </div>
-                </li>
+                  <span>
+          $
+          {product
+            .reduce((acc, item) => acc + item.price * item.quantity, 0)
+            .toFixed(2)}
+        </span>                </li>
+               
                 {/* total */}
                 <li className="tp-order-info-list-total">
                   <span>Total</span>
-                  <span>$1,476.00</span>
-                </li>
+                  <span>
+          $
+          {product
+            .reduce((acc, item) => acc + item.price * item.quantity, 0)
+            .toFixed(2)}
+        </span>                </li>
               </ul>
             </div>
-            <div className="tp-checkout-payment">
-              <div className="tp-checkout-payment-item">
-                <input type="radio" id="back_transfer" name="payment" />
-                <label htmlFor="back_transfer" data-bs-toggle="direct-bank-transfer">Direct Bank Transfer</label>
-                <div className="tp-checkout-payment-desc direct-bank-transfer">
-                  <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                </div>
+            <hr />
+            <div className="payment-method">
+              <div>
+              <img
+            src="/assets/img/logo/razorpay.webp"
+            alt="Razorpay Logo"
+            style={{ width: "120px" }}
+          />
+              <h6>Credit Card/Debit Card/NetBanking</h6>
+        <p>
+         
+        </p>
+
               </div>
-              <div className="tp-checkout-payment-item">
-                <input type="radio" id="cheque_payment" name="payment" />
-                <label htmlFor="cheque_payment">Cheque Payment</label>
-                <div className="tp-checkout-payment-desc cheque-payment">
-                  <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                </div>
-              </div>
-              <div className="tp-checkout-payment-item">
-                <input type="radio" id="cod" name="payment" />
-                <label htmlFor="cod">Cash on Delivery</label>
-                <div className="tp-checkout-payment-desc cash-on-delivery">
-                  <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
-                </div>
-              </div>
-              <div className="tp-checkout-payment-item paypal-payment">
-                <input type="radio" id="paypal" name="payment" />
-                <label htmlFor="paypal">PayPal <img src="assets/img/icon/payment-option.png" alt /> <a href="#">What is PayPal?</a></label>
-              </div>
-            </div>
+        
+        <p>
+          Pay securely by Credit or Debit card or Internet Banking through
+          Razorpay.
+        </p>
+      </div>
+
+     
+
+    
+
+     
+    
+           
             <div className="tp-checkout-agree">
               <div className="tp-checkout-option">
                 <input id="read_all" type="checkbox" />
-                <label htmlFor="read_all">I have read and agree to the website.</label>
+                <label style={{fontSize:'10px'}} htmlFor="read_all"> I have read and agree to the website Terms and conditions *.</label>
               </div>
             </div>
-            <div className="tp-checkout-btn-wrapper">
-              <a href="#" className="tp-checkout-btn w-100">Place Order</a>
-            </div>
+            <button onClick={createOrder} className="tp-checkout-btn">
+          Place Order
+        </button>
           </div>
         </div>
       </div>
