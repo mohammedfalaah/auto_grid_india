@@ -68,7 +68,7 @@ const CheckOutPage = () => {
         quantity: item.quantity,
       })),
       address: {
-        name: formData.firstName + " " + formData.lastName,
+        name: formData?.firstName + " " + formData?.lastName,
         street: formData?.street,
         city: formData?.city,
         state: formData?.country,
