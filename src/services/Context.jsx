@@ -164,7 +164,7 @@ const [totalProducts, setTotalProducts] = useState(0);
     }, [pages]);
   
     const handleCategoryClick = (categoryId) => {
-      console.log(categoryId,"categoryIdcategoryIdcategoryIdcategoryIdcategoryId")
+     
       setSelectedCategory(categoryId); // Set the selected category
       setPages({ ...pages, page: 1 }); // Reset to the first page
       fetchProducts(); // Fetch products with the selected category

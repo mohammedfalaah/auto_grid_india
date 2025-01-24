@@ -19,8 +19,10 @@ const ProductPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading,getCart ,} = useContext(ContextData);
   const handleQuickView = (product) => {
+    console.log(product,"productproductproductproduct")
     setSelectedProduct(product);
   };
+  console.log(selectedProduct,"selectedProductselectedProductselectedProductselectedProductselectedProductselectedProduct")
   const [pagination, setPagination] = useState({
     isNext: false,
     isPrev: false,
@@ -190,6 +192,7 @@ const handleAddToCart = async (productId, product,quantity = 1) => {
     const response = await Axioscall("post", addToCartApi, body, "header");
 
     if (response?.status === 200) {
+      getCart()
       show_toast("Product added to cart successfully", true);
     } else {
       show_toast(response?.data?.message || "Failed to add product to cart", false);
@@ -697,9 +700,9 @@ useEffect(() => {
                             </div>
                             <div className="tp-product-details-add-to-cart mb-15 w-100">
                               <button  onClick={() =>
-                                              handleAddToCart(selectedProduct._id)
+                                              handleAddToCart(selectedProduct._id,selectedProduct)
                                             } className="tp-product-details-add-to-cart-btn w-100">
-                                Add to Cart
+                                Add to Cart view
                               </button>
                               <button   onClick={() =>
                                               handleAddToWishlist(selectedProduct._id)
