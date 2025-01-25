@@ -68,12 +68,14 @@ const CheckOutPage = () => {
         quantity: item.quantity,
       })),
       address: {
+        name: formData?.firstName + " " + formData?.lastName,
         street: formData?.street,
         city: formData?.city,
         state: formData?.country,
         postalCode: formData?.postalCode,
         phone: formData?.phone,
         email: formData?.email,
+        company:formData?.company
       },
       totalAmount, 
       ...(token && { user: DecodeToken?.id })
