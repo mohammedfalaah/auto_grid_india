@@ -7,6 +7,8 @@ const CheckOutPage = () => {
  
   const token = localStorage.getItem("token");
   const [product, setProduct] = useState([]);
+  console.log(product,"+++++++++");
+  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -66,7 +68,9 @@ const CheckOutPage = () => {
       products: product?.map((item) => ({
         productId: item.productId,
         quantity: item.quantity,
+        
       })),
+      
       address: {
         name: formData?.firstName + " " + formData?.lastName,
         street: formData?.street,
@@ -80,6 +84,7 @@ const CheckOutPage = () => {
       totalAmount, 
       ...(token && { user: DecodeToken?.id })
     };
+    
 
     try {
       const response = await Axioscall(
