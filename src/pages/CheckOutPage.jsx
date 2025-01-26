@@ -87,6 +87,8 @@ const CheckOutPage = () => {
     try {
       // Send order payload to server to create an order
       const response = await Axioscall("post", createOrderApi, orderPayload, "header");
+      console.log(response.data.order.orderId,"order_idorder_id");
+      
   
       // Prepare Razorpay payment options
       const paymentOptions = {
@@ -95,15 +97,15 @@ const CheckOutPage = () => {
         currency: "INR",
         name: "AUTO GRID INDIA ",
         description: "Order Payment",
-        order_id: response.data.razorpayOrderId, // Order ID from your server
+        order_id: response.data.order.orderId, // Order ID from your server
         handler: async (paymentResult) => {
+          console.log(paymentResult,"paymentResultpaymentResultpaymentResult");
+          
           try {
-            // Verify the payment on your server
-            const verifyResponse = await Axioscall(
-              "post",
-              razorpaiApi,
+            // Verify the payment on your server orderId, razorpayPaymentId, razorpaySignature
+            const verifyResponse = await Axioscall("post",razorpaiApi,
               {
-                paymentId: paymentResult.razorpay_payment_id,
+                razorpayPaymentId: paymentResult.razorpay_payment_id,
                 orderId: paymentResult.razorpay_order_id,
                 razorpaySignature: paymentResult.razorpay_signature,
               },
@@ -127,7 +129,10 @@ const CheckOutPage = () => {
       };
   
       // Open Razorpay Checkout
+      console.log(paymentOptions,"paymentOptionspaymentOptionspaymentOptions");
+      
       const razorpay = new window.Razorpay(paymentOptions);
+
       razorpay.on("payment.failed", (error) => {
         console.error("Payment Failed:", error);
         alert("Payment failed. Please try again.");
