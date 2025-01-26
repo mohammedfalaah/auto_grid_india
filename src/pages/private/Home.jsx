@@ -567,7 +567,7 @@ const Home = () => {
           </section>
        
 <WhatsappChat />
-<section className="tp-product-category pt-15 pb-15">
+{/* <section className="tp-product-category pt-15 pb-15">
   <div className="container">
   <div className="row col-xl-5 col-lg-6 col-md-5">
   <div className="tp-section-title-wrapper">
@@ -577,42 +577,38 @@ const Home = () => {
 </div>
   </div>
 
-</section>
+</section> */}
 
 
           <div>
-            <section className="tp-product-category pt-15 pb-15">
+            <section className="tp-product-category pt-25 pb-15">
               <div className="container">
                 <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-md-4 row-cols-sm-2 row-cols-2">
                
+                  
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
-                        <a 
-                        style={{cursor:"pointer"}}
-                        onClick={() => {
-                              handleCategoryClick("CAR GEL PLATES"); // Call your custom logic
-                              navigate(`/products`, {
-                                // state: { subcategory },
-                              }); // Navigate
-                            }}>
+                        <a
+                           style={{cursor:"pointer"}}
+                          onClick={() => {
+                            handleCategoryClick("CAR ALUMINIUM PUNCHING PLATE"); // Call your custom logic
+                            navigate(`/products`, {
+                              // state: { subcategory },
+                            }); // Navigate
+                          }}
+                        >
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/cargelplates2.png"
+                            src="/assets/img/product/iphonese.png"
                             alt="product-category"
                           />
                         </a>
                       </div>
                       <div className="tp-product-category-content">
                         <h3 className="tp-product-category-title">
-                          <a
-                            onClick={() => {
-                              handleCategoryClick("CAR GEL PLATE"); // Call your custom logic
-                              navigate(`/products`, {
-                              }); 
-                            }}
-                          >
-                            <strong>CAR GEL PLATES</strong>
+                          <a href="shop-category.html">
+                            <strong>CAR ALUMINIUM PUNCHING</strong>
                           </a>
                         </h3>
                       </div>
@@ -681,31 +677,37 @@ const Home = () => {
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
-                        <a
-                           style={{cursor:"pointer"}}
-                          onClick={() => {
-                            handleCategoryClick("CAR ALUMINIUM PUNCHING PLATE"); // Call your custom logic
-                            navigate(`/products`, {
-                              // state: { subcategory },
-                            }); // Navigate
-                          }}
-                        >
+                        <a 
+                        style={{cursor:"pointer"}}
+                        onClick={() => {
+                              handleCategoryClick("CAR GEL PLATES"); // Call your custom logic
+                              navigate(`/products`, {
+                                // state: { subcategory },
+                              }); // Navigate
+                            }}>
                           <img
                             style={{ width: "160px" }}
-                            src="/assets/img/product/iphonese.png"
+                            src="assets/img/product/cargelplates2.png"
                             alt="product-category"
                           />
                         </a>
                       </div>
                       <div className="tp-product-category-content">
                         <h3 className="tp-product-category-title">
-                          <a href="shop-category.html">
-                            <strong>CAR ALUMINIUM PUNCHING</strong>
+                          <a
+                            onClick={() => {
+                              handleCategoryClick("CAR GEL PLATE"); // Call your custom logic
+                              navigate(`/products`, {
+                              }); 
+                            }}
+                          >
+                            <strong>CAR GEL PLATES</strong>
                           </a>
                         </h3>
                       </div>
                     </div>
                   </div>
+                 
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
@@ -728,33 +730,6 @@ const Home = () => {
                         <h3 className="tp-product-category-title">
                           <a href="shop-category.html">
                             <strong>CAR GEL FRAME</strong>{" "}
-                          </a>
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col" style={{ padding: "0px" }}>
-                    <div className="tp-product-category-item text-center mb-40">
-                      <div className="tp-product-category-thumb fix">
-                        <a  
-                           style={{cursor:"pointer"}}
-                        onClick={() => {
-                            handleCategoryClick("KEYCHAINS"); // Call your custom logic
-                            navigate(`/products`, {
-                              // state: { subcategory },
-                            }); // Navigate
-                          }}>
-                          <img
-                            style={{ width: "160px" }}
-                            src="/assets/img/product/keychains2.png"
-                            alt="product-category"
-                          />
-                        </a>
-                      </div>
-                      <div className="tp-product-category-content">
-                        <h3 className="tp-product-category-title">
-                          <a href="shop-category.html">
-                            <strong>KEYCHAINS</strong>{" "}
                           </a>
                         </h3>
                       </div>
@@ -787,6 +762,34 @@ const Home = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="col" style={{ padding: "0px" }}>
+                    <div className="tp-product-category-item text-center mb-40">
+                      <div className="tp-product-category-thumb fix">
+                        <a  
+                           style={{cursor:"pointer"}}
+                        onClick={() => {
+                            handleCategoryClick("KEYCHAINS"); // Call your custom logic
+                            navigate(`/products`, {
+                              // state: { subcategory },
+                            }); // Navigate
+                          }}>
+                          <img
+                            style={{ width: "160px" }}
+                            src="/assets/img/product/keychains2.png"
+                            alt="product-category"
+                          />
+                        </a>
+                      </div>
+                      <div className="tp-product-category-content">
+                        <h3 className="tp-product-category-title">
+                          <a href="shop-category.html">
+                            <strong>KEYCHAINS</strong>{" "}
+                          </a>
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                 
                   <div className="col " style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
