@@ -12,6 +12,7 @@ import {
 } from "../../services/BaseUrl";
 import { ContextData } from "../../services/Context";
 import { ProductsPath, ProfilePath, WishlistPath } from "../../utils/Constants";
+import WhatsappChat from "./WhatsappChat";
 // import { ContextData } from '../services/Context'
 const Home = () => {
   useEffect(() => {
@@ -475,7 +476,7 @@ const Home = () => {
           <section className="tp-slider-area p-relative z-index-1">
             <Carousel>
               {/* First Slide */}
-              <Carousel.Item interval={1000}>
+              <Carousel.Item interval={500}>
                 <a onClick={()=> {
                   handleCategoryClick("CAR GEL PLATE")
                   navigate(`/products`,{
@@ -489,7 +490,7 @@ const Home = () => {
               </Carousel.Item>
 
               {/* Second Slide */}
-              <Carousel.Item interval={2000}>
+              <Carousel.Item interval={500}>
                 <a onClick={()=> {
                   handleCategoryClick("BIKE GEL PLATE")
                   navigate(`/products`,{})
@@ -504,7 +505,7 @@ const Home = () => {
               </Carousel.Item>
 
               {/* Third Slide */}
-              <Carousel.Item interval={3000}>
+              <Carousel.Item interval={500}>
                 <a onClick={()=> {
                   handleCategoryClick("CAR ALUMINIUM PUNCHING PLATE")
                   navigate(`products`, {
@@ -521,7 +522,7 @@ const Home = () => {
               </Carousel.Item>
 
               {/* Fourth Slide */}
-              <Carousel.Item interval={4000}>
+              <Carousel.Item interval={500}>
                 <a onClick={() => {
                   handleCategoryClick("WRC EDITION NUMBER PLATE")
                   navigate(`/products`, {
@@ -537,21 +538,21 @@ const Home = () => {
                 </a>
                
               </Carousel.Item>
-              <Carousel.Item interval={5000}>
+              <Carousel.Item interval={500}>
                 <img
                   style={{ width: "100%" }}
                   src="/assets/img/slider/AGI_banner_04.jpg"
                   alt="Slide 4"
                 />
               </Carousel.Item>
-              <Carousel.Item interval={6000}>
+              <Carousel.Item interval={500}>
                 <img
                   style={{ width: "100%" }}
                   src="/assets/img/slider/AGI_banner_05.jpg"
                   alt="Slide 4"
                 />
               </Carousel.Item>
-              <Carousel.Item interval={7000}>
+              <Carousel.Item interval={500}>
                 <a onClick={() => {
                   handleCategoryClick("CAR MIRROR HANGING")
                   navigate(`/products`)
@@ -564,7 +565,8 @@ const Home = () => {
               </Carousel.Item>
             </Carousel>
           </section>
-
+       
+<WhatsappChat />
           <div>
             <section className="tp-product-category pt-60 pb-15">
               <div className="container">
