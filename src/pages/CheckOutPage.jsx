@@ -58,6 +58,15 @@ const CheckOutPage = () => {
       DecodeToken = jwtDecode(localStorage.getItem("token"));
     }
   
+    let productsFromCart = [];
+    if (!token) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      productsFromCart = cart.map((item) => ({
+        productId: item._id, // Assuming "_id" is the key for product ID in localStorage
+        quantity: item.quantity,
+      }));
+    }
+  
     // Calculate total amount
     const totalAmount = product.reduce(
       (sum, item) =>
@@ -66,10 +75,12 @@ const CheckOutPage = () => {
     );
   
     const orderPayload = {
-      products: product?.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-      })),
+      products: token
+        ? product?.map((item) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+          }))
+        : productsFromCart, // Use products from localStorage cart if no user
       address: {
         name: formData?.firstName + " " + formData?.lastName,
         street: formData?.street,
@@ -87,8 +98,7 @@ const CheckOutPage = () => {
     try {
       // Send order payload to server to create an order
       const response = await Axioscall("post", createOrderApi, orderPayload, "header");
-      console.log(response.data.order.orderId,"order_idorder_id");
-      
+      console.log(response.data.order.orderId, "order_idorder_id");
   
       // Prepare Razorpay payment options
       const paymentOptions = {
@@ -99,11 +109,13 @@ const CheckOutPage = () => {
         description: "Order Payment",
         order_id: response.data.order.orderId, // Order ID from your server
         handler: async (paymentResult) => {
-          console.log(paymentResult,"paymentResultpaymentResultpaymentResult");
-          
+          console.log(paymentResult, "paymentResultpaymentResultpaymentResult");
+  
           try {
             // Verify the payment on your server orderId, razorpayPaymentId, razorpaySignature
-            const verifyResponse = await Axioscall("post",razorpaiApi,
+            const verifyResponse = await Axioscall(
+              "post",
+              razorpaiApi,
               {
                 razorpayPaymentId: paymentResult.razorpay_payment_id,
                 orderId: paymentResult.razorpay_order_id,
@@ -129,10 +141,10 @@ const CheckOutPage = () => {
       };
   
       // Open Razorpay Checkout
-      console.log(paymentOptions,"paymentOptionspaymentOptionspaymentOptions");
-      
+      console.log(paymentOptions, "paymentOptionspaymentOptionspaymentOptions");
+  
       const razorpay = new window.Razorpay(paymentOptions);
-
+  
       razorpay.on("payment.failed", (error) => {
         console.error("Payment Failed:", error);
         alert("Payment failed. Please try again.");
@@ -143,6 +155,7 @@ const CheckOutPage = () => {
       alert("Failed to place order. Please try again.");
     }
   };
+  
   
   const getCartlist = async () => {
     const token = localStorage.getItem("token");

@@ -821,7 +821,7 @@ const Footer = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                   <div className="tp-footer-widget footer-col-3 mb-50">
                     <h4
                       style={{ color: "white" }}
@@ -870,7 +870,78 @@ const Footer = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-lg-3 col-md-4 col-sm-6">
+                <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                  <div className="tp-footer-widget footer-col-3 mb-50">
+                    <h4
+                      style={{ color: "white" }}
+                      className="tp-footer-widget-title"
+                    >
+                      Our Address
+                    </h4>
+                    <div className="tp-footer-widget-content">
+                      <div className="tp-footer-talk mb-20">
+                        <span style={{ color: "white" }}>
+                          Paravath Building <br />
+                          Mylappuram Malappuram <br />
+                          PO Downhill <br />
+                          676519
+                          
+                        </span>
+                        
+                      </div>
+                      <div className="tp-footer-contact">
+                        <div className="tp-footer-contact-item d-flex align-items-start">
+                          <div className="tp-footer-contact-icon">
+                            <span>
+                              <svg
+                                width={18}
+                                height={16}
+                                viewBox="0 0 18 16"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M1 5C1 2.2 2.6 1 5 1H13C15.4 1 17 2.2 17 5V10.6C17 13.4 15.4 14.6 13 14.6H5"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeMiterlimit={10}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M13 5.40039L10.496 7.40039C9.672 8.05639 8.32 8.05639 7.496 7.40039L5 5.40039"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeMiterlimit={10}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M1 11.4004H5.8"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeMiterlimit={10}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M1 8.19922H3.4"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  strokeMiterlimit={10}
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                   <div className="tp-footer-widget footer-col-4 mb-50">
                     <h4
                       style={{ color: "white" }}
@@ -889,6 +960,14 @@ const Footer = () => {
                             style={{ color: "white" }}
                           >
                             +91 99 611 23 654
+                          </a>
+                        </h4>
+                        <h4>
+                          <a
+                            href="tel:+91 9961123654"
+                            style={{ color: "white", marginTop:'10px' }}
+                          >
+                            +91 73 567 07 711
                           </a>
                         </h4>
                       </div>
@@ -943,6 +1022,8 @@ const Footer = () => {
                     </div>
                   </div>
                 </div>
+                
+                
               </div>
             </div>
           </div>
