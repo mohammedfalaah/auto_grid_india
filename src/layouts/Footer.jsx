@@ -773,11 +773,11 @@ const Footer = () => {
                         designed for style, durability, and precision. Since
                         2022.{" "}
                       </p>
-                      <div className="tp-footer-social">
-                        <a href="https://www.facebook.com/share/19fc7Tjb6E/?mibextid=wwXIfr">
-                          <i className="fa-brands fa-facebook-f" />
+                      <div className="tp-footer-social" >
+                        <a style={{marginRight:'5px'}} href="https://www.facebook.com/share/19fc7Tjb6E/?mibextid=wwXIfr">
+                          <i  className="fa-brands fa-facebook-f" />
                         </a>
-                        <a href="https://www.instagram.com/autogridindia?igsh=MWRhZTUxbG1peDVobQ==">
+                        <a style={{marginRight:'5px'}} href="https://www.instagram.com/autogridindia?igsh=MWRhZTUxbG1peDVobQ==">
                           <i className="fa-brands fa-instagram" />
                         </a>
                         <a href="https://wa.me/919961123654">
