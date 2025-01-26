@@ -395,7 +395,7 @@ const CheckOutPage = () => {
                       <li className="tp-order-info-list-subtotal">
                         <span>Subtotal</span>
                         <span>
-                          $
+                        ₹
                           {product
                             .reduce(
                               (acc, item) =>
@@ -413,7 +413,7 @@ const CheckOutPage = () => {
                       <li className="tp-order-info-list-total">
                         <span>Total</span>
                         <span>
-                          $
+                        ₹
                           {product
                             .reduce(
                               (acc, item) =>

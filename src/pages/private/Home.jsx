@@ -567,10 +567,24 @@ const Home = () => {
           </section>
        
 <WhatsappChat />
+<section className="tp-product-category pt-15 pb-15">
+  <div className="container">
+  <div className="row col-xl-5 col-lg-6 col-md-5">
+  <div className="tp-section-title-wrapper">
+    <h6 className="tp-section-title" style={{fontSize:'30px'}}>All Products 
+    </h6>
+  </div>
+</div>
+  </div>
+
+</section>
+
+
           <div>
-            <section className="tp-product-category pt-60 pb-15">
+            <section className="tp-product-category pt-15 pb-15">
               <div className="container">
                 <div className="row row-cols-xl-5 row-cols-lg-5 row-cols-md-4 row-cols-sm-2 row-cols-2">
+               
                   <div className="col" style={{ padding: "0px" }}>
                     <div className="tp-product-category-item text-center mb-40">
                       <div className="tp-product-category-thumb fix">
@@ -595,8 +609,7 @@ const Home = () => {
                             onClick={() => {
                               handleCategoryClick("CAR GEL PLATE"); // Call your custom logic
                               navigate(`/products`, {
-                                // state: { subcategory },
-                              }); // Navigate
+                              }); 
                             }}
                           >
                             <strong>CAR GEL PLATES</strong>
