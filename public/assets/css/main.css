@@ -7118,6 +7118,7 @@ body .ui-tooltip {
   -ms-transform: perspective(300px) rotateX(-18deg);
   -o-transform: perspective(300px) rotateX(-18deg);
   transform: perspective(300px) rotateX(-18deg);
+  display:none;
 }
 .main-menu > nav > ul > li > .tp-submenu li {
   display: block;
