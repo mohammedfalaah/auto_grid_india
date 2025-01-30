@@ -17,6 +17,7 @@ import RefundAndCancellation from "./pages/private/RefundAndCancellation"
 import Shipping from "./pages/private/Shipping"
 import CheckOutPage from "./pages/CheckOutPage"
 import SambleCheckout from "./pages/SambleCheckout"
+import Order from "./pages/private/Order"
 
 
 
@@ -39,6 +40,7 @@ function App() {
     <Route path={ShippingPath} element={<Shipping />} />
     <Route path={CheckoutPath} element={<CheckOutPage />} />
     <Route path="sample" element={<SambleCheckout />} />
+    <Route path="orders" element={<Order />} />
     </Routes>
     <Helmet>
     <script type="module" src="/src/main.jsx"></script>

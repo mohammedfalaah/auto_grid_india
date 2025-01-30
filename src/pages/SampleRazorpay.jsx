@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const SampleRazorpay = ({ totalAmount, paymentLink, userDetails, addressDetails }) => {
-    // Function to handle the payment initiation
+
     const handlePayment = () => {
         const options = {
             key: process.env.RAZORPAY_KEY_ID,  // Your Razorpay public key
@@ -28,7 +28,6 @@ const SampleRazorpay = ({ totalAmount, paymentLink, userDetails, addressDetails 
         razorpay.open();
     };
 
-    // Function to verify payment details on the backend
     const verifyPayment = (response) => {
         const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
 

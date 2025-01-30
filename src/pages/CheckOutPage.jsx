@@ -102,7 +102,7 @@ const CheckOutPage = () => {
   
       // Prepare Razorpay payment options
       const paymentOptions = {
-        key: "rzp_test_iJRAjcFNZEYW92", // Replace with your Razorpay Key ID
+        key: "rzp_test_z4LYJxlkExX53p", // Replace with your Razorpay Key ID
         amount: totalAmount * 100, // Razorpay expects the amount in paise
         currency: "INR",
         name: "AUTO GRID INDIA ",
