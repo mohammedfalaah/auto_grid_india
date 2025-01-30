@@ -408,7 +408,7 @@ useEffect(() => {
                                       <a
                                         onClick={() => handleQuickView(product)}
                                       >
-                                        <img
+                                        <img style={{ width: "100%", height: "100%", objectFit: "cover" }}
                                           className="product-img"
                                           src={`https://node.autogridnumberplate.com${
                                             product.photographs?.[0] || ""
