@@ -100,11 +100,7 @@ const Header = () => {
                     <div className="main-menu menu-style-1">
                       <nav className="tp-main-menu-content tp-category-menu-content">
                         <ul>
-                          {/* <li  className="has-mega-menu">
-                            <Link style={{ color: "white" }} to={BasePath}>
-                            <strong>HOME</strong>  
-                            </Link>
-                          </li> */}
+                         
 
                           {categories?.map((categoryItem) => (
                             <li className="has-dropdown">
@@ -118,10 +114,10 @@ const Header = () => {
                                       key={index}
                                       style={{ cursor: "pointer" }}
                                       onClick={() => {
-                                        handleCategoryClick(subcategory); // Call your custom logic
+                                        handleCategoryClick(subcategory); 
                                         navigate(`/products`, {
                                           state: { subcategory },
-                                        }); // Navigate
+                                        }); 
                                       }}
                                     >
                                       <a>{subcategory}</a>

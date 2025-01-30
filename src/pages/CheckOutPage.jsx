@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createOrderApi, getCartlistApi } from "../services/BaseUrl";
+import { createOrderApi, getCartlistApi, razorpaiApi } from "../services/BaseUrl";
 import Axioscall from "../services/Axioscall";
 import {jwtDecode} from "jwt-decode";
 
@@ -7,6 +7,8 @@ const CheckOutPage = () => {
  
   const token = localStorage.getItem("token");
   const [product, setProduct] = useState([]);
+  console.log(product,"+++++++++");
+  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -50,23 +52,35 @@ const CheckOutPage = () => {
 
   const createOrder = async () => {
     if (!validateForm()) return;
+  
     let DecodeToken;
     if (token) {
       DecodeToken = jwtDecode(localStorage.getItem("token"));
     }
   
-
-    // Example calculation of total amount (adjust this based on your application logic)
+    let productsFromCart = [];
+    if (!token) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      productsFromCart = cart.map((item) => ({
+        productId: item._id, // Assuming "_id" is the key for product ID in localStorage
+        quantity: item.quantity,
+      }));
+    }
+  
+    // Calculate total amount
     const totalAmount = product.reduce(
       (sum, item) =>
         sum + (token ? item.price * item.quantity : item.currentPrice * item.quantity),
       0
     );
+  
     const orderPayload = {
-      products: product?.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantity,
-      })),
+      products: token
+        ? product?.map((item) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+          }))
+        : productsFromCart, // Use products from localStorage cart if no user
       address: {
         name: formData?.firstName + " " + formData?.lastName,
         street: formData?.street,
@@ -75,27 +89,74 @@ const CheckOutPage = () => {
         postalCode: formData?.postalCode,
         phone: formData?.phone,
         email: formData?.email,
-        company:formData?.company
+        company: formData?.company,
       },
-      totalAmount, 
-      ...(token && { user: DecodeToken?.id })
+      totalAmount,
+      ...(token && { user: DecodeToken?.id }),
     };
-
+  
     try {
-      const response = await Axioscall(
-        "post",
-        createOrderApi,
-        orderPayload,
-        "header"
-      );
-      console.log("Order Response:", response);
-      alert("Order placed successfully!");
+      // Send order payload to server to create an order
+      const response = await Axioscall("post", createOrderApi, orderPayload, "header");
+      console.log(response.data.order.orderId, "order_idorder_id");
+  
+      // Prepare Razorpay payment options
+      const paymentOptions = {
+        key: "rzp_test_iJRAjcFNZEYW92", // Replace with your Razorpay Key ID
+        amount: totalAmount * 100, // Razorpay expects the amount in paise
+        currency: "INR",
+        name: "AUTO GRID INDIA ",
+        description: "Order Payment",
+        order_id: response.data.order.orderId, // Order ID from your server
+        handler: async (paymentResult) => {
+          console.log(paymentResult, "paymentResultpaymentResultpaymentResult");
+  
+          try {
+            // Verify the payment on your server orderId, razorpayPaymentId, razorpaySignature
+            const verifyResponse = await Axioscall(
+              "post",
+              razorpaiApi,
+              {
+                razorpayPaymentId: paymentResult.razorpay_payment_id,
+                orderId: paymentResult.razorpay_order_id,
+                razorpaySignature: paymentResult.razorpay_signature,
+              },
+              "header"
+            );
+  
+            console.log("Payment Verified:", verifyResponse);
+          } catch (error) {
+            console.error("Payment Verification Failed:", error);
+            alert("Payment verification failed. Please contact support.");
+          }
+        },
+        prefill: {
+          name: formData?.firstName + " " + formData?.lastName,
+          email: formData?.email,
+          contact: formData?.phone,
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+  
+      // Open Razorpay Checkout
+      console.log(paymentOptions, "paymentOptionspaymentOptionspaymentOptions");
+  
+      const razorpay = new window.Razorpay(paymentOptions);
+  
+      razorpay.on("payment.failed", (error) => {
+        console.error("Payment Failed:", error);
+        alert("Payment failed. Please try again.");
+      });
+      razorpay.open();
     } catch (error) {
       console.error("Error placing order:", error);
       alert("Failed to place order. Please try again.");
     }
   };
-
+  
+  
   const getCartlist = async () => {
     const token = localStorage.getItem("token");
 
@@ -334,7 +395,7 @@ const CheckOutPage = () => {
                       <li className="tp-order-info-list-subtotal">
                         <span>Subtotal</span>
                         <span>
-                          $
+                        ₹
                           {product
                             .reduce(
                               (acc, item) =>
@@ -352,7 +413,7 @@ const CheckOutPage = () => {
                       <li className="tp-order-info-list-total">
                         <span>Total</span>
                         <span>
-                          $
+                        ₹
                           {product
                             .reduce(
                               (acc, item) =>

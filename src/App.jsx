@@ -16,6 +16,7 @@ import TermsAndConditions from "./pages/private/TermsAndConditions"
 import RefundAndCancellation from "./pages/private/RefundAndCancellation"
 import Shipping from "./pages/private/Shipping"
 import CheckOutPage from "./pages/CheckOutPage"
+import SambleCheckout from "./pages/SambleCheckout"
 
 
 
@@ -37,6 +38,7 @@ function App() {
     <Route path={RefundAndCancellationPath} element={<RefundAndCancellation />} />
     <Route path={ShippingPath} element={<Shipping />} />
     <Route path={CheckoutPath} element={<CheckOutPage />} />
+    <Route path="sample" element={<SambleCheckout />} />
     </Routes>
     <Helmet>
     <script type="module" src="/src/main.jsx"></script>

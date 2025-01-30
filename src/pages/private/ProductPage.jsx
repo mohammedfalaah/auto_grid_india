@@ -402,7 +402,7 @@ useEffect(() => {
                           
                           ) : (
                               products.map((product, index) => (
-                                <div className="col-xl-3 col-md-6 col-sm-6">
+                                <div className="col-xl-3 col-md-6 col-sm-6 col-6">
                                   <div className="tp-product-item-2 mb-40">
                                     <div className="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                                       <a
