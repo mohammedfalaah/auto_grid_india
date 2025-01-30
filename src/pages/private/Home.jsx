@@ -476,7 +476,7 @@ const Home = () => {
           <section className="tp-slider-area p-relative z-index-1">
             <Carousel>
               {/* First Slide */}
-              <Carousel.Item interval={500}>
+              <Carousel.Item interval={4000}>
                 <a onClick={()=> {
                   handleCategoryClick("CAR GEL PLATE")
                   navigate(`/products`,{
@@ -490,7 +490,7 @@ const Home = () => {
               </Carousel.Item>
 
               {/* Second Slide */}
-              <Carousel.Item interval={500}>
+              <Carousel.Item interval={4000}>
                 <a onClick={()=> {
                   handleCategoryClick("BIKE GEL PLATE")
                   navigate(`/products`,{})
@@ -505,7 +505,7 @@ const Home = () => {
               </Carousel.Item>
 
               {/* Third Slide */}
-              <Carousel.Item interval={500}>
+              <Carousel.Item interval={4000}>
                 <a onClick={()=> {
                   handleCategoryClick("CAR ALUMINIUM PUNCHING PLATE")
                   navigate(`products`, {
@@ -522,7 +522,7 @@ const Home = () => {
               </Carousel.Item>
 
               {/* Fourth Slide */}
-              <Carousel.Item interval={500}>
+              <Carousel.Item interval={4000}>
                 <a onClick={() => {
                   handleCategoryClick("WRC EDITION NUMBER PLATE")
                   navigate(`/products`, {
@@ -538,21 +538,21 @@ const Home = () => {
                 </a>
                
               </Carousel.Item>
-              <Carousel.Item interval={500}>
+              <Carousel.Item interval={4000}>
                 <img
                   style={{ width: "100%" }}
                   src="/assets/img/slider/AGI_banner_04.jpg"
                   alt="Slide 4"
                 />
               </Carousel.Item>
-              <Carousel.Item interval={500}>
+              <Carousel.Item interval={4000}>
                 <img
                   style={{ width: "100%" }}
                   src="/assets/img/slider/AGI_banner_05.jpg"
                   alt="Slide 4"
                 />
               </Carousel.Item>
-              <Carousel.Item interval={500}>
+              <Carousel.Item interval={4000}>
                 <a onClick={() => {
                   handleCategoryClick("CAR MIRROR HANGING")
                   navigate(`/products`)
@@ -714,7 +714,7 @@ const Home = () => {
                         <a 
                            style={{cursor:"pointer"}}
                          onClick={() => {
-                            handleCategoryClick("NUMBER PLATE GEL FRAME"); // Call your custom logic
+                            handleCategoryClick("NUMBER PLATE GEL FRAME");
                             navigate(`/products`, {
                               // state: { subcategory },
                             }); // Navigate
