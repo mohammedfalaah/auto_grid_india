@@ -24,11 +24,12 @@ const Footer = () => {
   const [isMenuVisibleSub, setIsMenuVisibleSub] = useState(false);
   const { length, categories, handleCategoryClick } = useContext(ContextData);
   const [visibleItems, setVisibleItems] = useState({});
+  const [expandedCategory, setExpandedCategory] = useState(null);
   const toggleMenu = () => {
-    console.log("categoriescategoriescateg............oriescategories");
+
     setIsMenuVisible(!isMenuVisible);
   };
- 
+
   const offcanvasRef = useRef(null);
   const toggleMenuSub = (index) => {
     toggleItem(index);
@@ -53,12 +54,13 @@ const Footer = () => {
       state: { subcategory },
     });
 
-    // if (offcanvasRef.current) {
-    //   offcanvasRef.current.classList.remove('offcanvas-opened');
-    //   console.log('Classes removed');
-    // } else {
-    //   console.log('Offcanvas element not found');
-    // }
+ 
+  };
+
+ 
+
+  const toggleSubcategories = (categoryId) => {
+    setExpandedCategory((prev) => (prev === categoryId ? null : categoryId));
   };
 
   return (
@@ -109,127 +111,103 @@ const Footer = () => {
                 </div>
               </div>
               <div style={{ paddingBottom: "40px" }}>
-  <button onClick={toggleMenu} style={{ background: "none", border: "none", cursor: "pointer" }}>
-    <i className="fa-solid fa-bars" />
-    All Categories
-  </button>
-  <div>
-    <nav>
-      <ul ref={menuRef} style={{ listStyleType: "none", padding: "0" }}>
-        {categories?.map((categoryItem) => (
-          <li key={categoryItem._id} style={{ marginBottom: "10px" }}>
-            <a style={{ textDecoration: "none", color: "white", display: "block" }}>
-              <span></span>
-              <strong>{categoryItem.category}</strong>
-            </a>
-            {/* Submenu always visible without a button */}
-            <ul style={{ paddingLeft: "20px", listStyleType: "none", padding: "0" }}>
-              {categoryItem?.subcategories?.map((subcategory, index) => (
-                <li
-                
-               
-                  key={index}
-                  style={{ cursor: "pointer", color: "white", marginBottom: "5px" }}
-  onClick={() => {
-    handleclick(subcategory); // Call your custom logic for handling the click
-
-    
-    const offcanvasAreas = document.querySelectorAll('.offcanvas__area');
-    offcanvasAreas.forEach(offcanvasArea => {
-      offcanvasArea.classList.remove('offcanvas-opened');
-    });
-
-  
-    const bodyOverlays = document.querySelectorAll('.body-overlay');
-    bodyOverlays.forEach(bodyOverlay => {
-      bodyOverlay.classList.remove('opened');
-    });
-  }}
-                
-                >
-                  {subcategory}
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </div>
-</div>
-
-              {/* <div className="offcanvas__category pb-40">
                 <button
-                  className="tp-offcanvas-category-toggle"
                   onClick={toggleMenu}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
                 >
                   <i className="fa-solid fa-bars" />
                   All Categories
                 </button>
-                <div className="tp-category-mobile-menu">
-                  <nav
-                    className="tp-category-menu-content"
-                    style={{ display: "none" }}
-                  >
+                <div>
+                  <nav>
                    
                     <ul
-                    className="sidebar-menu"
-                      // style={{ display: "none" }}
-                      style={{ display: isMenuVisible ? "block" : "none" }}
                       ref={menuRef}
+                      style={{ listStyleType: "none", padding: "0" }}
                     >
-                      {categories?.map((categoryItem, index) => (
-                        <li key={categoryItem._id} className="has-dropdown">
-                          <a>
-                            <span></span>
-                            <strong style={{ color: "white" }}>
-                              {categoryItem.category}
-                            </strong>
-                            <button
-                              className={`dropdown-toggle-btn ${
-                                isMenuVisibleSub ? "dropdown-opened" : ""
-                              }`}
-                              onClick={() => handleClick(index)}
-                            >
-                              <i className="fa-regular fa-angle-right" />
-                            </button>
-                          </a>
-                          <ul
-                            className="tp-submenu"
+                      {categories?.map((categoryItem) => (
+                        <li
+                          key={categoryItem._id}
+                          style={{ marginBottom: "10px" }}
+                        >
+                          <a
                             style={{
-                              display: visibleItems[index] ? "block" : "none",
+                              textDecoration: "none",
+                              color: "white",
+                              display: "flex",
+                              alignItems: "center",
+                              cursor: "pointer",
                             }}
-                            // style={{ display: "none" }}
+                            onClick={() =>
+                              toggleSubcategories(categoryItem._id)
+                            }
                           >
-                            {" "}
-                            {categoryItem?.subcategories.map(
-                              (subcategory, index) => (
-                                <li
-                                  key={index}
-                                  style={{ cursor: "pointer", color: "white" }}
-                                  // onClick={() =>
+                            <strong>{categoryItem.category}</strong>
+                            <i
+                              className={`fa-solid ${
+                                expandedCategory === categoryItem._id
+                                  ? "fa-chevron-down"
+                                  : "fa-chevron-right"
+                              }`}
+                              style={{ marginLeft: "8px" }}
+                            ></i>
+                          </a>
+                          {/* Show subcategories only if the category is expanded */}
+                          {expandedCategory === categoryItem._id && (
+                            <ul
+                              style={{
+                                paddingLeft: "20px",
+                                listStyleType: "none",
+                                padding: "0",
+                              }}
+                            >
+                              {categoryItem?.subcategories?.map(
+                                (subcategory, index) => (
+                                  <li
+                                    key={index}
+                                    style={{
+                                      cursor: "pointer",
+                                      color: "white",
+                                      marginBottom: "5px",
+                                      marginLeft: "10px",
+                                    }}
+                                    onClick={() => {
+                                      handleclick(subcategory);
 
-                                  //   handleCategoryClick(subcategory)
-                                  // }
-                                  // onClick={() => {
-                                  //   handleCategoryClick(subcategory); // Call your custom logic
-                                  //   navigate(`/products`, {
-                                  //     state: { subcategory },
-                                  //   }); // Navigate
-                                  // }}
-                                  onClick={() => handleclick(subcategory)}
-                                >
-                              
-                                </li>
-                              )
-                            )}
-                          </ul>
+                                   
+                                      document
+                                        .querySelectorAll(".offcanvas__area")
+                                        .forEach((offcanvasArea) =>
+                                          offcanvasArea.classList.remove(
+                                            "offcanvas-opened"
+                                          )
+                                        );
+
+                                      document
+                                        .querySelectorAll(".body-overlay")
+                                        .forEach((bodyOverlay) =>
+                                          bodyOverlay.classList.remove("opened")
+                                        );
+                                    }}
+                                  >
+                                    {subcategory}
+                                  </li>
+                                )
+                              )}
+                            </ul>
+                          )}
                         </li>
                       ))}
                     </ul>
                   </nav>
                 </div>
-              </div> */}
+              </div>
+
+            
 
               <div className="tp-main-menu-mobile fix d-lg-none mb-40" />
               <div className="offcanvas__contact align-items-center d-none">
@@ -348,11 +326,17 @@ const Footer = () => {
                         designed for style, durability, and precision. Since
                         2022.{" "}
                       </p>
-                      <div className="tp-footer-social" >
-                        <a style={{marginRight:'5px'}} href="https://www.facebook.com/share/19fc7Tjb6E/?mibextid=wwXIfr">
-                          <i  className="fa-brands fa-facebook-f" />
+                      <div className="tp-footer-social">
+                        <a
+                          style={{ marginRight: "5px" }}
+                          href="https://www.facebook.com/share/19fc7Tjb6E/?mibextid=wwXIfr"
+                        >
+                          <i className="fa-brands fa-facebook-f" />
                         </a>
-                        <a style={{marginRight:'5px'}} href="https://www.instagram.com/autogridindia?igsh=MWRhZTUxbG1peDVobQ==">
+                        <a
+                          style={{ marginRight: "5px" }}
+                          href="https://www.instagram.com/autogridindia?igsh=MWRhZTUxbG1peDVobQ=="
+                        >
                           <i className="fa-brands fa-instagram" />
                         </a>
                         <a href="https://wa.me/919961123654">
@@ -460,9 +444,7 @@ const Footer = () => {
                           Mylappuram Malappuram <br />
                           PO Downhill <br />
                           676519
-                          
                         </span>
-                        
                       </div>
                       <div className="tp-footer-contact">
                         <div className="tp-footer-contact-item d-flex align-items-start">
@@ -515,7 +497,7 @@ const Footer = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                   <div className="tp-footer-widget footer-col-4 mb-50">
                     <h4
@@ -540,7 +522,7 @@ const Footer = () => {
                         <h4>
                           <a
                             href="tel:+91 9961123654"
-                            style={{ color: "white", marginTop:'10px' }}
+                            style={{ color: "white", marginTop: "10px" }}
                           >
                             +91 73 567 07 711
                           </a>
@@ -597,8 +579,6 @@ const Footer = () => {
                     </div>
                   </div>
                 </div>
-                
-                
               </div>
             </div>
           </div>
