@@ -396,7 +396,7 @@ useEffect(() => {
                           ) : products.length === 0 ? (
                             <div className="col-12 d-flex justify-content-center align-items-center" style={{ minHeight: '200px' }}>
                             <p className="text-center text-muted" style={{ fontSize: '1.5rem', fontWeight: '500' }}>
-                              No data here
+                              NO PRODUCTS HERE
                             </p>
                           </div>
                           
