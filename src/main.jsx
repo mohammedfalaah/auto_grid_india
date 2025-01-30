@@ -17,6 +17,5 @@ createRoot(document.getElementById('root')).render(
 <Footer />  
 </Context_Provider>
 </BrowserRouter>
- 
   
 )
