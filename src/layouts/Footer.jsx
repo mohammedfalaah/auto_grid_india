@@ -16,6 +16,7 @@ import {
 import { ContextData } from "../services/Context";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { SearchBar } from "../components/SearchBar";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -61,6 +62,11 @@ const Footer = () => {
 
   const toggleSubcategories = (categoryId) => {
     setExpandedCategory((prev) => (prev === categoryId ? null : categoryId));
+  };
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const handleSearch = (query) => {
+    console.log('Selected product:', query);
   };
 
   return (
@@ -110,6 +116,33 @@ const Footer = () => {
                   </Link>
                 </div>
               </div>
+              <div className="min-h-screen bg-gray-100">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col items-center space-y-6">
+          {/* <h1 className="text-3xl font-bold text-gray-900">Product Search</h1> */}
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Search products..."
+            category={selectedCategory}
+            onClick={() => {
+              handleclick();
+              document
+                .querySelectorAll(".offcanvas__area")
+                .forEach((offcanvasArea) =>
+                  offcanvasArea.classList.remove("offcanvas-opened")
+                );
+          
+              document
+                .querySelectorAll(".body-overlay")
+                .forEach((bodyOverlay) =>
+                  bodyOverlay.classList.remove("opened")
+                );
+            }}
+            
+          />
+        </div>
+      </div>
+    </div>
               <div style={{ paddingBottom: "40px" }}>
                 <button
                   onClick={toggleMenu}
