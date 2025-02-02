@@ -129,35 +129,71 @@ const [totalProducts, setTotalProducts] = useState(0);
       show_toast("Error fetching categories!", false);
     }
   };
-    const fetchProducts = async () => {
+    // const fetchProducts = async () => {
+    //   setLoading(true);
+    //   try {
+    //     // Construct the query string
+    //     const subcategoryQuery = selectedCategory
+    //       ? `&subcategory=${selectedCategory}`
+    //       : "";
+  
+    //     const response = await Axioscall(
+    //       "get",
+    //       `${productApi}?page=${pages.page}&limit=${pages.limit}${subcategoryQuery}`,
+    //       "",
+    //       "header"
+    //     );
+    //     setLoading(false);
+    //     console.log("PRODUCTS", response);
+  
+    //     setProducts(response.data.products);
+    //     setTotalProducts(response.data.pagination.totalProducts);
+  
+    //     const { hasNextPage, hasPreviousPage } = response.data.pagination;
+    //     setPagination({
+    //       isNext: hasNextPage,
+    //       isPrev: hasPreviousPage,
+    //     });
+    //   } catch (err) {
+    //     show_toast(err.response?.data?.message || err.message);
+    //   }
+    // };
+    const fetchProducts = async (query, page = 1, limit = 10, category = '') => {
       setLoading(true);
-      try {
-        // Construct the query string
-        const subcategoryQuery = selectedCategory
-          ? `&subcategory=${selectedCategory}`
-          : "";
-  
-        const response = await Axioscall(
-          "get",
-          `${productApi}?page=${pages.page}&limit=${pages.limit}${subcategoryQuery}`,
-          "",
-          "header"
-        );
-        setLoading(false);
-        console.log("PRODUCTS", response);
-  
-        setProducts(response.data.products);
-        setTotalProducts(response.data.pagination.totalProducts);
-  
-        const { hasNextPage, hasPreviousPage } = response.data.pagination;
-        setPagination({
-          isNext: hasNextPage,
-          isPrev: hasPreviousPage,
-        });
-      } catch (err) {
-        show_toast(err.response?.data?.message || err.message);
-      }
-    };
+      {
+        try {
+          // Construct the query parameters
+          const categoryQuery = selectedCategory ? `&subcategory=${selectedCategory}` : '';
+          const searchQuery = query ? `&search=${query}` : '';
+          
+          const response = await Axioscall(
+            'get',
+            `${productApi}?page=${page}&limit=${limit}${categoryQuery}${searchQuery}`,
+            '',
+            'header'
+          );
+          setLoading(false);
+          setProducts(response.data.products);
+              setTotalProducts(response.data.pagination.totalProducts);
+        
+              const { hasNextPage, hasPreviousPage } = response.data.pagination;
+              setPagination({
+                isNext: hasNextPage,
+                isPrev: hasPreviousPage,
+              });
+          return {
+            products: response.data.products,
+            pagination: {
+              totalProducts: response.data.pagination.totalProducts,
+              hasNextPage: response.data.pagination.hasNextPage,
+              hasPreviousPage: response.data.pagination.hasPreviousPage
+            }
+          };
+        } catch (err) {
+          show_toast(err.response?.data?.message || err.message);
+          throw err;
+        }
+      }}
   useEffect(() => {
       fetchProducts();
       getCategory();
@@ -175,7 +211,7 @@ const [totalProducts, setTotalProducts] = useState(0);
       fetchProducts();
     }, [pages.page, pages.limit]);
   return (
-    <ContextData.Provider value={{ isValid,getCart,length,getFavouriteContext,wishlistLength,categories ,products,handleCategoryClick,totalProducts,loading}}>
+    <ContextData.Provider value={{ isValid,getCart,length,getFavouriteContext,wishlistLength,categories ,products,handleCategoryClick,totalProducts,loading,fetchProducts}}>
       {children}
     </ContextData.Provider>
   );
