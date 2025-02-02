@@ -20,6 +20,9 @@ const CheckOutPage = () => {
     postalCode: "",
     phone: "",
     email: "",
+    vichleNumber: "",
+    vichleModel: "",
+
   });
 
   const handleInputChange = (event) => {
@@ -40,6 +43,8 @@ const CheckOutPage = () => {
       "postalCode",
       "phone",
       "email",
+      "vichleModel",
+      "vichleNumber",
     ];
     for (let field of requiredFields) {
       if (!formData[field]) {
@@ -91,6 +96,8 @@ const CheckOutPage = () => {
         email: formData?.email,
         company: formData?.company,
       },
+      vichleNumber: formData?.vichleNumber,
+      vichleModel: formData?.vichleModel,
       totalAmount,
       ...(token && { user: DecodeToken?.id }),
     };
@@ -248,6 +255,34 @@ const CheckOutPage = () => {
                                 value={formData.lastName}
                                 onChange={handleInputChange}
                                 placeholder="Last Name"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <div className="tp-checkout-input">
+                              <label>
+                                Vehicle Number  <span>*</span>
+                              </label>
+                              <input
+                                type="text"
+                                name="vichleNumber"
+                                value={formData.vichleNumber}
+                                onChange={handleInputChange}
+                                placeholder="Vehicle Number"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-6">
+                            <div className="tp-checkout-input">
+                              <label>
+                                Vehicle Model <span>*</span>
+                              </label>
+                              <input
+                                type="text"
+                                name="vichleModel"
+                                value={formData.vichleModel}
+                                onChange={handleInputChange}
+                                placeholder="Vehicle Model"
                               />
                             </div>
                           </div>

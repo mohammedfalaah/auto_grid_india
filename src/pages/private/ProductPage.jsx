@@ -697,16 +697,12 @@ data-bs-target="#producQuickViewModal"
                         <div className="tp-product-details-action-wrapper">
                       
                           <div className="tp-product-details-action-item-wrapper d-flex align-items-center">
-                            <div className="tp-product-details-quantity">
-                              <div className="tp-product-quantity mb-15 mr-15">
-                             
-                              </div>
-                            </div>
+                           
                             <div className="tp-product-details-add-to-cart mb-15 w-100">
                               <button  onClick={() =>
                                               handleAddToCart(selectedProduct._id,selectedProduct)
                                             } className="tp-product-details-add-to-cart-btn w-100">
-                                Add to Cart view
+                                Add to Cart 
                               </button>
                               <button   onClick={() =>
                                               handleAddToWishlist(selectedProduct._id)
