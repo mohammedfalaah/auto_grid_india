@@ -406,9 +406,13 @@ useEffect(() => {
                                   <div className="tp-product-item-2 mb-40">
                                     <div className="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                                       <a
-                                        onClick={() => handleQuickView(product)}
+onClick={() =>
+  handleQuickView(product)
+}
+data-bs-toggle="modal"
+data-bs-target="#producQuickViewModal"                                        
                                       >
-                                        <img style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                        <img   style={{ width: "100%", height: "100%", objectFit: "cover" }}
                                           className="product-img"
                                           src={`https://node.autogridnumberplate.com${
                                             product.photographs?.[0] || ""
