@@ -282,6 +282,19 @@ const Footer = () => {
       >
         <div className="container">
           <div className="row row-cols-4">
+          <div className="col">
+              <div className="tp-mobile-item text-center">
+                <Link
+                  to={BasePath}
+                  style={{ color: "white" }}
+                  className="tp-mobile-item-btn"
+                >
+<i class="fa-solid fa-house"></i>  
+                <span>Home</span>
+                </Link>
+              </div>
+            </div>
+
             <div className="col">
               <div className="tp-mobile-item text-center">
                 <Link
@@ -319,17 +332,7 @@ const Footer = () => {
                 </Link>
               </div>
             </div>
-            <div className="col">
-              <div className="tp-mobile-item text-center">
-                <button
-                  style={{ color: "white" }}
-                  className="tp-mobile-item-btn tp-offcanvas-open-btn"
-                >
-                  <i className="flaticon-menu-1" />
-                  <span>Menu</span>
-                </button>
-              </div>
-            </div>
+           
           </div>
         </div>
       </div>
