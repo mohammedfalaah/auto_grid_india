@@ -237,7 +237,25 @@ const Footer = () => {
                       ))}
                     </ul>
                   </nav>
+                  <div style={{ marginTop: '20px' }}>
+  <div style={{ display: 'flex', gap: '35px', marginTop: '10px', justifyContent:'center' }}>
+    <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+      <i className="fab fa-facebook-f" style={{ color: 'white', fontSize: '20px', cursor: 'pointer' }}></i>
+    </a>
+    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+      <i className="fab fa-instagram" style={{ color: 'white', fontSize: '20px', cursor: 'pointer' }}></i>
+    </a>
+    <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+      <i className="fab fa-linkedin-in" style={{ color: 'white', fontSize: '20px', cursor: 'pointer' }}></i>
+    </a>
+    <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+      <i className="fab fa-twitter" style={{ color: 'white', fontSize: '20px', cursor: 'pointer' }}></i>
+    </a>
+  </div>
+</div>
+
                 </div>
+
               </div>
 
             
