@@ -197,7 +197,7 @@ const [totalProducts, setTotalProducts] = useState(0);
   useEffect(() => {
       fetchProducts();
       getCategory();
-    }, [pages]);
+    }, [pages,selectedCategory]);
   
     const handleCategoryClick = (categoryId) => {
      
