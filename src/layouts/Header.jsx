@@ -17,7 +17,6 @@ const Header = () => {
   const navigate = useNavigate();
   const { length, categories, handleCategoryClick } = useContext(ContextData);
   const { wishlistLength } = useContext(ContextData);
-  console.log(length, "lengthlengthlengthlengthlength");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const toggleMenu = () => {

@@ -18,13 +18,10 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading,getCart ,} = useContext(ContextData);
-  console.log(categories,"========");
   
   const handleQuickView = (product) => {
-    console.log(product,"productproductproductproduct")
     setSelectedProduct(product);
   };
-  console.log(selectedProduct,"selectedProductselectedProductselectedProductselectedProductselectedProductselectedProduct")
   const [pagination, setPagination] = useState({
     isNext: false,
     isPrev: false,
@@ -75,77 +72,8 @@ const ProductPage = () => {
   };
   
 
-  // const handleAddToCart = async (productId, quantity = 1) => {
-  //   try {
-  //     let body = {
-  //       userId: userId,
-  //       productId: productId,
-  //       quantity: quantity,
-  //     };
+  
 
-  //     const response = await Axioscall("post", addToCartApi, body, "header");
-
-  //     if (response?.status === 200) {
-  //       show_toast("Product added to cart successfully", true);
-  //     } else {
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding to cart:", error);
-  //     show_toast(error?.response?.data?.message, false);
-  //   }
-  // };
-
-//   const handleAddToCart = async ( productId, product ) => {
-//   console.log(product,"productproductproduct")
-//   try {
-//     const token = localStorage.getItem("token"); // Check for token
-//     const cartKey = "cart";
-
-//     // Reusable function to handle localStorage cart
-//     const updateLocalStorageCart = (product) => {
-//       const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-
-//       if (!cart.includes(product?._id)) {
-//         cart.push(product);
-//         localStorage.setItem(cartKey, JSON.stringify(cart));
-//         show_toast("Product added to Cart", true);
-//       } else {
-//         show_toast("Product is already in your Cart", false);
-//       }
-//     };
-
-//     // Check if token exists; if not, use localStorage
-//     if (!token) {
-//       updateLocalStorageCart(productId);
-//       return;
-//     }
-
-//     // Ensure required variables are available
-//     if (!userId || !quantity) {
-//       show_toast("Missing user or quantity information", false);
-//       return;
-//     }
-
-//     // Prepare API call payload
-//     const body = {
-//       userId, // Ensure userId is defined in your scope
-//       productId,
-//       quantity,
-//     };
-
-//     // API call to add the product to the cart
-//     const response = await Axioscall("post", addToCartApi, body, "header");
-
-//     if (response?.status === 200) {
-//       show_toast("Product added to cart successfully", true);
-//     } else {
-//       show_toast(response?.data?.message || "Failed to add product to cart", false);
-//     }
-//   } catch (error) {
-//     console.error("Error adding to cart:", error);
-//     show_toast(error?.response?.data?.message || "An unexpected error occurred", false);
-//   }
-// };
 
   
 
@@ -348,7 +276,7 @@ useEffect(() => {
                               </div>
                           ) : products.length === 0 ? (
                             <div className="col-12 d-flex justify-content-center align-items-center" style={{ minHeight: '200px' }}>
-                            <p className="text-center text-muted" style={{ fontSize: '1.5rem', fontWeight: '500' }}>
+                            <p className="text-center text-muted" style={{ fontSize: '1rem', fontWeight: '500' }}>
                               NO PRODUCTS HERE
                             </p>
                           </div>
