@@ -18,6 +18,8 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
   const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading,getCart ,} = useContext(ContextData);
+  console.log(categories,"========");
+  
   const handleQuickView = (product) => {
     console.log(product,"productproductproductproduct")
     setSelectedProduct(product);
@@ -216,55 +218,7 @@ useEffect(() => {
 
         {/* header area end */}
         {/* filter offcanvas area start */}
-        <div className="tp-filter-offcanvas-area">
-          <div className="tp-filter-offcanvas-wrapper">
-            <div className="tp-filter-offcanvas-close">
-              <button
-                type="button"
-                className="tp-filter-offcanvas-close-btn filter-close-btn"
-              >
-                <i className="fa-solid fa-xmark" />
-                Close
-              </button>
-            </div>
-            <div className="tp-shop-sidebar">
-              <div className="tp-shop-widget mb-50">
-                <h3 className="tp-shop-widget-title">Categories</h3>
-                <div className="tp-shop-widget-content">
-                  <div className="tp-shop-widget-categories">
-                    <ul>
-                      {categories.map((categoryItem) => (
-                        <li key={categoryItem._id}>
-                          <strong>{categoryItem.category}</strong>
-                          <ul>
-                            {categoryItem.subcategories.map(
-                              (subcategory, index) => (
-                                <li
-                                  key={index}
-                                  onClick={() =>
-                                    handleCategoryClick(subcategory)
-                                  }
-                                >
-                                  <a href="#">{subcategory}</a>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* color */}
-
-              {/* product rating */}
-
-              {/* brand */}
-            </div>
-          </div>
-        </div>
+       
         {/* filter offcanvas area end */}
         <main>
           {/* breadcrumb area start */}
@@ -336,7 +290,7 @@ useEffect(() => {
                         key={index}
                         onClick={() => handleCategoryClick(subcategory)}
                       >
-                        <a>{subcategory}</a>
+                        <a style={{cursor:'pointer'}}>{subcategory}</a>
                       </li>
                     ))}
                   </ul>
