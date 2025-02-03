@@ -75,7 +75,6 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="body-overlay" />
         </div>
         <div className="tp-header-area p-relative z-index-11">
           {/* header top start  */}

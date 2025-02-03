@@ -291,7 +291,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="body-overlay" />
       </div>
       <div
         style={{ backgroundColor: "black" }}

@@ -211,7 +211,6 @@ useEffect(() => {
   return (
     <>
       <div>
-        <div className="body-overlay" />
         {/* offcanvas area end */}
         {/* mobile menu area start */}
 
