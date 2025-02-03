@@ -25,8 +25,9 @@ const ProductPage = () => {
     loading,
     getCart,
   } = useContext(ContextData);
+  const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading,getCart ,} = useContext(ContextData);
+  
   const handleQuickView = (product) => {
-    console.log(product, "productproductproductproduct");
     setSelectedProduct(product);
   };
   console.log(
@@ -86,6 +87,7 @@ const ProductPage = () => {
       show_toast("An error occurred while adding to wishlist", false);
     }
   };
+  
 
   // const handleAddToCart = async (productId, quantity = 1) => {
   //   try {
@@ -227,62 +229,12 @@ const ProductPage = () => {
   return (
     <>
       <div>
-        <div className="body-overlay" />
         {/* offcanvas area end */}
         {/* mobile menu area start */}
 
         {/* header area end */}
         {/* filter offcanvas area start */}
-        <div className="tp-filter-offcanvas-area">
-          <div className="tp-filter-offcanvas-wrapper">
-            <div className="tp-filter-offcanvas-close">
-              <button
-                type="button"
-                className="tp-filter-offcanvas-close-btn filter-close-btn"
-              >
-                <i className="fa-solid fa-xmark" />
-                Close
-              </button>
-            </div>
-            <div className="tp-shop-sidebar">
-              <div className="tp-shop-widget mb-50">
-                <h3 className="tp-shop-widget-title">Categories</h3>
-                <div className="tp-shop-widget-content">
-                  <div className="tp-shop-widget-categories">
-                    <ul>
-                      {categories.map((categoryItem) => (
-                        <li key={categoryItem._id}>
-                          <strong>{categoryItem.category}</strong>
-                          <ul>
-                            {categoryItem.subcategories.map(
-                              (subcategory, index) => (
-                                <li
-                                  key={index}
-                                  style={{ cursor: "pointer" }}
-                                  onClick={() =>
-                                    handleCategoryClick(subcategory)
-                                  }
-                                >
-                                  <a href="#">{subcategory}</a>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* color */}
-
-              {/* product rating */}
-
-              {/* brand */}
-            </div>
-          </div>
-        </div>
+       
         {/* filter offcanvas area end */}
         <main>
           {/* breadcrumb area start */}
@@ -322,73 +274,49 @@ const ProductPage = () => {
       >
         {showCategories ? "Hide Filters" : "Show Filters"}
       </button> */}
-                      <button
-                        style={{ backgroundColor: "black", float: "right" }}
-                        type="button"
-                        onClick={() => setShowCategories(!showCategories)}
-                        className=" filter-button "
-                      >
-                        <span>
-                          <svg
-                            width={16}
-                            height={15}
-                            viewBox="0 0 16 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M14.9998 3.45001H10.7998"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeMiterlimit={10}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M3.8 3.45001H1"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeMiterlimit={10}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M6.5999 5.9C7.953 5.9 9.0499 4.8031 9.0499 3.45C9.0499 2.0969 7.953 1 6.5999 1C5.2468 1 4.1499 2.0969 4.1499 3.45C4.1499 4.8031 5.2468 5.9 6.5999 5.9Z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeMiterlimit={10}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M15.0002 11.15H12.2002"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeMiterlimit={10}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M5.2 11.15H1"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeMiterlimit={10}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M9.4002 13.6C10.7533 13.6 11.8502 12.5031 11.8502 11.15C11.8502 9.79691 10.7533 8.70001 9.4002 8.70001C8.0471 8.70001 6.9502 9.79691 6.9502 11.15C6.9502 12.5031 8.0471 13.6 9.4002 13.6Z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeMiterlimit={10}
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </span>
-                        Filter
-                      </button>
+       <button style={{backgroundColor:'black',float:'right'}} type="button" onClick={() => setShowCategories(!showCategories)} className=" filter-button ">
+  <span>
+    <svg width={16} height={15} viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14.9998 3.45001H10.7998" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M3.8 3.45001H1" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6.5999 5.9C7.953 5.9 9.0499 4.8031 9.0499 3.45C9.0499 2.0969 7.953 1 6.5999 1C5.2468 1 4.1499 2.0969 4.1499 3.45C4.1499 4.8031 5.2468 5.9 6.5999 5.9Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15.0002 11.15H12.2002" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M5.2 11.15H1" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9.4002 13.6C10.7533 13.6 11.8502 12.5031 11.8502 11.15C11.8502 9.79691 10.7533 8.70001 9.4002 8.70001C8.0471 8.70001 6.9502 9.79691 6.9502 11.15C6.9502 12.5031 8.0471 13.6 9.4002 13.6Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  </span>
+  Filter
+</button>
 
+
+      {/* Categories Section */}
+      <div
+        className={`tp-shop-widget mb-50 ${showCategories ? "show" : "hide"}`}
+      >
+        <h3 className="tp-shop-widget-title">Categories</h3>
+        <div className="tp-shop-widget-content">
+          <div className="tp-shop-widget-categories">
+            <ul>
+              {categories.map((categoryItem) => (
+                <li key={categoryItem._id}>
+                  <strong>{categoryItem.category}</strong>
+                  <ul>
+                    {categoryItem.subcategories.map((subcategory, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleCategoryClick(subcategory)}
+                      >
+                        <a style={{cursor:'pointer'}}>{subcategory}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
                       {/* Categories Section */}
                       <div
                         className={`tp-shop-widget mb-50 ${

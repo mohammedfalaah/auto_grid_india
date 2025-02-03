@@ -181,7 +181,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="body-overlay" />
         </div>
 
         <div className="back-to-top-wrapper">
@@ -306,7 +305,6 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="body-overlay" />
         {/* offcanvas area end */}
         {/* mobile menu area start */}
         <div id="tp-bottom-menu-sticky" className="tp-mobile-menu d-lg-none">

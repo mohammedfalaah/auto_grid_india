@@ -24,6 +24,8 @@ const [pages, setPages] = useState({
   const [wishlistLength, setWishlistLength] = useState()
 const [totalProducts, setTotalProducts] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  console.log(selectedCategory,"=+++++++=====");
+  
     const getFavouriteContext = async () => {
       try {
 

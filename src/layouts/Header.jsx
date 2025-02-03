@@ -17,7 +17,6 @@ const Header = () => {
   const navigate = useNavigate();
   const { length, categories, handleCategoryClick } = useContext(ContextData);
   const { wishlistLength } = useContext(ContextData);
-  console.log(length, "lengthlengthlengthlengthlength");
   const [isMenuVisible, setIsMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -75,7 +74,6 @@ const Header = () => {
               </div>
             </div>
           </div>
-          <div className="body-overlay" />
         </div>
         <div className="tp-header-area p-relative z-index-11">
           {/* header top start  */}

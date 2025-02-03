@@ -151,26 +151,7 @@ const Wishlist = () => {
     }
   };
 
-  // const removeFavourite = async (productId) => {
-  //   try {
-  //     const response = await Axioscall(
-  //       "delete",
-  //       `${removeWishlistApi}/${productId}`,
-  //       "",
-  //       "header"
-  //     );
-  //     if (response?.data?.success) {
-  //       show_toast("Removed this product", true);
-  //       setWishlist((prevWishlist) =>
-  //         prevWishlist.filter((item) => item._id !== productId)
-  //       );
-  //       getFavouriteContext();
-  //       getFavourite();
-  //     }
-  //   } catch (error) {
-  //     show_toast("Error removing item from wishlist:", false);
-  //   }
-  // };
+ 
 
   const getFavourite = async () => {
     try {
