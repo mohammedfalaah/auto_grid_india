@@ -67,7 +67,7 @@ const [totalProducts, setTotalProducts] = useState(0);
     
           // Show success toast if a message exists in the response
           if (response.data.message) {
-            show_toast("Cart Added Successfully", true);
+            // show_toast("Cart Added Successfully", true);
           }
         } catch (err) {
           console.log(err);
