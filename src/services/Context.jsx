@@ -71,7 +71,7 @@ const [totalProducts, setTotalProducts] = useState(0);
           }
         } catch (err) {
           console.log(err);
-          show_toast("Error fetching cart", false); // Optional: show error toast
+          // show_toast("Error fetching cart", false); // Optional: show error toast
         }
       } else {
         // If no token, fetch cart from localStorage
@@ -199,7 +199,7 @@ const [totalProducts, setTotalProducts] = useState(0);
   useEffect(() => {
       fetchProducts();
       getCategory();
-    }, [pages]);
+    }, [pages,selectedCategory]);
   
     const handleCategoryClick = (categoryId) => {
      
