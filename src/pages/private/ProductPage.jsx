@@ -13,12 +13,19 @@ import { ProductsPath, ProfilePath, WishlistPath } from "../../utils/Constants";
 import { ContextData } from "../../services/Context";
 
 const ProductPage = () => {
- 
   const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const { getFavouriteContext,categories ,products,handleCategoryClick,totalProducts,loading,getCart ,} = useContext(ContextData);
-  
+  const {
+    getFavouriteContext,
+    categories,
+    products,
+    handleCategoryClick,
+    totalProducts,
+    loading,
+    getCart,
+  } = useContext(ContextData);
+
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
@@ -30,28 +37,28 @@ const ProductPage = () => {
     page: 1,
     limit: 15,
   });
-  
+
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-
-  
 
   const handleAddToWishlist = async (productId, product) => {
     try {
       const token = localStorage.getItem("token"); // Check for token
-  
+
       if (!token) {
         // If no token, store wishlist data in localStorage
         const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
-        
+
         // Check if product is already in the wishlist
-        const isProductInWishlist = wishlist?.some(item => item.productId === productId);
-  
+        const isProductInWishlist = wishlist?.some(
+          (item) => item.productId === productId
+        );
+
         if (!isProductInWishlist) {
           wishlist.push({ productId, product }); // Add the product object to wishlist
           localStorage.setItem("wishlist", JSON.stringify(wishlist));
           show_toast("Product added to wishlist", true);
-          getFavouriteContext()
+          getFavouriteContext();
         } else {
           show_toast("Product is already in your wishlist", false);
         }
@@ -59,7 +66,12 @@ const ProductPage = () => {
       }
       // If token exists, proceed with API call
       let body = { productId: productId };
-      const response = await Axioscall("post", addToWishlistApi, body, "header");
+      const response = await Axioscall(
+        "post",
+        addToWishlistApi,
+        body,
+        "header"
+      );
       getFavouriteContext();
       if (response.data.success) {
         show_toast(response.data.message, true);
@@ -67,76 +79,74 @@ const ProductPage = () => {
         show_toast("Failed to add item to wishlist!", false);
       }
     } catch (error) {
-      show_toast("An error occurred while adding to wishlist", false);
+      show_toast("Product is already in your wishlist", false);
     }
   };
-  
 
-  
+  const handleAddToCart = async (productId, product, quantity = 1) => {
+    console.log(product, "productproductproduct");
+    try {
+      const token = localStorage.getItem("token"); // Check for token
+      const cartKey = "cart";
 
+      // Reusable function to handle localStorage cart
+      const updateLocalStorageCart = (product) => {
+        const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+        const productExists = cart.some((item) => item?._id === product?._id); // Check if the product is already in the cart
 
-  
+        if (!productExists) {
+          cart.push(product); // Add product to cart
+          localStorage.setItem(cartKey, JSON.stringify(cart));
+          show_toast("Product added to Cart", true);
+          getCart();
+        } else {
+          show_toast("Product is already in your Cart", false);
+        }
+      };
 
-
-const handleAddToCart = async (productId, product,quantity = 1) => {
-  console.log(product, "productproductproduct");
-  try {
-    const token = localStorage.getItem("token"); // Check for token
-    const cartKey = "cart";
-
-    // Reusable function to handle localStorage cart
-    const updateLocalStorageCart = (product) => {
-      const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-      const productExists = cart.some((item) => item?._id === product?._id); // Check if the product is already in the cart
-
-      if (!productExists) {
-        cart.push(product); // Add product to cart
-        localStorage.setItem(cartKey, JSON.stringify(cart));
-        show_toast("Product added to Cart", true);
-        getCart()
-      } else {
-        show_toast("Product is already in your Cart", false);
+      // Check if token exists; if not, use localStorage
+      if (!token) {
+        updateLocalStorageCart(product); // Use `product` to update localStorage
+        return;
       }
-    };
 
-    // Check if token exists; if not, use localStorage
-    if (!token) {
-      updateLocalStorageCart(product); // Use `product` to update localStorage
-      return;
+      // Ensure required variables are available
+      if (!userId || !quantity) {
+        show_toast("Missing user or quantity information", false);
+        return;
+      }
+
+      // Prepare API call payload
+      const body = {
+        userId, // Ensure userId is defined in your scope
+        productId,
+        quantity,
+      };
+
+      // API call to add the product to the cart
+      const response = await Axioscall("post", addToCartApi, body, "header");
+
+      if (response?.status === 200) {
+        getCart();
+        show_toast("Product added to cart successfully", true);
+      } else {
+        show_toast(
+          "Product is already in your Cart" ,
+          false
+        );
+      }
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      show_toast(
+        error?.response?.data?.message || "An unexpected error occurred",
+        false
+      );
     }
+  };
 
-    // Ensure required variables are available
-    if (!userId || !quantity) {
-      show_toast("Missing user or quantity information", false);
-      return;
-    }
-
-    // Prepare API call payload
-    const body = {
-      userId, // Ensure userId is defined in your scope
-      productId,
-      quantity,
-    };
-
-    // API call to add the product to the cart
-    const response = await Axioscall("post", addToCartApi, body, "header");
-
-    if (response?.status === 200) {
-      getCart()
-      show_toast("Product added to cart successfully", true);
-    } else {
-      show_toast(response?.data?.message || "Failed to add product to cart", false);
-    }
-  } catch (error) {
-    console.error("Error adding to cart:", error);
-    show_toast(error?.response?.data?.message || "An unexpected error occurred", false);
-  }
-};
-
-useEffect(() => {
-  window.scrollTo(0,0)
-}, [])
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
@@ -146,7 +156,7 @@ useEffect(() => {
 
         {/* header area end */}
         {/* filter offcanvas area start */}
-       
+
         {/* filter offcanvas area end */}
         <main>
           {/* breadcrumb area start */}
@@ -179,59 +189,118 @@ useEffect(() => {
 
                     {/* status */}
                     <div>
-      {/* Filter Button for Mobile */}
-      {/* <button
+                      {/* Filter Button for Mobile */}
+                      {/* <button
         className="filter-button"
         onClick={() => setShowCategories(!showCategories)}
       >
         {showCategories ? "Hide Filters" : "Show Filters"}
       </button> */}
-       <button style={{backgroundColor:'black',float:'right'}} type="button" onClick={() => setShowCategories(!showCategories)} className=" filter-button ">
-  <span>
-    <svg width={16} height={15} viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M14.9998 3.45001H10.7998" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M3.8 3.45001H1" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M6.5999 5.9C7.953 5.9 9.0499 4.8031 9.0499 3.45C9.0499 2.0969 7.953 1 6.5999 1C5.2468 1 4.1499 2.0969 4.1499 3.45C4.1499 4.8031 5.2468 5.9 6.5999 5.9Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M15.0002 11.15H12.2002" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M5.2 11.15H1" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M9.4002 13.6C10.7533 13.6 11.8502 12.5031 11.8502 11.15C11.8502 9.79691 10.7533 8.70001 9.4002 8.70001C8.0471 8.70001 6.9502 9.79691 6.9502 11.15C6.9502 12.5031 8.0471 13.6 9.4002 13.6Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit={10} strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  </span>
-  Filter
-</button>
-
-
-      {/* Categories Section */}
-      <div
-        className={`tp-shop-widget mb-50 ${showCategories ? "show" : "hide"}`}
-      >
-        <h3 className="tp-shop-widget-title">Categories</h3>
-        <div className="tp-shop-widget-content">
-          <div className="tp-shop-widget-categories">
-            <ul>
-              {categories.map((categoryItem) => (
-                <li key={categoryItem._id}>
-                  <strong>{categoryItem.category}</strong>
-                  <ul>
-                    {categoryItem.subcategories.map((subcategory, index) => (
-                      <li
-                        key={index}
-                        onClick={() => handleCategoryClick(subcategory)}
+                      <button
+                        style={{ backgroundColor: "black", float: "right" }}
+                        type="button"
+                        onClick={() => setShowCategories(!showCategories)}
+                        className=" filter-button "
                       >
-                        <a style={{cursor:'pointer'}}>{subcategory}</a>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+                        <span>
+                          <svg
+                            width={16}
+                            height={15}
+                            viewBox="0 0 16 15"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M14.9998 3.45001H10.7998"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeMiterlimit={10}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M3.8 3.45001H1"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeMiterlimit={10}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M6.5999 5.9C7.953 5.9 9.0499 4.8031 9.0499 3.45C9.0499 2.0969 7.953 1 6.5999 1C5.2468 1 4.1499 2.0969 4.1499 3.45C4.1499 4.8031 5.2468 5.9 6.5999 5.9Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeMiterlimit={10}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M15.0002 11.15H12.2002"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeMiterlimit={10}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M5.2 11.15H1"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeMiterlimit={10}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M9.4002 13.6C10.7533 13.6 11.8502 12.5031 11.8502 11.15C11.8502 9.79691 10.7533 8.70001 9.4002 8.70001C8.0471 8.70001 6.9502 9.79691 6.9502 11.15C6.9502 12.5031 8.0471 13.6 9.4002 13.6Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeMiterlimit={10}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </span>
+                        Filter
+                      </button>
+
+                      {/* Categories Section */}
+                      <div
+                        className={`tp-shop-widget mb-50 ${
+                          showCategories ? "show" : "hide"
+                        }`}
+                      >
+                        <h3 className="tp-shop-widget-title">Categories</h3>
+                        <div className="tp-shop-widget-content">
+                          <div className="tp-shop-widget-categories">
+                            <ul>
+                              {categories.map((categoryItem) => (
+                                <li key={categoryItem._id}>
+                                  <strong>{categoryItem.category}</strong>
+                                  <ul>
+                                    {categoryItem.subcategories.map(
+                                      (subcategory, index) => (
+                                        <li
+                                          key={index}
+                                          onClick={() =>
+                                            handleCategoryClick(subcategory)
+                                          }
+                                        >
+                                          <a style={{ cursor: "pointer" }}>
+                                            {subcategory}
+                                          </a>
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     {/* categories */}
-                  
 
                     {/* color */}
 
@@ -274,26 +343,37 @@ useEffect(() => {
                                   </div>
                                 </div>
                               </div>
-                          ) : products.length === 0 ? (
-                            <div className="col-12 d-flex justify-content-center align-items-center" style={{ minHeight: '200px' }}>
-                            <p className="text-center text-muted" style={{ fontSize: '1rem', fontWeight: '500' }}>
-                              NO PRODUCTS HERE
-                            </p>
-                          </div>
-                          
-                          ) : (
+                            ) : products.length === 0 ? (
+                              <div
+                                className="col-12 d-flex justify-content-center align-items-center"
+                                style={{ minHeight: "200px" }}
+                              >
+                                <p
+                                  className="text-center text-muted"
+                                  style={{
+                                    fontSize: "1rem",
+                                    fontWeight: "500",
+                                  }}
+                                >
+                                  NO PRODUCTS HERE
+                                </p>
+                              </div>
+                            ) : (
                               products.map((product, index) => (
                                 <div className="col-xl-3 col-md-6 col-sm-6 col-6">
                                   <div className="tp-product-item-2 mb-40">
                                     <div className="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                                       <a
-onClick={() =>
-  handleQuickView(product)
-}
-data-bs-toggle="modal"
-data-bs-target="#producQuickViewModal"                                        
+                                        onClick={() => handleQuickView(product)}
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#producQuickViewModal"
                                       >
-                                        <img   style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                        <img
+                                          style={{
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "cover",
+                                          }}
                                           className="product-img"
                                           src={`https://node.autogridnumberplate.com${
                                             product.photographs?.[0] || ""
@@ -308,7 +388,10 @@ data-bs-target="#producQuickViewModal"
                                             type="button"
                                             className="tp-product-action-btn-2 tp-product-add-cart-btn"
                                             onClick={() =>
-                                              handleAddToCart(product._id,product)
+                                              handleAddToCart(
+                                                product._id,
+                                                product
+                                              )
                                             }
                                           >
                                             <svg
@@ -364,8 +447,10 @@ data-bs-target="#producQuickViewModal"
                                           </button>
                                           <button
                                             onClick={() =>
-                                      
-                                              handleAddToWishlist(product._id,product)
+                                              handleAddToWishlist(
+                                                product._id,
+                                                product
+                                              )
                                             }
                                             type="button"
                                             className="tp-product-action-btn-2 tp-product-add-to-wishlist-btn"
@@ -576,25 +661,30 @@ data-bs-target="#producQuickViewModal"
 
                         {/* actions */}
                         <div className="tp-product-details-action-wrapper">
-                      
                           <div className="tp-product-details-action-item-wrapper d-flex align-items-center">
-                           
                             <div className="tp-product-details-add-to-cart mb-15 w-100">
-                              <button  onClick={() =>
-                                              handleAddToCart(selectedProduct._id,selectedProduct)
-                                            } className="tp-product-details-add-to-cart-btn w-100">
-                                Add to Cart 
+                              <button
+                                onClick={() =>
+                                  handleAddToCart(
+                                    selectedProduct._id,
+                                    selectedProduct
+                                  )
+                                }
+                                className="tp-product-details-add-to-cart-btn w-100"
+                              >
+                                Add to Cart
                               </button>
-                              <button   onClick={() =>
-                                              handleAddToWishlist(selectedProduct._id)
-                                            } className="mt-10 tp-product-details-add-to-cart-btn w-100">
+                              <button
+                                onClick={() =>
+                                  handleAddToWishlist(selectedProduct._id)
+                                }
+                                className="mt-10 tp-product-details-add-to-cart-btn w-100"
+                              >
                                 Add to Wishlist
                               </button>
                             </div>
                           </div>
-                         
                         </div>
-                      
                       </div>
                     </div>
                   </>
