@@ -929,7 +929,7 @@ const Home = () => {
                         <h3 className="tp-feature-title">
                           RETURN &amp; REFUND
                         </h3>
-                        <p>Maney back guarantee</p>
+                        <p>Money back guarantee</p>
                       </div>
                     </div>
                   </div>
