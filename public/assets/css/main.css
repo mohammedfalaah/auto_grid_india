@@ -6302,7 +6302,7 @@ body .ui-tooltip {
 .tp-header-action-badge {
   position: absolute;
   top: -6px;
-  right: -13px;
+  right: -10px;
   display: inline-block;
   width: 23px;
   height: 23px;
