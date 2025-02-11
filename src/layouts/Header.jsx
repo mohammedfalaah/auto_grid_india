@@ -102,7 +102,7 @@ const Header = () => {
 
                           {categories?.map((categoryItem) => (
                             <li className="has-dropdown">
-                              <a style={{ color: "white" }}>
+                              <a style={{ color: "white", textWrap:'nowrap' }}>
                                 <strong>{categoryItem.category}</strong>
                               </a>
                               <ul className="tp-submenu">

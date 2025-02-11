@@ -459,7 +459,7 @@ const Footer = () => {
                         <li>
                           <Link
                             to={TermsAndConditionsPath}
-                            style={{ color: "white" }}
+                            style={{ color: "white", textWrap:'nowrap' }}
                           >
                             Terms &amp; Conditions
                           </Link>
@@ -467,7 +467,7 @@ const Footer = () => {
                         <li>
                           <Link
                             to={RefundAndCancellationPath}
-                            style={{ color: "white" }}
+                            style={{ color: "white",  textWrap:'nowrap' }}
                           >
                             Refund And Cancellation{" "}
                           </Link>
@@ -567,7 +567,7 @@ const Footer = () => {
                         <h4>
                           <a
                             href="tel:+91 9961123654"
-                            style={{ color: "white" }}
+                            style={{ color: "white",  textWrap:'nowrap' }}
                           >
                             +91 99 611 23 654
                           </a>
@@ -575,7 +575,7 @@ const Footer = () => {
                         <h4>
                           <a
                             href="tel:+91 9961123654"
-                            style={{ color: "white", marginTop: "10px" }}
+                            style={{ color: "white", marginTop: "10px",  textWrap:'nowrap' }}
                           >
                             +91 73 567 07 711
                           </a>
