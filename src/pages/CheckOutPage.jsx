@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { createOrderApi, getCartlistApi, razorpaiApi } from "../services/BaseUrl";
 import Axioscall from "../services/Axioscall";
 import {jwtDecode} from "jwt-decode";
+import { show_toast } from "../utils/Toast";
 
 const CheckOutPage = () => {
  
@@ -48,7 +49,7 @@ const CheckOutPage = () => {
     ];
     for (let field of requiredFields) {
       if (!formData[field]) {
-        alert(`Please fill out the ${field} field.`);
+        show_toast(`Please fill out the ${field} field.`,false);
         return false;
       }
     }
