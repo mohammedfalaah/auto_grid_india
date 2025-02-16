@@ -481,7 +481,7 @@ const Home = () => {
                   })
                 }}>  <img
                 style={{ width: "100%" }}
-                src="/assets/img/slider/AGI_banner_01.1.jpg"
+                src="/assets/img/slider/AGI_banner_01.1.webp"
                 alt="Slide 1"
               /></a>
                 
@@ -495,7 +495,7 @@ const Home = () => {
                 }}>
  <img
                   style={{ width: "100%" }}
-                  src="/assets/img/slider/AGI_banner_01.jpg"
+                  src="/assets/img/slider/AGI_banner_01.webp"
                   alt="Slide 2"
                 />
                 </a>
@@ -512,7 +512,7 @@ const Home = () => {
                 }}>
                    <img
                   style={{ width: "100%" }}
-                  src="/assets/img/slider/AGI_banner_02.jpg"
+                  src="/assets/img/slider/AGI_banner_02.webp"
                   alt="Slide 3"
                 />
                 </a>
@@ -529,7 +529,7 @@ const Home = () => {
                 }}>
                    <img
                   style={{ width: "100%" }}
-                  src="/assets/img/slider/AGI_banner_03.jpg"
+                  src="/assets/img/slider/AGI_banner_03.webp"
                   alt="Slide 4"
                 />
 
@@ -539,14 +539,14 @@ const Home = () => {
               <Carousel.Item interval={4000}>
                 <img
                   style={{ width: "100%" }}
-                  src="/assets/img/slider/AGI_banner_04.jpg"
+                  src="/assets/img/slider/AGI_banner_04.webp"
                   alt="Slide 4"
                 />
               </Carousel.Item>
               <Carousel.Item interval={4000}>
                 <img
                   style={{ width: "100%" }}
-                  src="/assets/img/slider/AGI_banner_05.jpg"
+                  src="/assets/img/slider/AGI_banner_05.webp"
                   alt="Slide 4"
                 />
               </Carousel.Item>
@@ -556,7 +556,7 @@ const Home = () => {
                   navigate(`/products`)
                 }}> <img
                 style={{ width: "100%" }}
-                src="/assets/img/slider/AGI_banner_06.jpg"
+                src="/assets/img/slider/AGI_banner_06.webp"
                 alt="Slide 4"
               /></a>
                
@@ -598,7 +598,7 @@ const Home = () => {
                         >
                           <img
                             style={{ width: "160px" }}
-                            src="/assets/img/product/iphonese.png"
+                            src="/assets/img/product/iphonese.webp"
                             alt="product-category"
                           />
                         </a>
@@ -628,7 +628,7 @@ const Home = () => {
                         >
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/bikealuminium.png"
+                            src="assets/img/product/bikealuminium.webp"
                             alt="product-category"
                           />
                         </a>
@@ -658,7 +658,7 @@ const Home = () => {
                         >
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/bikegelplate.png"
+                            src="assets/img/product/bikegelplate.webp"
                             alt="product-category"
                           />
                         </a>
@@ -685,7 +685,7 @@ const Home = () => {
                             }}>
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/cargelplates2.png"
+                            src="assets/img/product/cargelplates2.webp"
                             alt="product-category"
                           />
                         </a>
@@ -719,7 +719,7 @@ const Home = () => {
                           }}>
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/cargelframe2.png"
+                            src="assets/img/product/cargelframe2.webp"
                             alt="product-category"
                           />
                         </a>
@@ -746,7 +746,7 @@ const Home = () => {
                           }}>
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/bikeframe.png"
+                            src="assets/img/product/bikeframe.webp"
                             alt="product-category"
                           />
                         </a>
@@ -773,7 +773,7 @@ const Home = () => {
                           }}>
                           <img
                             style={{ width: "160px" }}
-                            src="/assets/img/product/keychains2.png"
+                            src="/assets/img/product/keychains2.webp"
                             alt="product-category"
                           />
                         </a>
@@ -799,7 +799,7 @@ const Home = () => {
                           }}>
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/wrc.png"
+                            src="assets/img/product/wrc.webp"
                             alt="product-category"
                           />
                         </a>
@@ -827,7 +827,7 @@ const Home = () => {
                           }}>
                           <img
                             style={{ width: "160px" }}
-                            src="assets/img/product/keychainss.png"
+                            src="assets/img/product/keychainss.webp"
                             alt="product-category"
                           />
                         </a>
