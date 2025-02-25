@@ -319,7 +319,7 @@ console.log(product,"productproductproductproduct")
               <div className="tp-cart-checkout-shipping-option-wrapper">
               
                 <div className="tp-cart-checkout-shipping-option">
-                  <label htmlFor="free_shipping">Free shipping</label>
+                  <p>Free shipping</p>
                 </div>
               </div>
             </div>
