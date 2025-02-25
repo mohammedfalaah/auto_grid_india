@@ -10,6 +10,8 @@ export const Context_Provider = ({ children }) => {
   const [product, setProduct] = useState([])
   const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
+    console.log(products,"productsproducts");
+    
   const [product2, setProduct2] = useState([])
 const [loading, setLoading] = useState(false);
 const [pages, setPages] = useState({

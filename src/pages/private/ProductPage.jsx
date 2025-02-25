@@ -16,6 +16,7 @@ const ProductPage = () => {
   const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
+  console.log("======",selectedProduct)
   const {
     getFavouriteContext,
     categories,
@@ -37,6 +38,7 @@ const ProductPage = () => {
     page: 1,
     limit: 15,
   });
+  
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -84,18 +86,19 @@ const ProductPage = () => {
   };
 
   const handleAddToCart = async (productId, product, quantity = 1) => {
-    console.log(product, "productproductproduct");
+    
+    console.log(product, "product with vehicle details");
     try {
       const token = localStorage.getItem("token"); // Check for token
       const cartKey = "cart";
-
+  
       // Reusable function to handle localStorage cart
       const updateLocalStorageCart = (product) => {
         const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
-        const productExists = cart.some((item) => item?._id === product?._id); // Check if the product is already in the cart
-
+        const productExists = cart.some((item) => item?._id === product?._id);
+  
         if (!productExists) {
-          cart.push(product); // Add product to cart
+          cart.push(product); // Add product with vehicle details
           localStorage.setItem(cartKey, JSON.stringify(cart));
           show_toast("Product added to Cart", true);
           getCart();
@@ -103,46 +106,59 @@ const ProductPage = () => {
           show_toast("Product is already in your Cart", false);
         }
       };
-
-      // Check if token exists; if not, use localStorage
+  
       if (!token) {
-        updateLocalStorageCart(product); // Use `product` to update localStorage
+        updateLocalStorageCart(product);
         return;
       }
-
-      // Ensure required variables are available
-      if (!userId || !quantity) {
-        show_toast("Missing user or quantity information", false);
+  
+      if (!userId || !quantity || !product.vehicleModel || !product.vehicleNumber) {
+        show_toast("Missing user, quantity, or vehicle information", false);
         return;
       }
-
-      // Prepare API call payload
+  
       const body = {
-        userId, // Ensure userId is defined in your scope
+        userId,
         productId,
         quantity,
+        vehicleModel: product.vehicleModel,
+        vehicleNumber: product.vehicleNumber,
       };
-
-      // API call to add the product to the cart
+  
       const response = await Axioscall("post", addToCartApi, body, "header");
-
       if (response?.status === 200) {
         getCart();
         show_toast("Product added to cart successfully", true);
+        navigate('/cart')
       } else {
-        show_toast(
-          "Product is already in your Cart" ,
-          false
-        );
+        show_toast("Product is already in your Cart", false);
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      show_toast(
-        error?.response?.data?.message || "An unexpected error occurred",
-        false
-      );
+      show_toast(error?.response?.data?.message || "An unexpected error occurred", false);
     }
   };
+  
+  useEffect(() => {
+    const modalElement = document.getElementById("producQuickViewModal");
+  
+    if (modalElement) {
+      modalElement.addEventListener("hidden.bs.modal", () => {
+        document.getElementById("vehicleNumberInput").value = "";
+        document.getElementById("vehicleModelInput").value = "";
+      });
+    }
+  
+    return () => {
+      if (modalElement) {
+        modalElement.removeEventListener("hidden.bs.modal", () => {
+          document.getElementById("vehicleNumberInput").value = "";
+          document.getElementById("vehicleModelInput").value = "";
+        });
+      }
+    };
+  }, []);
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -384,7 +400,7 @@ const ProductPage = () => {
                                       {/* product action */}
                                       <div className="tp-product-action-2 tp-product-action-blackStyle">
                                         <div className="tp-product-action-item-2 d-flex flex-column">
-                                          <button
+                                          {/* <button
                                             type="button"
                                             className="tp-product-action-btn-2 tp-product-add-cart-btn"
                                             onClick={() =>
@@ -411,7 +427,7 @@ const ProductPage = () => {
                                             <span className="tp-product-tooltip tp-product-tooltip-right">
                                               Add to Cart
                                             </span>
-                                          </button>
+                                          </button> */}
                                           <button
                                             onClick={() =>
                                               handleQuickView(product)
@@ -663,17 +679,60 @@ const ProductPage = () => {
                         <div className="tp-product-details-action-wrapper">
                           <div className="tp-product-details-action-item-wrapper d-flex align-items-center">
                             <div className="tp-product-details-add-to-cart mb-15 w-100">
-                              <button
-                                onClick={() =>
-                                  handleAddToCart(
-                                    selectedProduct._id,
-                                    selectedProduct
-                                  )
-                                }
-                                className="tp-product-details-add-to-cart-btn w-100"
-                              >
-                                Add to Cart
-                              </button>
+                            <div style={{ display: "flex" }}>
+  {selectedProduct.subcategory !== "CAR MIRROR HANGING" && (
+    <>
+      <div className="col-md-6">
+        <div style={{ marginRight: "1px" }} className="tp-checkout-input">
+          <label>
+            Vehicle Number <span>*</span>
+          </label>
+          <input
+            type="text"
+            name="vichleNumber"
+            id="vehicleNumberInput"
+            placeholder="Vehicle Number"
+          />
+        </div>
+      </div>
+      <div className="col-md-6">
+        <div style={{ marginLeft: "1px" }} className="tp-checkout-input">
+          <label>
+            Vehicle Model <span>*</span>
+          </label>
+          <input
+            type="text"
+            name="vichleModel"
+            id="vehicleModelInput"
+            placeholder="Vehicle Model"
+          />
+        </div>
+      </div>
+    </>
+  )}
+</div>
+
+<button
+  style={{ color: "white", backgroundColor: "black" }}
+  onClick={() => {
+    const vehicleNumber = document.querySelector('input[name="vichleNumber"]')?.value || "";
+    const vehicleModel = document.querySelector('input[name="vichleModel"]')?.value || "";
+
+    if (selectedProduct.subcategory !== "CAR MIRROR HANGING" && (!vehicleNumber || !vehicleModel)) {
+      show_toast("Please Enter Vehicle Number and Vehicle Model", false);
+      return;
+    }
+
+    handleAddToCart(
+      selectedProduct._id,
+      { ...selectedProduct, vehicleNumber, vehicleModel } // Include vehicle details
+    );
+  }}
+  className="tp-product-details-add-to-cart-btn w-100"
+>
+  Add to Cart
+</button>
+
                               <button
                                 onClick={() =>
                                   handleAddToWishlist(selectedProduct._id)
