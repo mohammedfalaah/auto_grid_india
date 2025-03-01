@@ -469,7 +469,7 @@ const Footer = () => {
                             to={RefundAndCancellationPath}
                             style={{ color: "white",  textWrap:'nowrap' }}
                           >
-                            Refund And Cancellation{" "}
+                            Refund & Cancellation{" "}
                           </Link>
                         </li>
 
