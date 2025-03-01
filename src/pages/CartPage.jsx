@@ -169,7 +169,7 @@ console.log(product,"productproductproductproduct")
         <tr key={product.cartId}>
           {/* img */}
           <td className="tp-cart-img">
-            <a href="product-details.html">
+            <a >
               {/* <img src={`https://node.autogridnumberplate.com${product.photographs[0] || ""}`} alt={product.name} /> */}
               <img
   src={`https://node.autogridnumberplate.com${token ? product.image || "" : product.photographs?.[0] || ""}`}
@@ -179,7 +179,13 @@ console.log(product,"productproductproductproduct")
           </td>
           {/* title */}
           <td className="tp-cart-title">
-            <a href="product-details.html">{token ? product?.name|| "" : product?.productName|| ""}</a>
+            <a>{token ? product?.name|| "" : product?.productName|| ""} <br />
+            </a>
+            <a> Vehicle Modal :- {product?.vehicleModel}</a> <br />
+            <a> Vehicle Number :- {product?.vehicleNumber}</a>
+
+
+
           </td>
           {/* price */}
           <td className="tp-cart-price">
