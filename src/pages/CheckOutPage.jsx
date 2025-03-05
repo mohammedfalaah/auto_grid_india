@@ -68,6 +68,8 @@ const CheckOutPage = () => {
       productsFromCart = cart.map((item) => ({
         productId: item._id, 
         quantity: item.quantity,
+        vehicleNumber: item?.vehicleNumber,
+        vehicleModel: item?.vehicleModel,
       }));
     }
   
@@ -83,6 +85,9 @@ const CheckOutPage = () => {
         ? product?.map((item) => ({
             productId: item.productId,
             quantity: item.quantity,
+            vehicleNumber: item?.vehicleNumber,
+            vehicleModel: item?.vehicleModel,
+            
           }))
         : productsFromCart, 
       address: {
