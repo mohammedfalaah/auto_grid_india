@@ -21,8 +21,7 @@ const CheckOutPage = () => {
     postalCode: "",
     phone: "",
     email: "",
-    vichleNumber: "",
-    vichleModel: "",
+   
 
   });
 
@@ -44,8 +43,7 @@ const CheckOutPage = () => {
       "postalCode",
       "phone",
       "email",
-      "vichleModel",
-      "vichleNumber",
+      
     ];
     for (let field of requiredFields) {
       if (!formData[field]) {
@@ -68,7 +66,7 @@ const CheckOutPage = () => {
     if (!token) {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       productsFromCart = cart.map((item) => ({
-        productId: item._id, // Assuming "_id" is the key for product ID in localStorage
+        productId: item._id, 
         quantity: item.quantity,
       }));
     }
@@ -86,7 +84,7 @@ const CheckOutPage = () => {
             productId: item.productId,
             quantity: item.quantity,
           }))
-        : productsFromCart, // Use products from localStorage cart if no user
+        : productsFromCart, 
       address: {
         name: formData?.firstName + " " + formData?.lastName,
         street: formData?.street,
@@ -97,18 +95,15 @@ const CheckOutPage = () => {
         email: formData?.email,
         company: formData?.company,
       },
-      vichleNumber: formData?.vichleNumber,
-      vichleModel: formData?.vichleModel,
+    
       totalAmount,
       ...(token && { user: DecodeToken?.id }),
     };
   
     try {
-      // Send order payload to server to create an order
       const response = await Axioscall("post", createOrderApi, orderPayload, "header");
       console.log(response.data.order.orderId, "order_idorder_id");
   
-      // Prepare Razorpay payment options
       const paymentOptions = {
         key: "rzp_test_z4LYJxlkExX53p", // Replace with your Razorpay Key ID
         amount: totalAmount * 100, // Razorpay expects the amount in paise
@@ -120,7 +115,6 @@ const CheckOutPage = () => {
           console.log(paymentResult, "paymentResultpaymentResultpaymentResult");
   
           try {
-            // Verify the payment on your server orderId, razorpayPaymentId, razorpaySignature
             const verifyResponse = await Axioscall(
               "post",
               razorpaiApi,
@@ -132,10 +126,9 @@ const CheckOutPage = () => {
               "header"
             );
   
-            console.log("Payment Verified:", verifyResponse);
           } catch (error) {
             console.error("Payment Verification Failed:", error);
-            alert("Payment verification failed. Please contact support.");
+            show_toast("Payment verification failed. Please contact support.",false);
           }
         },
         prefill: {
@@ -155,12 +148,12 @@ const CheckOutPage = () => {
   
       razorpay.on("payment.failed", (error) => {
         console.error("Payment Failed:", error);
-        alert("Payment failed. Please try again.");
+        show_toast("Payment failed. Please try again.",false);
       });
       razorpay.open();
     } catch (error) {
       console.error("Error placing order:", error);
-      alert("Failed to place order. Please try again.");
+      show_toast("Failed to place order. Please try again.",false);
     }
   };
   
@@ -259,34 +252,7 @@ const CheckOutPage = () => {
                               />
                             </div>
                           </div>
-                          <div className="col-md-6">
-                            <div className="tp-checkout-input">
-                              <label>
-                                Vehicle Number  <span>*</span>
-                              </label>
-                              <input
-                                type="text"
-                                name="vichleNumber"
-                                value={formData.vichleNumber}
-                                onChange={handleInputChange}
-                                placeholder="Vehicle Number"
-                              />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <div className="tp-checkout-input">
-                              <label>
-                                Vehicle Model <span>*</span>
-                              </label>
-                              <input
-                                type="text"
-                                name="vichleModel"
-                                value={formData.vichleModel}
-                                onChange={handleInputChange}
-                                placeholder="Vehicle Model"
-                              />
-                            </div>
-                          </div>
+                         
                           <div className="col-md-12">
                             <div className="tp-checkout-input">
                               <label>Company name (optional)</label>
