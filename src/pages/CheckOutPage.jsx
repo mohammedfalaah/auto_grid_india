@@ -3,6 +3,7 @@ import { createOrderApi, getCartlistApi, razorpaiApi } from "../services/BaseUrl
 import Axioscall from "../services/Axioscall";
 import {jwtDecode} from "jwt-decode";
 import { show_toast } from "../utils/Toast";
+import { BasePath } from "../utils/Constants";
 
 const CheckOutPage = () => {
  
@@ -130,6 +131,10 @@ const CheckOutPage = () => {
               },
               "header"
             );
+            localStorage.removeItem("cart");
+
+            show_toast("Payment successful! Your order has been placed.", true);
+            // window.location.href = BasePath;
   
           } catch (error) {
             console.error("Payment Verification Failed:", error);
