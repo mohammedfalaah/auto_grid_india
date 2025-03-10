@@ -201,19 +201,19 @@ const [totalProducts, setTotalProducts] = useState(0);
   useEffect(() => {
       fetchProducts();
       getCategory();
-    }, [pages,selectedCategory]);
+    }, [pages]);
   
     const handleCategoryClick = (categoryId) => {
      
       setSelectedCategory(categoryId); // Set the selected category
       setPages({ ...pages, page: 1 }); // Reset to the first page
-      fetchProducts(); // Fetch products with the selected category
+      // fetchProducts(); // Fetch products with the selected category
     };
   
     // Fetch products on page or category change
-    useEffect(() => {
-      fetchProducts();
-    }, [pages.page, pages.limit]);
+    // useEffect(() => {
+    //   fetchProducts();
+    // }, [pages.page, pages.limit]);
   return (
     <ContextData.Provider value={{ isValid,getCart,length,getFavouriteContext,wishlistLength,categories ,products,handleCategoryClick,totalProducts,loading,fetchProducts}}>
       {children}
