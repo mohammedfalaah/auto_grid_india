@@ -28,13 +28,18 @@ const CheckOutPage = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+  
+    if (name === "phone") {
+      // Allow only numbers and limit to 10 digits
+      if (!/^\d{0,10}$/.test(value)) return;
+    }
+  
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-  const cartKey = "cart";
-
+  
   const validateForm = () => {
     const requiredFields = [
       "firstName",
@@ -44,16 +49,46 @@ const CheckOutPage = () => {
       "postalCode",
       "phone",
       "email",
-      
     ];
+  
     for (let field of requiredFields) {
       if (!formData[field]) {
-        show_toast(`Please fill out the ${field} field.`,false);
+        show_toast(`Please fill out the ${field} field.`, false);
         return false;
       }
     }
+  
+    // Ensure phone number is exactly 10 digits
+    if (!/^\d{10}$/.test(formData.phone)) {
+      show_toast("Phone number must be exactly 10 digits.", false);
+      return false;
+    }
+  
     return true;
   };
+  
+
+  const cartKey = "cart";
+
+  // const validateForm = () => {
+  //   const requiredFields = [
+  //     "firstName",
+  //     "lastName",
+  //     "street",
+  //     "city",
+  //     "postalCode",
+  //     "phone",
+  //     "email",
+      
+  //   ];
+  //   for (let field of requiredFields) {
+  //     if (!formData[field]) {
+  //       show_toast(`Please fill out the ${field} field.`,false);
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // };
 
   const createOrder = async () => {
     if (!validateForm()) return;
