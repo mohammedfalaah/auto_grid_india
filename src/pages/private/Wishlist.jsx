@@ -263,20 +263,7 @@ const Wishlist = () => {
                             <td className="tp-cart-quantity">
                               <div className="tp-product-quantity mt-10 mb-10"></div>
                             </td>
-                            <td className="tp-cart-add-to-cart">
-                              <button
-                                onClick={() =>
-                                  handleAddToCart(
-                                    token ? item._id : item?.product?._id,
-                                    token ? item : item?.product
-                                  )
-                                }
-                                type="submit"
-                                className="tp-btn tp-btn-2 tp-btn-blue"
-                              >
-                                Add To Cart
-                              </button>
-                            </td>
+                           
                             {/* action */}
                             <td className="tp-cart-action">
                               <button
