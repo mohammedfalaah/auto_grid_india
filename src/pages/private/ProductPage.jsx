@@ -36,7 +36,7 @@ const ProductPage = () => {
   });
   const [pages, setPages] = useState({
     page: 1,
-    limit: 15,
+    limit: 100,
   });
   
 
