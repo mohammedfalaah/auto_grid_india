@@ -333,7 +333,8 @@ const ProductPage = () => {
                         <div className="col-xl-6">
                           <div className="tp-shop-top-left d-flex align-items-center ">
                             <div className="tp-shop-top-result">
-                              <p>{totalProducts} results</p>
+                            <p>{products?.length} results</p>
+                              {/* <p>{totalProducts} results</p> */}
                             </div>
                           </div>
                         </div>
@@ -531,54 +532,52 @@ const ProductPage = () => {
                       <nav aria-label="Page navigation example">
                         <ul className="pagination justify-content-end">
                           <li
-                            className={`page-item ${
-                              !pagination?.isPrev ? "disabled" : ""
-                            }`}
+                            // className={`page-item ${
+                            //   !pagination?.isPrev ? "disabled" : ""
+                            // }`}
                             style={{ cursor: "pointer" }}
                           >
                             <button
                               className="page-link"
                               onClick={(e) => {
                                 e.preventDefault();
-                                if (pagination?.isPrev) {
-                                  setPages((prev) => ({
-                                    ...prev,
-                                    page: prev.page - 1,
-                                  }));
-                                  window.scrollTo({
-                                    top: 0,
-                                    behavior: "smooth",
-                                  }); // Scroll to top
-                                }
+                                // if (pagination?.isPrev) {
+                                setPages((prev) => ({
+                                  ...prev,
+                                  page: prev.page - 1,
+                                }));
+                                window.scrollTo({
+                                  top: 0,
+                                  behavior: "smooth",
+                                }); // Scroll to top
+                                // }
                               }}
                             >
                               Prev
                             </button>
                           </li>
-                          <li 
-                          
-                          className={`page-item ${
-                            !pagination?.isNext ? "disabled" : ""
-                          }`}
-                          style={{ cursor: "pointer" }}>
+                          <li
+                            // className={`page-item ${
+                            //   !pagination?.isNext ? "disabled" : ""
+                            // }`}
+                            style={{ cursor: "pointer" }}
+                          >
                             <button
                               className="page-link"
                               style={{ cursor: "pointer" }}
-                              onClick={
-                                (e) => {
-                                    e.preventDefault();
-                                  if (pagination?.isNext) {
-                                  setPages((prev) => ({
-                                    ...prev,
-                                    page: prev.page + 1,
-                                  }));
-                                  window.scrollTo({
-                                    top: 0,
-                                    behavior: "smooth",
-                                  }); // Scroll to top
-                                }
-                                }
-                              }
+                              onClick={(e) => {
+                                e.preventDefault();
+                                // if (pagination?.isNext) {
+                                setPages((prev) => ({
+                                  ...prev,
+                                  page: prev.page + 1,
+                                }));
+                                window.scrollTo({
+                                  top: 0,
+                                  behavior: "smooth",
+                                }); // Scroll to top
+                                // }
+                              }}
                             >
                               Next
                             </button>

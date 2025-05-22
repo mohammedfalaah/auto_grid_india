@@ -16,7 +16,7 @@ export const Context_Provider = ({ children }) => {
 const [loading, setLoading] = useState(false);
 const [pages, setPages] = useState({
     page: 1,
-    limit: 15,
+    limit: 20,
   });
     const [pagination, setPagination] = useState({
       isNext: false,
