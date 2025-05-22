@@ -16,7 +16,7 @@ const ProductPage = () => {
   const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState(null);
-  console.log("======",selectedProduct)
+  console.log("======", selectedProduct);
   const {
     getFavouriteContext,
     categories,
@@ -25,20 +25,15 @@ const ProductPage = () => {
     totalProducts,
     loading,
     getCart,
+    pages,
+    setPages,
+    pagination,
+    setPagination,
   } = useContext(ContextData);
-
+  console.log(pages, "pagespagespages");
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
-  const [pagination, setPagination] = useState({
-    isNext: false,
-    isPrev: false,
-  });
-  const [pages, setPages] = useState({
-    page: 1,
-    limit: 100,
-  });
-  
 
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
@@ -86,17 +81,16 @@ const ProductPage = () => {
   };
 
   const handleAddToCart = async (productId, product, quantity = 1) => {
-    
     console.log(product, "product with vehicle details");
     try {
       const token = localStorage.getItem("token"); // Check for token
       const cartKey = "cart";
-  
+
       // Reusable function to handle localStorage cart
       const updateLocalStorageCart = (product) => {
         const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
         const productExists = cart.some((item) => item?._id === product?._id);
-  
+
         if (!productExists) {
           cart.push(product); // Add product with vehicle details
           localStorage.setItem(cartKey, JSON.stringify(cart));
@@ -106,17 +100,22 @@ const ProductPage = () => {
           show_toast("Product is already in your Cart", false);
         }
       };
-  
+
       if (!token) {
         updateLocalStorageCart(product);
         return;
       }
-  
-      if (!userId || !quantity || !product.vehicleModel || !product.vehicleNumber) {
+
+      if (
+        !userId ||
+        !quantity ||
+        !product.vehicleModel ||
+        !product.vehicleNumber
+      ) {
         show_toast("Missing user, quantity, or vehicle information", false);
         return;
       }
-  
+
       const body = {
         userId,
         productId,
@@ -124,31 +123,34 @@ const ProductPage = () => {
         vehicleModel: product.vehicleModel,
         vehicleNumber: product.vehicleNumber,
       };
-  
+
       const response = await Axioscall("post", addToCartApi, body, "header");
       if (response?.status === 200) {
         getCart();
         show_toast("Product added to cart successfully", true);
-        navigate('/cart')
+        navigate("/cart");
       } else {
         show_toast("Product is already in your Cart", false);
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      show_toast(error?.response?.data?.message || "An unexpected error occurred", false);
+      show_toast(
+        error?.response?.data?.message || "An unexpected error occurred",
+        false
+      );
     }
   };
-  
+
   useEffect(() => {
     const modalElement = document.getElementById("producQuickViewModal");
-  
+
     if (modalElement) {
       modalElement.addEventListener("hidden.bs.modal", () => {
         document.getElementById("vehicleNumberInput").value = "";
         document.getElementById("vehicleModelInput").value = "";
       });
     }
-  
+
     return () => {
       if (modalElement) {
         modalElement.removeEventListener("hidden.bs.modal", () => {
@@ -158,7 +160,6 @@ const ProductPage = () => {
       }
     };
   }, []);
-  
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -289,7 +290,7 @@ const ProductPage = () => {
                         <div className="tp-shop-widget-content">
                           <div className="tp-shop-widget-categories">
                             <ul>
-                              {categories.map((categoryItem) => (
+                              {categories?.map((categoryItem) => (
                                 <li key={categoryItem._id}>
                                   <strong>{categoryItem.category}</strong>
                                   <ul>
@@ -531,40 +532,53 @@ const ProductPage = () => {
                         <ul className="pagination justify-content-end">
                           <li
                             className={`page-item ${
-                              !pagination.isPrev ? "disabled" : ""
+                              !pagination?.isPrev ? "disabled" : ""
                             }`}
+                            style={{ cursor: "pointer" }}
                           >
                             <button
                               className="page-link"
                               onClick={(e) => {
                                 e.preventDefault();
-                                if (pagination.isPrev) {
+                                if (pagination?.isPrev) {
                                   setPages((prev) => ({
                                     ...prev,
                                     page: prev.page - 1,
                                   }));
+                                  window.scrollTo({
+                                    top: 0,
+                                    behavior: "smooth",
+                                  }); // Scroll to top
                                 }
                               }}
                             >
                               Prev
                             </button>
                           </li>
-                          <li
-                            className={`page-item ${
-                              !pagination.isNext ? "disabled" : ""
-                            }`}
-                          >
+                          <li 
+                          
+                          className={`page-item ${
+                            !pagination?.isNext ? "disabled" : ""
+                          }`}
+                          style={{ cursor: "pointer" }}>
                             <button
                               className="page-link"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                if (pagination.isNext) {
+                              style={{ cursor: "pointer" }}
+                              onClick={
+                                (e) => {
+                                    e.preventDefault();
+                                  if (pagination?.isNext) {
                                   setPages((prev) => ({
                                     ...prev,
                                     page: prev.page + 1,
                                   }));
+                                  window.scrollTo({
+                                    top: 0,
+                                    behavior: "smooth",
+                                  }); // Scroll to top
                                 }
-                              }}
+                                }
+                              }
                             >
                               Next
                             </button>
@@ -679,59 +693,86 @@ const ProductPage = () => {
                         <div className="tp-product-details-action-wrapper">
                           <div className="tp-product-details-action-item-wrapper d-flex align-items-center">
                             <div className="tp-product-details-add-to-cart mb-15 w-100">
-                            <div style={{ display: "flex" }}>
-  {selectedProduct.subcategory !== "CAR MIRROR HANGING" && (
-    <>
-      <div className="col-md-6">
-        <div style={{ marginRight: "1px" }} className="tp-checkout-input">
-          <label>
-            Vehicle Number <span>*</span>
-          </label>
-          <input
-            type="text"
-            name="vichleNumber"
-            id="vehicleNumberInput"
-            placeholder="Vehicle Number"
-          />
-        </div>
-      </div>
-      <div className="col-md-6">
-        <div style={{ marginLeft: "1px" }} className="tp-checkout-input">
-          <label>
-            Vehicle Model <span>*</span>
-          </label>
-          <input
-            type="text"
-            name="vichleModel"
-            id="vehicleModelInput"
-            placeholder="Vehicle Model"
-          />
-        </div>
-      </div>
-    </>
-  )}
-</div>
+                              <div style={{ display: "flex" }}>
+                                {selectedProduct.subcategory !==
+                                  "CAR MIRROR HANGING" && (
+                                  <>
+                                    <div className="col-md-6">
+                                      <div
+                                        style={{ marginRight: "1px" }}
+                                        className="tp-checkout-input"
+                                      >
+                                        <label>
+                                          Vehicle Number <span>*</span>
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="vichleNumber"
+                                          id="vehicleNumberInput"
+                                          placeholder="Vehicle Number"
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                      <div
+                                        style={{ marginLeft: "1px" }}
+                                        className="tp-checkout-input"
+                                      >
+                                        <label>
+                                          Vehicle Model <span>*</span>
+                                        </label>
+                                        <input
+                                          type="text"
+                                          name="vichleModel"
+                                          id="vehicleModelInput"
+                                          placeholder="Vehicle Model"
+                                        />
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+                              </div>
 
-<button
-  style={{ color: "white", backgroundColor: "black" }}
-  onClick={() => {
-    const vehicleNumber = document.querySelector('input[name="vichleNumber"]')?.value || "";
-    const vehicleModel = document.querySelector('input[name="vichleModel"]')?.value || "";
+                              <button
+                                style={{
+                                  color: "white",
+                                  backgroundColor: "black",
+                                }}
+                                onClick={() => {
+                                  const vehicleNumber =
+                                    document.querySelector(
+                                      'input[name="vichleNumber"]'
+                                    )?.value || "";
+                                  const vehicleModel =
+                                    document.querySelector(
+                                      'input[name="vichleModel"]'
+                                    )?.value || "";
 
-    if (selectedProduct.subcategory !== "CAR MIRROR HANGING" && (!vehicleNumber || !vehicleModel)) {
-      show_toast("Please Enter Vehicle Number and Vehicle Model", false);
-      return;
-    }
+                                  if (
+                                    selectedProduct.subcategory !==
+                                      "CAR MIRROR HANGING" &&
+                                    (!vehicleNumber || !vehicleModel)
+                                  ) {
+                                    show_toast(
+                                      "Please Enter Vehicle Number and Vehicle Model",
+                                      false
+                                    );
+                                    return;
+                                  }
 
-    handleAddToCart(
-      selectedProduct._id,
-      { ...selectedProduct, vehicleNumber, vehicleModel } // Include vehicle details
-    );
-  }}
-  className="tp-product-details-add-to-cart-btn w-100"
->
-  Add to Cart
-</button>
+                                  handleAddToCart(
+                                    selectedProduct._id,
+                                    {
+                                      ...selectedProduct,
+                                      vehicleNumber,
+                                      vehicleModel,
+                                    } // Include vehicle details
+                                  );
+                                }}
+                                className="tp-product-details-add-to-cart-btn w-100"
+                              >
+                                Add to Cart
+                              </button>
 
                               <button
                                 onClick={() =>

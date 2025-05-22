@@ -172,7 +172,7 @@ const [totalProducts, setTotalProducts] = useState(0);
           
           const response = await Axioscall(
             'get',
-            `${productApi}?page=${page}&limit=${limit}${categoryQuery}${searchQuery}`,
+            `${productApi}?page=${pages?.page}&limit=${pages?.limit}${categoryQuery}${searchQuery}`,
             '',
             'header'
           );
@@ -215,7 +215,7 @@ const [totalProducts, setTotalProducts] = useState(0);
     //   fetchProducts();
     // }, [pages.page, pages.limit]);
   return (
-    <ContextData.Provider value={{ isValid,getCart,length,getFavouriteContext,wishlistLength,categories ,products,handleCategoryClick,totalProducts,loading,fetchProducts}}>
+    <ContextData.Provider value={{ isValid,getCart,length,getFavouriteContext,wishlistLength,categories ,products,handleCategoryClick,totalProducts,loading,fetchProducts,pages, setPages}}>
       {children}
     </ContextData.Provider>
   );
