@@ -34,7 +34,6 @@ const ProductPage = () => {
   const handleQuickView = (product) => {
     setSelectedProduct(product);
   };
-
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
@@ -532,16 +531,16 @@ const ProductPage = () => {
                       <nav aria-label="Page navigation example">
                         <ul className="pagination justify-content-end">
                           <li
-                            // className={`page-item ${
-                            //   !pagination?.isPrev ? "disabled" : ""
-                            // }`}
+                            className={`page-item ${
+                              !pagination?.isPrev ? "disabled" : ""
+                            }`}
                             style={{ cursor: "pointer" }}
                           >
                             <button
                               className="page-link"
                               onClick={(e) => {
                                 e.preventDefault();
-                                // if (pagination?.isPrev) {
+                                if (pagination?.isPrev) {
                                 setPages((prev) => ({
                                   ...prev,
                                   page: prev.page - 1,
@@ -550,16 +549,16 @@ const ProductPage = () => {
                                   top: 0,
                                   behavior: "smooth",
                                 }); // Scroll to top
-                                // }
+                                }
                               }}
                             >
                               Prev
                             </button>
                           </li>
                           <li
-                            // className={`page-item ${
-                            //   !pagination?.isNext ? "disabled" : ""
-                            // }`}
+                            className={`page-item ${
+                              pagination?.isNext ? "" : "disabled"
+                            }`}
                             style={{ cursor: "pointer" }}
                           >
                             <button
@@ -567,7 +566,7 @@ const ProductPage = () => {
                               style={{ cursor: "pointer" }}
                               onClick={(e) => {
                                 e.preventDefault();
-                                // if (pagination?.isNext) {
+                                if (pagination?.isNext) {
                                 setPages((prev) => ({
                                   ...prev,
                                   page: prev.page + 1,
@@ -576,7 +575,7 @@ const ProductPage = () => {
                                   top: 0,
                                   behavior: "smooth",
                                 }); // Scroll to top
-                                // }
+                                }
                               }}
                             >
                               Next
