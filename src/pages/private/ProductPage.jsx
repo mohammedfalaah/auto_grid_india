@@ -385,18 +385,18 @@ const ProductPage = () => {
                                         data-bs-toggle="modal"
                                         data-bs-target="#producQuickViewModal"
                                       >
-                                        <img
-                                          style={{
-                                            width: "100%",
-                                            height: "100%",
-                                            objectFit: "cover",
-                                          }}
-                                          className="product-img"
-                                          src={`https://node.autogridnumberplate.com${
-                                            product.photographs?.[0] || ""
-                                          }`}
-                                          alt={product.productName}
-                                        />{" "}
+                                        <div style={{ width: "100%", aspectRatio: "1 / 1", overflow: "hidden" }}>
+  <img
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+    }}
+    className="product-img"
+    src={`https://node.autogridnumberplate.com${product.photographs?.[0] || ""}`}
+    alt={product.productName}
+  />
+</div>
                                       </a>
                                       {/* product action */}
                                       <div className="tp-product-action-2 tp-product-action-blackStyle">
