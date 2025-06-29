@@ -146,7 +146,7 @@ const CheckOutPage = () => {
       console.log(response.data.order.orderId, "order_idorder_id");
   
       const paymentOptions = {
-        key: "rzp_test_z4LYJxlkExX53p", // Replace with your Razorpay Key ID
+        key: "rzp_live_Gq3oBva1d7ti3e", // Replace with your Razorpay Key ID
         amount: totalAmount * 100, // Razorpay expects the amount in paise
         currency: "INR",
         name: "AUTO GRID INDIA ",
@@ -236,7 +236,6 @@ const CheckOutPage = () => {
   return (
     <>
       <main>
-        {/* breadcrumb area start */}
         <section
           className="breadcrumb__area include-bg pt-95 pb-50"
           data-bg-color="#EFF1F5"
@@ -257,8 +256,6 @@ const CheckOutPage = () => {
             </div>
           </div>
         </section>
-        {/* breadcrumb area end */}
-        {/* checkout area start */}
         <section className="tp-checkout-area pb-120" data-bg-color="#EFF1F5">
           <div className="container">
             <div className="row">
