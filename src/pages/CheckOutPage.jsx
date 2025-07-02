@@ -146,8 +146,8 @@ const CheckOutPage = () => {
       console.log(response.data.order.orderId, "order_idorder_id");
   
       const paymentOptions = {
-        key: "rzp_live_Gq3oBva1d7ti3e", // Replace with your Razorpay Key ID
-        amount: totalAmount * 100, // Razorpay expects the amount in paise
+        key: process.env.RAZORPAY_KEY_ID, 
+        amount: totalAmount * 100, 
         currency: "INR",
         name: "AUTO GRID INDIA ",
         description: "Order Payment",
