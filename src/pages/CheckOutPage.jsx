@@ -146,7 +146,7 @@ const CheckOutPage = () => {
       console.log(response.data.order.orderId, "order_idorder_id");
   
       const paymentOptions = {
-        key: process.env.RAZORPAY_KEY_ID, 
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
         amount: totalAmount * 100, 
         currency: "INR",
         name: "AUTO GRID INDIA ",
