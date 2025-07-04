@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { createOrderApi, getCartlistApi, razorpaiApi } from "../services/BaseUrl";
 import Axioscall from "../services/Axioscall";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { show_toast } from "../utils/Toast";
 import { BasePath } from "../utils/Constants";
 
 const CheckOutPage = () => {
- 
+
   const token = localStorage.getItem("token");
   const [product, setProduct] = useState([]);
-  console.log(product,"+++++++++");
-  
+  console.log(product, "+++++++++");
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -22,24 +22,24 @@ const CheckOutPage = () => {
     postalCode: "",
     phone: "",
     email: "",
-   
+
 
   });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-  
+
     if (name === "phone") {
       // Allow only numbers and limit to 10 digits
       if (!/^\d{0,10}$/.test(value)) return;
     }
-  
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-  
+
   const validateForm = () => {
     const requiredFields = [
       "firstName",
@@ -50,23 +50,23 @@ const CheckOutPage = () => {
       "phone",
       "email",
     ];
-  
+
     for (let field of requiredFields) {
       if (!formData[field]) {
         show_toast(`Please fill out the ${field} field.`, false);
         return false;
       }
     }
-  
+
     // Ensure phone number is exactly 10 digits
     if (!/^\d{10}$/.test(formData.phone)) {
       show_toast("Phone number must be exactly 10 digits.", false);
       return false;
     }
-  
+
     return true;
   };
-  
+
 
   const cartKey = "cart";
 
@@ -79,7 +79,7 @@ const CheckOutPage = () => {
   //     "postalCode",
   //     "phone",
   //     "email",
-      
+
   //   ];
   //   for (let field of requiredFields) {
   //     if (!formData[field]) {
@@ -92,40 +92,40 @@ const CheckOutPage = () => {
 
   const createOrder = async () => {
     if (!validateForm()) return;
-  
+
     let DecodeToken;
     if (token) {
       DecodeToken = jwtDecode(localStorage.getItem("token"));
     }
-  
+
     let productsFromCart = [];
     if (!token) {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       productsFromCart = cart.map((item) => ({
-        productId: item._id, 
+        productId: item._id,
         quantity: item.quantity,
         vehicleNumber: item?.vehicleNumber,
         vehicleModel: item?.vehicleModel,
       }));
     }
-  
+
     // Calculate total amount
     const totalAmount = product.reduce(
       (sum, item) =>
         sum + (token ? item.price * item.quantity : item.currentPrice * item.quantity),
       0
     );
-  
+
     const orderPayload = {
       products: token
         ? product?.map((item) => ({
-            productId: item.productId,
-            quantity: item.quantity,
-            vehicleNumber: item?.vehicleNumber,
-            vehicleModel: item?.vehicleModel,
-            
-          }))
-        : productsFromCart, 
+          productId: item.productId,
+          quantity: item.quantity,
+          vehicleNumber: item?.vehicleNumber,
+          vehicleModel: item?.vehicleModel,
+
+        }))
+        : productsFromCart,
       address: {
         name: formData?.firstName + " " + formData?.lastName,
         street: formData?.street,
@@ -136,33 +136,34 @@ const CheckOutPage = () => {
         email: formData?.email,
         company: formData?.company,
       },
-    
+
       totalAmount,
       ...(token && { user: DecodeToken?.id }),
     };
-  
+
     try {
       const response = await Axioscall("post", createOrderApi, orderPayload, "header");
-      console.log(response.data.order.orderId, "order_idorder_id");
-  
+      console.log('createOrderApi===>', response.data);
+
       const paymentOptions = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
-        amount: totalAmount * 100, 
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: totalAmount * 100,
         currency: "INR",
         name: "AUTO GRID INDIA ",
         description: "Order Payment",
         order_id: response.data.order.orderId, // Order ID from your server
         handler: async (paymentResult) => {
           console.log(paymentResult, "paymentResultpaymentResultpaymentResult");
-  
+
           try {
             const verifyResponse = await Axioscall(
               "post",
               razorpaiApi,
               {
-                razorpayPaymentId: response.razorpay_payment_id,
-                orderId: response.razorpay_order_id,
-                razorpaySignature: response.razorpay_signature, // <-- important
+                razorpayPaymentId: paymentResult.razorpay_payment_id,
+                orderId: paymentResult.razorpay_order_id,
+                razorpaySignature: paymentResult.razorpay_signature,
+
               },
               "header"
             );
@@ -170,10 +171,10 @@ const CheckOutPage = () => {
 
             show_toast("Payment successful! Your order has been placed.", true);
             // window.location.href = BasePath;
-  
+
           } catch (error) {
             console.error("Payment Verification Failed:", error);
-            show_toast("Payment verification failed. Please contact support.",false);
+            show_toast("Payment verification failed. Please contact support.", false);
           }
         },
         prefill: {
@@ -185,24 +186,24 @@ const CheckOutPage = () => {
           color: "#3399cc",
         },
       };
-  
+
       // Open Razorpay Checkout
       console.log(paymentOptions, "paymentOptionspaymentOptionspaymentOptions");
-  
+
       const razorpay = new window.Razorpay(paymentOptions);
-  
+
       razorpay.on("payment.failed", (error) => {
         console.error("Payment Failed:", error);
-        show_toast("Payment failed. Please try again.",false);
+        show_toast("Payment failed. Please try again.", false);
       });
       razorpay.open();
     } catch (error) {
       console.error("Error placing order:", error);
-      show_toast("Failed to place order. Please try again.",false);
+      show_toast("Failed to place order. Please try again.", false);
     }
   };
-  
-  
+
+
   const getCartlist = async () => {
     const token = localStorage.getItem("token");
 
@@ -294,7 +295,7 @@ const CheckOutPage = () => {
                               />
                             </div>
                           </div>
-                         
+
                           <div className="col-md-12">
                             <div className="tp-checkout-input">
                               <label>Company name (optional)</label>
@@ -424,8 +425,8 @@ const CheckOutPage = () => {
                               {token
                                 ? (item?.price * item?.quantity).toFixed(2)
                                 : (item?.currentPrice * item?.quantity).toFixed(
-                                    2
-                                  )}
+                                  2
+                                )}
                             </span>
                           </li>
                         ))
@@ -439,7 +440,7 @@ const CheckOutPage = () => {
                       <li className="tp-order-info-list-subtotal">
                         <span>Subtotal</span>
                         <span>
-                        ₹
+                          ₹
                           {product
                             .reduce(
                               (acc, item) =>
@@ -457,7 +458,7 @@ const CheckOutPage = () => {
                       <li className="tp-order-info-list-total">
                         <span>Total</span>
                         <span>
-                        ₹
+                          ₹
                           {product
                             .reduce(
                               (acc, item) =>
