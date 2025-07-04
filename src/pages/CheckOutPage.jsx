@@ -9,7 +9,7 @@ const CheckOutPage = () => {
 
   const token = localStorage.getItem("token");
   const [product, setProduct] = useState([]);
-  console.log(product, "+++++++++");
+  
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -143,7 +143,7 @@ const CheckOutPage = () => {
 
     try {
       const response = await Axioscall("post", createOrderApi, orderPayload, "header");
-      console.log('createOrderApi===>', response.data);
+      
 
       const paymentOptions = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -153,8 +153,7 @@ const CheckOutPage = () => {
         description: "Order Payment",
         order_id: response.data.order.orderId, // Order ID from your server
         handler: async (paymentResult) => {
-          console.log(paymentResult, "paymentResultpaymentResultpaymentResult");
-
+          console.log("paymentResult:", paymentResult);
           try {
             const verifyResponse = await Axioscall(
               "post",
@@ -187,8 +186,7 @@ const CheckOutPage = () => {
         },
       };
 
-      // Open Razorpay Checkout
-      console.log(paymentOptions, "paymentOptionspaymentOptionspaymentOptions");
+
 
       const razorpay = new window.Razorpay(paymentOptions);
 
@@ -218,7 +216,6 @@ const CheckOutPage = () => {
       setProduct(updatedCart);
       localStorage.setItem(cartKey, JSON.stringify(updatedCart));
 
-      console.log(product, "productproductproductproduct");
     } else {
       // If token exists, fetch cart from API
       try {
