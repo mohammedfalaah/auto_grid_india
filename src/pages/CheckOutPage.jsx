@@ -160,9 +160,9 @@ const CheckOutPage = () => {
               "post",
               razorpaiApi,
               {
-                razorpayPaymentId: paymentResult.razorpay_payment_id,
-                orderId: paymentResult.razorpay_order_id,
-                razorpaySignature: paymentResult.razorpay_signature,
+                razorpayPaymentId: response.razorpay_payment_id,
+                orderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature, // <-- important
               },
               "header"
             );
