@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { createOrderApi, getCartlistApi, razorpaiApi } from "../services/BaseUrl";
 import Axioscall from "../services/Axioscall";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { show_toast } from "../utils/Toast";
 import { BasePath } from "../utils/Constants";
 
 const CheckOutPage = () => {
- 
   const token = localStorage.getItem("token");
   const [product, setProduct] = useState([]);
-  console.log(product,"+++++++++");
-  
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -22,24 +19,23 @@ const CheckOutPage = () => {
     postalCode: "",
     phone: "",
     email: "",
-   
-
   });
 
+  // Handle input change
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-  
+
     if (name === "phone") {
-      // Allow only numbers and limit to 10 digits
       if (!/^\d{0,10}$/.test(value)) return;
     }
-  
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
-  
+
+  // Validate form
   const validateForm = () => {
     const requiredFields = [
       "firstName",
@@ -50,111 +46,85 @@ const CheckOutPage = () => {
       "phone",
       "email",
     ];
-  
+
     for (let field of requiredFields) {
       if (!formData[field]) {
         show_toast(`Please fill out the ${field} field.`, false);
         return false;
       }
     }
-  
-    // Ensure phone number is exactly 10 digits
+
     if (!/^\d{10}$/.test(formData.phone)) {
       show_toast("Phone number must be exactly 10 digits.", false);
       return false;
     }
-  
+
     return true;
   };
-  
 
-  const cartKey = "cart";
-
-  // const validateForm = () => {
-  //   const requiredFields = [
-  //     "firstName",
-  //     "lastName",
-  //     "street",
-  //     "city",
-  //     "postalCode",
-  //     "phone",
-  //     "email",
-      
-  //   ];
-  //   for (let field of requiredFields) {
-  //     if (!formData[field]) {
-  //       show_toast(`Please fill out the ${field} field.`,false);
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // };
-
+  // Create order & open Razorpay
   const createOrder = async () => {
     if (!validateForm()) return;
-  
+
     let DecodeToken;
     if (token) {
-      DecodeToken = jwtDecode(localStorage.getItem("token"));
+      DecodeToken = jwtDecode(token);
     }
-  
+
     let productsFromCart = [];
     if (!token) {
       const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       productsFromCart = cart.map((item) => ({
-        productId: item._id, 
+        productId: item._id,
         quantity: item.quantity,
         vehicleNumber: item?.vehicleNumber,
         vehicleModel: item?.vehicleModel,
       }));
     }
-  
-    // Calculate total amount
+
     const totalAmount = product.reduce(
       (sum, item) =>
         sum + (token ? item.price * item.quantity : item.currentPrice * item.quantity),
       0
     );
-  
+
     const orderPayload = {
       products: token
-        ? product?.map((item) => ({
+        ? product.map((item) => ({
             productId: item.productId,
             quantity: item.quantity,
             vehicleNumber: item?.vehicleNumber,
             vehicleModel: item?.vehicleModel,
-            
           }))
-        : productsFromCart, 
+        : productsFromCart,
       address: {
-        name: formData?.firstName + " " + formData?.lastName,
-        street: formData?.street,
-        city: formData?.city,
-        state: formData?.country,
-        postalCode: formData?.postalCode,
-        phone: formData?.phone,
-        email: formData?.email,
-        company: formData?.company,
+        name: `${formData.firstName} ${formData.lastName}`,
+        street: formData.street,
+        city: formData.city,
+        state: formData.country,
+        postalCode: formData.postalCode,
+        phone: formData.phone,
+        email: formData.email,
+        company: formData.company,
       },
-    
       totalAmount,
       ...(token && { user: DecodeToken?.id }),
     };
-  
+
     try {
       const response = await Axioscall("post", createOrderApi, orderPayload, "header");
-      console.log(response.data.order.orderId, "order_idorder_id");
-  
-      const paymentOptions = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
-        amount: totalAmount * 100, 
+      const razorpayOrderId = response.data.order.razorpayOrderId; // 👈 use Razorpay order ID
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: totalAmount * 100,
         currency: "INR",
-        name: "AUTO GRID INDIA ",
+        name: "AUTO GRID INDIA",
         description: "Order Payment",
-        order_id: response.data.order.orderId, // Order ID from your server
+        order_id: razorpayOrderId, // ✅ This must be the Razorpay Order ID
         handler: async (paymentResult) => {
-          console.log(paymentResult, "paymentResultpaymentResultpaymentResult");
-  
+          console.log("Payment result:", paymentResult);
+
           try {
             const verifyResponse = await Axioscall(
               "post",
@@ -163,63 +133,57 @@ const CheckOutPage = () => {
                 razorpayPaymentId: paymentResult.razorpay_payment_id,
                 orderId: paymentResult.razorpay_order_id,
                 razorpaySignature: paymentResult.razorpay_signature,
+                paymentStatus: "Completed", // ✅ Always send status
               },
               "header"
             );
-            localStorage.removeItem("cart");
 
+            localStorage.removeItem("cart");
             show_toast("Payment successful! Your order has been placed.", true);
+            // Redirect if needed
             // window.location.href = BasePath;
-  
+
           } catch (error) {
             console.error("Payment Verification Failed:", error);
-            show_toast("Payment verification failed. Please contact support.",false);
+            show_toast("Payment verification failed. Please contact support.", false);
           }
         },
         prefill: {
-          name: formData?.firstName + " " + formData?.lastName,
-          email: formData?.email,
-          contact: formData?.phone,
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          contact: formData.phone,
         },
         theme: {
           color: "#3399cc",
         },
       };
-  
-      // Open Razorpay Checkout
-      console.log(paymentOptions, "paymentOptionspaymentOptionspaymentOptions");
-  
-      const razorpay = new window.Razorpay(paymentOptions);
-  
+
+      const razorpay = new window.Razorpay(options);
+
       razorpay.on("payment.failed", (error) => {
         console.error("Payment Failed:", error);
-        show_toast("Payment failed. Please try again.",false);
+        show_toast("Payment failed. Please try again.", false);
       });
+
       razorpay.open();
     } catch (error) {
       console.error("Error placing order:", error);
-      show_toast("Failed to place order. Please try again.",false);
+      show_toast("Failed to place order. Please try again.", false);
     }
   };
-  
-  
-  const getCartlist = async () => {
-    const token = localStorage.getItem("token");
 
+  // Fetch cart items
+  const getCartlist = async () => {
     if (!token) {
-      // If no token, fetch cart from localStorage
-      const localCart = JSON.parse(localStorage.getItem(cartKey)) || [];
+      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
       const updatedCart = localCart.map((product) => ({
         ...product,
         quantity: product?.quantity || 1,
         total: (product?.quantity || 1) * product?.currentPrice,
       }));
       setProduct(updatedCart);
-      localStorage.setItem(cartKey, JSON.stringify(updatedCart));
-
-      console.log(product, "productproductproductproduct");
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
-      // If token exists, fetch cart from API
       try {
         const response = await Axioscall("get", getCartlistApi, "", "header");
         setProduct(response.data.products);
@@ -228,6 +192,7 @@ const CheckOutPage = () => {
       }
     }
   };
+
   useEffect(() => {
     getCartlist();
     window.scrollTo(0, 0);
@@ -235,7 +200,7 @@ const CheckOutPage = () => {
 
   return (
     <>
-      <main>
+    <main>
         <section
           className="breadcrumb__area include-bg pt-95 pb-50"
           data-bg-color="#EFF1F5"
@@ -515,3 +480,4 @@ const CheckOutPage = () => {
 };
 
 export default CheckOutPage;
+
