@@ -133,7 +133,6 @@ const CheckOutPage = () => {
                 razorpayPaymentId: paymentResult.razorpay_payment_id,
                 orderId: paymentResult.razorpay_order_id,
                 razorpaySignature: paymentResult.razorpay_signature,
-                paymentStatus: "Completed", // ✅ Always send status
               },
               "header"
             );
