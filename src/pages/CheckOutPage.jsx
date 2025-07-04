@@ -21,80 +21,52 @@ const CheckOutPage = () => {
     email: "",
   });
 
-  // Handle input change
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-
-    if (name === "phone") {
-      if (!/^\d{0,10}$/.test(value)) return;
-    }
-
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "phone" && !/^\d{0,10}$/.test(value)) return;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Validate form
   const validateForm = () => {
-    const requiredFields = [
-      "firstName",
-      "lastName",
-      "street",
-      "city",
-      "postalCode",
-      "phone",
-      "email",
-    ];
-
-    for (let field of requiredFields) {
+    const required = ["firstName", "lastName", "street", "city", "postalCode", "phone", "email"];
+    for (let field of required) {
       if (!formData[field]) {
         show_toast(`Please fill out the ${field} field.`, false);
         return false;
       }
     }
-
     if (!/^\d{10}$/.test(formData.phone)) {
       show_toast("Phone number must be exactly 10 digits.", false);
       return false;
     }
-
     return true;
   };
 
-  // Create order & open Razorpay
   const createOrder = async () => {
     if (!validateForm()) return;
 
-    let DecodeToken;
-    if (token) {
-      DecodeToken = jwtDecode(token);
-    }
-
+    let user = token ? jwtDecode(token)?.id : null;
     let productsFromCart = [];
+
     if (!token) {
-      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-      productsFromCart = cart.map((item) => ({
+      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      productsFromCart = localCart.map((item) => ({
         productId: item._id,
         quantity: item.quantity,
-        vehicleNumber: item?.vehicleNumber,
-        vehicleModel: item?.vehicleModel,
+        vehicleNumber: item.vehicleNumber,
+        vehicleModel: item.vehicleModel,
       }));
     }
 
-    const totalAmount = product.reduce(
-      (sum, item) =>
-        sum + (token ? item.price * item.quantity : item.currentPrice * item.quantity),
-      0
-    );
+    const totalAmount = product.reduce((sum, item) => sum + (token ? item.price * item.quantity : item.currentPrice * item.quantity), 0);
 
     const orderPayload = {
       products: token
         ? product.map((item) => ({
             productId: item.productId,
             quantity: item.quantity,
-            vehicleNumber: item?.vehicleNumber,
-            vehicleModel: item?.vehicleModel,
+            vehicleNumber: item.vehicleNumber,
+            vehicleModel: item.vehicleModel,
           }))
         : productsFromCart,
       address: {
@@ -108,12 +80,12 @@ const CheckOutPage = () => {
         company: formData.company,
       },
       totalAmount,
-      ...(token && { user: DecodeToken?.id }),
+      ...(user && { user }),
     };
 
     try {
-      const response = await Axioscall("post", createOrderApi, orderPayload, "header");
-      const razorpayOrderId = response.data.order.razorpayOrderId; // 👈 use Razorpay order ID
+      const res = await Axioscall("post", createOrderApi, orderPayload, "header");
+      const razorpayOrderId = res.data.order.razorpayOrderId;
 
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -121,29 +93,19 @@ const CheckOutPage = () => {
         currency: "INR",
         name: "AUTO GRID INDIA",
         description: "Order Payment",
-        order_id: razorpayOrderId, // ✅ This must be the Razorpay Order ID
-        handler: async (paymentResult) => {
-          console.log("Payment result:", paymentResult);
-
+        order_id: razorpayOrderId,
+        handler: async (response) => {
           try {
-            const verifyResponse = await Axioscall(
-              "post",
-              razorpaiApi,
-              {
-                razorpayPaymentId: paymentResult.razorpay_payment_id,
-                orderId: paymentResult.razorpay_order_id,
-                razorpaySignature: paymentResult.razorpay_signature,
-              },
-              "header"
-            );
-
+            await Axioscall("post", razorpaiApi, {
+              razorpayPaymentId: response.razorpay_payment_id,
+              orderId: response.razorpay_order_id,
+              razorpaySignature: response.razorpay_signature,
+            }, "header");
             localStorage.removeItem("cart");
             show_toast("Payment successful! Your order has been placed.", true);
-            // Redirect if needed
             // window.location.href = BasePath;
-
-          } catch (error) {
-            console.error("Payment Verification Failed:", error);
+          } catch (err) {
+            console.error("Payment Verification Failed:", err);
             show_toast("Payment verification failed. Please contact support.", false);
           }
         },
@@ -158,36 +120,34 @@ const CheckOutPage = () => {
       };
 
       const razorpay = new window.Razorpay(options);
-
-      razorpay.on("payment.failed", (error) => {
-        console.error("Payment Failed:", error);
+      razorpay.on("payment.failed", (err) => {
+        console.error("Payment Failed:", err);
         show_toast("Payment failed. Please try again.", false);
       });
 
       razorpay.open();
-    } catch (error) {
-      console.error("Error placing order:", error);
+    } catch (err) {
+      console.error("Order creation failed:", err);
       show_toast("Failed to place order. Please try again.", false);
     }
   };
 
-  // Fetch cart items
   const getCartlist = async () => {
     if (!token) {
       const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
-      const updatedCart = localCart.map((product) => ({
-        ...product,
-        quantity: product?.quantity || 1,
-        total: (product?.quantity || 1) * product?.currentPrice,
+      const updated = localCart.map((item) => ({
+        ...item,
+        quantity: item.quantity || 1,
+        total: (item.quantity || 1) * item.currentPrice,
       }));
-      setProduct(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      setProduct(updated);
+      localStorage.setItem("cart", JSON.stringify(updated));
     } else {
       try {
-        const response = await Axioscall("get", getCartlistApi, "", "header");
-        setProduct(response.data.products);
+        const res = await Axioscall("get", getCartlistApi, "", "header");
+        setProduct(res.data.products);
       } catch (err) {
-        console.log(err.response?.data?.message || err.message);
+        console.error(err.response?.data?.message || err.message);
       }
     }
   };
