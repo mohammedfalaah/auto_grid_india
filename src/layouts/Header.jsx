@@ -423,7 +423,7 @@ const Header = () => {
                             paddingRight: "5px",
                           }}
                         >
-                          All India Free Delivery{" "}
+                        
                           <Link
                             style={{ textDecoration: "underline" }}
                             to={ProductsPath}
